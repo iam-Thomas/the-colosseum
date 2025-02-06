@@ -18,12 +18,92 @@
         "description": "RegInit (code function)",
         "prefix": "RegInit"
     },
+    // Create trigger snippets
     "RegisterTriggerEnableById": {
         "body": "RegisterTriggerEnableById(${1:whichTrigger}, ${2:whichId})",
         "description": "RegisterTriggerEnableById (trigger whichTrigger, integer whichId)",
         "prefix": "RegisterTriggerEnableById"
     },
+    "AddAbilityCastTrigger": {
+        "body": "AddAbilityCastTrigger(${1:abilityId}, ${2:function})",
+        "description": "AddAbilityCastTrigger (integer abilityId, code function)",
+        "prefix": "AddAbilityCastTrigger"
+    },
+    "AddAbilityCastTrigger_CasterHasItem": {
+        "body": "AddAbilityCastTrigger_CasterHasItem(${1:itemId}, ${2:function})",
+        "description": "AddAbilityCastTrigger_CasterHasItem (integer itemId, code function)",
+        "prefix": "AddAbilityCastTrigger_CasterHasItem"
+    },
+    "AddDamagingEventTrigger_CasterHasAbility": {
+        "body": "AddDamagingEventTrigger_CasterHasAbility(${1:abilityId}, ${2:function})",
+        "description": "AddDamagingEventTrigger_CasterHasAbility (integer abilityId, code function)",
+        "prefix": "AddDamagingEventTrigger_CasterHasAbility"
+    },
+    "AddDamagingEventTrigger_CasterHasBuff": {
+        "body": "AddDamagingEventTrigger_CasterHasBuff(${1:buffId}, ${2:function})",
+        "description": "AddDamagingEventTrigger_CasterHasBuff (integer buffId, code function)",
+        "prefix": "AddDamagingEventTrigger_CasterHasBuff"
+    },
+    "AddDamagingEventTrigger_CasterHasItem": {
+        "body": "AddDamagingEventTrigger_CasterHasItem(${1:itemId}, ${2:function})",
+        "description": "AddDamagingEventTrigger_CasterHasItem (integer itemId, code function)",
+        "prefix": "AddDamagingEventTrigger_CasterHasItem"
+    },
+    "AddDamagingEventTrigger_TargetHasItem": {
+        "body": "AddDamagingEventTrigger_TargetHasItem(${1:itemId}, ${2:function})",
+        "description": "AddDamagingEventTrigger_TargetHasItem (integer itemId, code function)",
+        "prefix": "AddDamagingEventTrigger_TargetHasItem"
+    },
+    "AddDamagingEventTrigger_TargetHasAbility": {
+        "body": "AddDamagingEventTrigger_TargetHasAbility(${1:abilityId}, ${2:function})",
+        "description": "AddDamagingEventTrigger_TargetHasAbility (integer abilityId, code function)",
+        "prefix": "AddDamagingEventTrigger_TargetHasAbility"
+    },
+    "AddDamagedEventTrigger_CasterHasAbility": {
+        "body": "AddDamagedEventTrigger_CasterHasAbility(${1:abilityId}, ${2:function})",
+        "description": "AddDamagedEventTrigger_CasterHasAbility (integer abilityId, code function)",
+        "prefix": "AddDamagedEventTrigger_CasterHasAbility"
+    },
+    "AddDamagedEventTrigger_TargetHasAbility": {
+        "body": "AddDamagedEventTrigger_TargetHasAbility(${1:abilityId}, ${2:function})",
+        "description": "AddDamagedEventTrigger_TargetHasAbility (integer abilityId, code function)",
+        "prefix": "AddDamagedEventTrigger_TargetHasAbility"
+    },
+    "AddDamagedEventTrigger_TargetHasBuff": {
+        "body": "AddDamagedEventTrigger_TargetHasBuff(${1:buffId}, ${2:function})",
+        "description": "AddDamagedEventTrigger_TargetHasBuff (integer buffId, code function)",
+        "prefix": "AddDamagedEventTrigger_TargetHasBuff"
+    },
+    "AddDamagedEventTrigger_CasterHasItem": {
+        "body": "AddDamagedEventTrigger_CasterHasItem(${1:itemId}, ${2:function})",
+        "description": "AddDamagedEventTrigger_CasterHasItem (integer itemId, code function)",
+        "prefix": "AddDamagedEventTrigger_CasterHasItem"
+    },
+    "AddKillEventTrigger_KillerHasAbility": {
+        "body": "AddKillEventTrigger_KillerHasAbility(${1:abilityId}, ${2:function})",
+        "description": "AddKillEventTrigger_KillerHasAbility (integer abilityId, code function)",
+        "prefix": "AddKillEventTrigger_KillerHasAbility"
+    },
 
+    "AddPeriodicPassiveAbility_CasterHasAbility": {
+        "body": "AddPeriodicPassiveAbility_CasterHasAbility(${1:abilityId}, ${2:function})",
+        "description": "AddPeriodicPassiveAbility_CasterHasAbility (integer abilityId, code function)",
+        "prefix": "AddPeriodicPassiveAbility_CasterHasAbility"
+    },
+
+    "AddItemTrigger_Activate": {
+        "body": "AddItemTrigger_Activate(${1:itemId}, ${2:function})",
+        "description": "AddItemTrigger_Activate (integer itemId, code function)",
+        "prefix": "AddItemTrigger_Activate"
+    },
+    "AddItemTrigger_Periodic": {
+        "body": "AddItemTrigger_Periodic(${1:itemId}, ${2:interval} ${3:function})",
+        "description": "AddItemTrigger_Periodic (integer itemId, real interval, code function)",
+        "prefix": "AddItemTrigger_Periodic"
+    },
+
+
+    // abilities core functions
     "CauseMagicDamage": {
         "body": "CauseMagicDamage(${1:whichSource}, ${2:whichTarget}, ${3:amount})",
         "description": "CauseMagicDamage (unit whichSource, unit whichTarget, real amount)",
@@ -64,6 +144,23 @@
         "body": "CastDummyAbilityOnTarget(${1:caster}, ${2:target}, ${3:abilityId}, ${4:abilityLevel}, ${5:orderString})",
         "description": "CastDummyAbilityOnTarget (unit caster, unit target, integer abilityId, integer level, string orderString)",
         "prefix": "CastDummyAbilityOnTarget"
+    },
+
+    // Special effects
+    "CreateEffectAtPoint": {
+        "body": "CreateEffectAtPoint(${1:point}, \"${2:effect}\", ${3:duration})",
+        "description": "CreateEffectAtPoint (location point, string effect, real duration)",
+        "prefix": "CreateEffectAtPoint"
+    },
+    "CreateEffectOnUnit": {
+        "body": "CreateEffectOnUnit(\"${1:origin}\", ${2:unit}, \"${3:effect}\", ${4:duration})",
+        "description": "CreateEffectOnUnit (string attachPointName, unit unit, string effect, real duration)",
+        "prefix": "CreateEffectOnUnit"
+    },
+    "CreateEffectOnUnitByBuff": {
+        "body": "CreateEffectOnUnitByBuff(\"${1:attachPointName}\", ${2:unit}, \"${3:effect}\", ${4:buffId})",
+        "description": "CreateEffectOnUnitByBuff (string attachPointName, unit unit, string effect, integer buffId)",
+        "prefix": "CreateEffectOnUnitByBuff"
     },
 
     // Blizzard functions sourced from: https://www.hiveworkshop.com/threads/lua-vscode-integration.314974/
