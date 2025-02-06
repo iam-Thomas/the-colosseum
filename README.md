@@ -31,8 +31,11 @@ Code written for the project will be executed by Warcraft 3 through triggers. Tr
 ### InitLua & RegInit
 There is an InitLua() function. This function must be called from a GUI trigger, or else any triggers made through lua code will not persist during the game.
 
-To create a trigger through lua code, you need to call RegInit(...) like so:
+To create a trigger through lua code, you need to call the function that initializes it through a GUI trigger which is called by the game's code. In a GUI trigger, on map initialization, add an action to call a to call a custom script. In the custom script action line, you can call any lua function you have defined. So, also any function that creates a new trigger.
 
+I've created some helper functions, which can be called directly from a lua script. This would normally not work, but this helper function only registers a function to be called later. The registered must eventually be called through a GUI trigger. The InitLua() function will call every other function which has been registered this way. This approuch allows triggers to be completetly defined in their self-contained files.
+
+A trigger through lua in this project can be created like so:
 ``` lua
 TriggerName = nil
 
@@ -41,8 +44,6 @@ RegInit(function()
     -- Add trigger conditions and actions here
 end)
 ```
-
-The RegInit function will register the function reference to be called by the InitLua() function.
 
 ### Hard-coded object references
 Object's created in the map editor are appointed unique id's. In order for the triggers to work, they needs to reference these unique id's.
