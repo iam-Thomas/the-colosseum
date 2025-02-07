@@ -119,9 +119,13 @@ function ApplyManagedBuff(target, abilityId, buffId, duration, effectAttachmentP
 end
 
 function FireProjectile_PointToPoint(startPoint, endPoint, model, speed, arcHeight, callback)
+    FireProjectile_PointHeightToPoint(startPoint, 50.00, endPoint, model, speed, arcHeight, callback)
+end
+
+function FireProjectile_PointHeightToPoint(startPoint, startHeight, endPoint, model, speed, arcHeight, callback)
     local startX = GetLocationX(startPoint)
     local startY = GetLocationY(startPoint)
-    local startZ = GetLocationZ(startPoint) + 50.00
+    local startZ = GetLocationZ(startPoint) + startHeight
     local endX = GetLocationX(endPoint)
     local endY = GetLocationY(endPoint)
     local endZ = GetLocationZ(endPoint)

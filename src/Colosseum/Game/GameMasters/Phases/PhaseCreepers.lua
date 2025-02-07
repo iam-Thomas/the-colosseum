@@ -1,16 +1,28 @@
 function GetPhaseCreepers()
     return {
+        signatureUnit = FourCC('n008'),
         groups = {
-            { { 12, "creepm0" } },
-            { { 2, "creepm1" }, { 4, "creepm0" } },
-            { { 1, "creepr0" }, { 6, "creepm0" } },
-            { { 2, "creepr1" }, { 4, "creepm0" } },
-            { { 1, "creepc0" }, { 2, "creepm2" }, { 4, "creepm0" } },
+            commons = {
+                { { count = 12, unitString = "creepm0" } },
+                { { count = 2, unitString = "creepm1" }, { count = 4, unitString = "creepm0" } },
+                { { count = 1, unitString = "creepr0" }, { count = 6, unitString = "creepm0" } },
+                { { count = 2, unitString = "creepr1" }, { count = 4, unitString = "creepm0" } },
+                { { count = 1, unitString = "creepc0" }, { count = 2, unitString = "creepm2" }, { count = 4, unitString = "creepm0" } },
+            },
+            rares = {
+
+            },
+            epics = {
+
+            },
+            legendaries = {
+
+            },
         },
         bosses = {
-            { { 1, "creepb0" } },
-            { { 1, "creepb1" } },
-            { { 1, "creepb2" } },
+            { { count = 1, unitString = "creepb0" } },
+            { { count = 1, unitString = "creepb1" } },
+            { { count = 1, unitString = "creepb2" } },
         },
         followUp = {
             FourCC('o009'), -- Horde, kodo

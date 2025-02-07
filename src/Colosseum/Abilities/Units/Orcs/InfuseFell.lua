@@ -10,6 +10,10 @@ function AbilityTrigger_OrcWarlock_InfuseFel_Actions()
 
     local startPoint = GetUnitLoc(caster)
     FireHomingProjectile_PointToUnit(startPoint, target, "Abilities\\Spells\\Undead\\DarkSummoning\\DarkSummonMissile.mdl", 400.00, 0.08, function()
+        if not IsUnitAliveBJ(target) then
+            return
+        end
+
         local maxhp = GetUnitState(target, UNIT_STATE_MAX_LIFE)
         local damage = BlzGetUnitBaseDamage(target, 0)
         local targetHp = maxhp * 2.25

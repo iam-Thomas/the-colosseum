@@ -129,7 +129,7 @@ function AddPeriodicPassiveAbility_CasterHasAbility(abilityId, abilityFunction)
             abilityFunction(caster, tick)
         end)
     end)
-    TriggerAddCondition(trg, Condition(function() return GetUnitAbilityLevel(GetEnteringUnit(), abilityId) > 0 end))
+    TriggerAddCondition(trg, Condition(function() return GetUnitAbilityLevel(GetEnteringUnit(), abilityId) > 0 and GetOwningPlayer(GetEnteringUnit()) ~= Player(27) end))
     TriggerRegisterEnterRectSimple(trg, GetWorldBounds())
     return trg
 end

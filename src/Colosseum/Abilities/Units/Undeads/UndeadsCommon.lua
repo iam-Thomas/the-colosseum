@@ -38,3 +38,12 @@ function AbilityFunction_Undead_InfestTarget(caster, target, infestStrength)
     damagePerSecond = damagePerSecond + infestStrength
     SaveReal(AbilityTrigger_Undead_Infest_Hashtable, id, 1, damagePerSecond)
 end
+
+function AbilityFunction_Undead_GetInfestStrengthOnUnit(target)
+    if not UnitHasBuffBJ(target, FourCC('B00W')) then
+        return 0.00
+    end
+
+    local id = GetHandleId(target)
+    return LoadReal(AbilityTrigger_Undead_Infest_Hashtable, id, 1)
+end

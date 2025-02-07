@@ -19,7 +19,13 @@ function AbilityTrigger_Undead_CorpseExplosion_Actions()
         local targetLoc = GetUnitLoc(target)
         ExplodeUnitBJ(target)
         local rdEffect = CreateEffectAtPoint(targetLoc, "Abilities\\Spells\\Undead\\RaiseSkeletonWarrior\\RaiseSkeleton.mdl", 3.00)
-        BlzSetSpecialEffectScale(rdEffect, 2.70)
+        BlzSetSpecialEffectScale(rdEffect, 3.70)
         BlzSetSpecialEffectTimeScale(rdEffect, 0.60)
+
+        local affectedUnits = GetUnitsInRange_EnemyTargetable(caster, targetLoc, 300)
+        for i = 1, #affectedUnits do
+            local infestStrength = AbilityFunction_Undead_GetInfestStrengthOnUnit(affectedUnits[i])
+            CauseMagicDamage(caster, affectedUnits[i], 35 + (infestStrength * 6))
+        end
     end)
 end

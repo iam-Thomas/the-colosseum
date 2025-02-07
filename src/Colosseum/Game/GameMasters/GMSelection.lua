@@ -11,9 +11,18 @@ GMCurrentPhase = nil
 
 GMDraftDisplayGroup = nil
 
+GMPhases = nil
+
 RegInit(function()
     GMDraftDisplayGroup = CreateGroup()
     GMSelections_Trigger_PickUnit = AddAbilityCastTrigger('A02G', GMSelections_SelectGroup)
+
+    GMPhases = {
+        { GetPhaseBandits() },
+        { GetPhaseCreepers() },
+        { GetPhaseHorde(), GetPhaseUndeads() },
+        { GetPhaseHorde() },
+    }
 end)
 
 function GMSelections_PhaseChange(phase)
@@ -29,11 +38,16 @@ function GMSelections_Create()
 end
 
 function GMSelections_CreateTransitionUnits()
-    local indeces = GMSelections_GetSelectRandomBossIndexArray(#GMCurrentPhase.followUp, #glBossSelectionZones)
+    --GMPhases[]
+    local phaseOptions = GMPhases[math.min(glPhaseIndex, #GMPhases)]
+    print(phaseOptions)
+    --local indeces = GMSelections_GetSelectRandomBossIndexArray(#phaseOptions, #glBossSelectionZones)
+    local indeces = GMSelections_GetSelectRandomBossIndexArray(#phaseOptions, 2) -- 2 options only?
+    print(indeces)
 
     for i = 1, #indeces do
         local point = GetRectCenter(glBossSelectionZones[i])
-        local unitId = GMCurrentPhase.followUp[indeces[i]]
+        local unitId = phaseOptions[indeces[i]].signatureUnit
 
         local unit = CreateUnitAtLoc(Player(27), unitId, point, 0)
         SetUnitInvulnerable(unit, true)
@@ -63,21 +77,21 @@ end
 function GMSelections_CreateUnits()
     -- Create initial selections
     for i = 1, #glSquadSelectionZones do
+
+        GMSelections_PickRandomGroup(GMCurrentPhase.groups, function()
+        end)
+
         if (CountUnitsInGroup(glSquadSelectionGroups[i]) < 1) then
             local point = GetRectCenter(glSquadSelectionZones[i])
-            local squadIndex = math.random(1, #GMCurrentPhase.groups)
-            local squad = GMCurrentPhase.groups[squadIndex]
-            for j = 1, #squad do
-                local nUnits = squad[j][1]
-                local unitString = squad[j][2]
-                local unitType = GetUnitTypeFromUnitString(unitString)
-                for n = 1, nUnits do
+            
+            GMSelections_PickRandomGroup(GMCurrentPhase.groups, function(unitType, nOfType)
+                for j = 1, nOfType do
                     local unit = CreateUnitAtLoc(Player(27), unitType, point, 0)
                     GroupAddUnit(glSquadSelectionGroups[i], unit)
                     SetUnitInvulnerable(unit, true)
                     PauseUnit(unit, true)
                 end
-            end
+            end)
 
             local effect = CreateEffectAtPoint(point, "Abilities\\Spells\\Human\\MassTeleport\\MassTeleportCaster.mdl", 3.00)
             BlzSetSpecialEffectScale(effect, 1.75)
@@ -95,8 +109,8 @@ function GMSelections_CreateBosses()
         local squad = GMCurrentPhase.bosses[squadIndex]
 
         for j = 1, #squad do
-            local nUnits = squad[j][1]
-            local unitString = squad[j][2]
+            local nUnits = squad[j].count
+            local unitString = squad[j].unitString
             local unitType = GetUnitTypeFromUnitString(unitString)
             for n = 1, nUnits do
                 local unit = CreateUnitAtLoc(Player(27), unitType, point, 0)

@@ -11,7 +11,7 @@ function AbilityTrigger_VP_Judgement_Actions()
     local doHeal = false
     local abilityLevel = GetUnitAbilityLevel(caster, FourCC('A032'))
     local str = GetHeroStr(caster, true)
-    local damage = 50.00 + (20.00 * abilityLevel) + (str * 0.90)
+    local damage = 80.00 + (30.00 * abilityLevel) + (str * 0.90)
 
     local targetCurrentLife = GetUnitState(target, UNIT_STATE_LIFE)
     local targetMaxLife = GetUnitState(target, UNIT_STATE_MAX_LIFE)

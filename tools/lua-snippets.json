@@ -25,8 +25,8 @@
         "prefix": "RegisterTriggerEnableById"
     },
     "AddAbilityCastTrigger": {
-        "body": "AddAbilityCastTrigger(${1:abilityId}, ${2:function})",
-        "description": "AddAbilityCastTrigger (integer abilityId, code function)",
+        "body": "AddAbilityCastTrigger('${1:abilityCode}', ${2:function})",
+        "description": "AddAbilityCastTrigger (abilityCode abilityCode, code function)",
         "prefix": "AddAbilityCastTrigger"
     },
     "AddAbilityCastTrigger_CasterHasItem": {

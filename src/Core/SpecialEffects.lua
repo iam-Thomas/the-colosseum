@@ -41,10 +41,26 @@ function CreateEffectOnUnitByBuff(attachPointName, unit, effect, buffcode)
 end
 
 function DangerAreaAt(point, time, radius)
-    CreateNUnitsAtLoc( 1, 'n00F', Player(PLAYER_NEUTRAL_PASSIVE), point, bj_UNIT_FACING )
-    SetUnitVertexColorBJ( GetLastCreatedUnit(), 100.00, 20.00, 20.00, 65.00 )
-    UnitApplyTimedLifeBJ( time, 'BTLF', GetLastCreatedUnit() )
-    SetUnitScalePercent( GetLastCreatedUnit(), radius, radius, radius )
+    local scaleFactor = math.max(1.00, radius / 100.00)
+    local effect = AddSpecialEffectLoc("buildings\\other\\CircleOfPower\\CircleOfPower", point)
+    BlzSetSpecialEffectColor(effect, 255, 0, 0)
+    BlzSetSpecialEffectAlpha(effect, 180)
+    BlzSetSpecialEffectScale(effect, scaleFactor)
+    local timer = CreateTimer()
+    TimerStart(timer, time, false, function()
+        DestroyTimer(timer)
+        DestroyEffect(effect)
+    end)
+    return effect
+end
+
+function DangerAreaAtUntimed(point, radius)
+    local scaleFactor = math.max(1.00, radius / 100.00)
+    local effect = AddSpecialEffectLoc("buildings\\other\\CircleOfPower\\CircleOfPower", point)
+    BlzSetSpecialEffectColor(effect, 255, 0, 0)
+    BlzSetSpecialEffectAlpha(effect, 180)
+    BlzSetSpecialEffectScale(effect, scaleFactor)
+    return effect
 end
 
 function DangerCountdownAt(point, time)

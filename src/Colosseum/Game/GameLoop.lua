@@ -6,6 +6,7 @@ glCountdownTimerDialog = nil
 
 glStarted = false
 glIsInFight = false
+glPhaseIndex = 1
 glRoundIndex = 1
 glPhaseRoundIndex = 1
 glIsInPhaseTransition = false
@@ -163,24 +164,15 @@ function GameLoop_SpawnUnits()
 
         if nGroups > 0 then
             for i = 1, nGroups do
-                local grps = GMCurrentPhase.groups
-                local randomIndex = math.random(1, #grps)
-                local grp = grps[randomIndex]
-                for j = 1, #grp do
-                    local nOfType = grp[j][1]
-                    local unitTypeString = grp[j][2]
-                    local unitType = GetUnitTypeFromUnitString(unitTypeString)
-                    
-                    for k = 1, #glPlayerSelections do
-                        local owner = Player(k - 1)
-                        if owner == GetOwningPlayer(selectorUnit) then
-                            local tab = glPlayerSelections[k]
-                            for l = 1, nOfType do
-                                table.insert(tab, unitType)
-                            end
-                        end
+
+                local owner = GetOwningPlayer(selectorUnit)
+                print("here, nGroups: " .. nGroups)
+                GMSelections_PickRandomGroup_CommonRare(GMCurrentPhase.groups, function(unitType, nOfType)
+                    local playerId = GetPlayerId(owner)
+                    for i = 1, nOfType do
+                        table.insert(glPlayerSelections[playerId + 1], unitType)
                     end
-                end
+                end)
             end
         end
     end
@@ -279,6 +271,10 @@ function GameLoop_EndRound()
     glPhaseRoundIndex = glPhaseRoundIndex + 1
 
     local state = GMCurrentPhase.evaluateState(glRoundIndex, glPhaseRoundIndex)
+    if state.IsTransitionFight then
+        glPhaseIndex = glPhaseIndex + 1
+    end
+
     ForForce(udg_GameMasterPlayers, function()
         local player = GetEnumPlayer()
         if state.IsTransitionFight then
