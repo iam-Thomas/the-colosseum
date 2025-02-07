@@ -84,6 +84,7 @@ function GameLoop_BeginRoundCountdown()
         glIsInPhaseTransition = true
         -- Clear everything, create transition adds
         GMSelections_ClearAll()
+        print("game loop: begin create trnasition units")
         GMSelections_CreateTransitionUnits()
         GameLoop_GrantSelectionsMana()
         return
@@ -166,7 +167,6 @@ function GameLoop_SpawnUnits()
             for i = 1, nGroups do
 
                 local owner = GetOwningPlayer(selectorUnit)
-                print("here, nGroups: " .. nGroups)
                 GMSelections_PickRandomGroup_CommonRare(GMCurrentPhase.groups, function(unitType, nOfType)
                     local playerId = GetPlayerId(owner)
                     for i = 1, nOfType do
@@ -269,7 +269,6 @@ function GameLoop_EndRound()
     glIsInFight = false
     glRoundIndex = glRoundIndex + 1
     glPhaseRoundIndex = glPhaseRoundIndex + 1
-
     local state = GMCurrentPhase.evaluateState(glRoundIndex, glPhaseRoundIndex)
     if state.IsTransitionFight then
         glPhaseIndex = glPhaseIndex + 1
@@ -341,7 +340,6 @@ function GameLoop_SetGladiatorsStateToRest()
             end
 
             local str = GetHeroStr(unit, true)
-            print("from str: " .. (str * 4))
             CauseHealUnscaled(unit, unit, defaultRegen + regenFromItems + (str * 3))
         end
     end)

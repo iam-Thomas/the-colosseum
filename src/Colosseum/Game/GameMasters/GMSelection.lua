@@ -38,20 +38,31 @@ function GMSelections_Create()
 end
 
 function GMSelections_CreateTransitionUnits()
-    --GMPhases[]
-    local phaseOptions = GMPhases[math.min(glPhaseIndex, #GMPhases)]
-    print(phaseOptions)
-    --local indeces = GMSelections_GetSelectRandomBossIndexArray(#phaseOptions, #glBossSelectionZones)
-    local indeces = GMSelections_GetSelectRandomBossIndexArray(#phaseOptions, 2) -- 2 options only?
-    print(indeces)
+    print(GMPhases)
+    local tindex = math.min(glPhaseIndex, #GMPhases)
+    print("tindex: " .. tindex)
+    print("glPhaseIndex: " .. glPhaseIndex)
+    print("#GMPhases: " .. #GMPhases)
+    for i, phase in ipairs(GMPhases) do
+        print("Phase " .. i .. ":")
+        for j, subPhase in ipairs(phase) do
+            print("  SubPhase " .. j .. ": " .. tostring(subPhase))
+        end
+    end
+    local phah = GMPhases[tindex]
+    print("phase options: " .. phah)
+    --local indeces = GMSelections_GetSelectRandomBossIndexArray(#phah, #glBossSelectionZones)
+    local indeces = GMSelections_GetSelectRandomBossIndexArray(#phah, 2) -- 2 options only i think
+    print("indeces" .. indeces)
 
     for i = 1, #indeces do
         local point = GetRectCenter(glBossSelectionZones[i])
-        local unitId = phaseOptions[indeces[i]].signatureUnit
+        local unitId = phah[indeces[i]].signatureUnit
 
         local unit = CreateUnitAtLoc(Player(27), unitId, point, 0)
         SetUnitInvulnerable(unit, true)
         GroupAddUnit(glBossSelectionGroups[i], unit)
+
 
         local effect = CreateEffectAtPoint(point, "Abilities\\Spells\\Human\\MassTeleport\\MassTeleportCaster.mdl", 3.00)
         BlzSetSpecialEffectScale(effect, 1.75)
@@ -229,16 +240,26 @@ function GMSelections_SelectPhase(unitId)
     glIsInPhaseTransition = false
 
     GMSelections_ClearAll()
-    if unitId == FourCC('h00E') then
-        GameBalanceTrigger_AddScaling(player, 0.36, 0.15, 0.15)
-        GMSelections_PhaseChange(GetPhaseBandits())
-    elseif unitId == FourCC('n008') then
-        GameBalanceTrigger_AddScaling(player, 0.36, 0.15, 0.15)
-        GMSelections_PhaseChange(GetPhaseCreepers())
-    elseif unitId == FourCC('o009') then
-        GameBalanceTrigger_AddScaling(player, 0.36, 0.15, 0.15)
-        GMSelections_PhaseChange(GetPhaseHorde())
+    for i = 1, #GMPhases do
+        for j = 1, #(GMPhases[i]) do
+            if GMPhases[i].signatureUnit == unitId then
+                GameBalanceTrigger_AddScaling(player, 0.36, 0.15, 0.15)
+                GMSelections_PhaseChange(GMPhases[i])
+            end
+        end
     end
+
+    -- GMSelections_ClearAll()
+    -- if unitId == FourCC('h00E') then
+    --     GameBalanceTrigger_AddScaling(player, 0.36, 0.15, 0.15)
+    --     GMSelections_PhaseChange(GetPhaseBandits())
+    -- elseif unitId == FourCC('n008') then
+    --     GameBalanceTrigger_AddScaling(player, 0.36, 0.15, 0.15)
+    --     GMSelections_PhaseChange(GetPhaseCreepers())
+    -- elseif unitId == FourCC('o009') then
+    --     GameBalanceTrigger_AddScaling(player, 0.36, 0.15, 0.15)
+    --     GMSelections_PhaseChange(GetPhaseHorde())
+    -- end
 
     GameLoop_GrantSelectionsMana()
     GameLoop_BeginRoundCountdown()

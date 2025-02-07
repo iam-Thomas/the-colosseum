@@ -33,7 +33,7 @@ function GetPhaseBandits()
             local isBossRound = phaseRoundIndex > 2
         
             return {
-                IsTransitionFight = phaseRoundIndex > 5,
+                IsTransitionFight = phaseRoundIndex > 1,
                 IsBossFight = phaseRoundIndex > 2,
             }
         end
