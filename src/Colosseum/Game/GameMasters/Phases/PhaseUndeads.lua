@@ -1,6 +1,6 @@
 function GetPhaseUndeads()
     return {
-        signatureUnit = FourCC('u005'),
+        signatureUnitId = FourCC('u005'),
         groups = {
             commons = {
                 { { count = 3, unitString = "hordem0" } },

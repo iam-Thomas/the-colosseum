@@ -1,6 +1,6 @@
 function GetPhaseBandits()
     return {
-        signatureUnit = FourCC('h00E'),
+        signatureUnitId = FourCC('h00E'),
         groups = {
             commons = {
                 { { count = 6, unitString = "bandtm0" } },
@@ -33,7 +33,7 @@ function GetPhaseBandits()
             local isBossRound = phaseRoundIndex > 2
         
             return {
-                IsTransitionFight = phaseRoundIndex > 1,
+                IsTransitionFight = phaseRoundIndex > 5,
                 IsBossFight = phaseRoundIndex > 2,
             }
         end

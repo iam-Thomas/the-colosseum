@@ -1,6 +1,6 @@
 function GetPhaseCreepers()
     return {
-        signatureUnit = FourCC('n008'),
+        signatureUnitId = FourCC('n008'),
         groups = {
             commons = {
                 { { count = 12, unitString = "creepm0" } },

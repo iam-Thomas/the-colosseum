@@ -277,7 +277,7 @@ function GameLoop_EndRound()
     ForForce(udg_GameMasterPlayers, function()
         local player = GetEnumPlayer()
         if state.IsTransitionFight then
-            GameBalanceTrigger_AddScaling(player, 0.65, 0.50, 0.50)
+            GameBalanceTrigger_AddScaling(player, 0.98, 0.65, 0.65)
         else
             GameBalanceTrigger_AddScaling(player, 0.10, 0.05, 0.05)
         end

@@ -1,16 +1,16 @@
 CombatEventTrigger_SummonMultiplier = nil
 
 RegInit(function()
-    CombatEventTrigger_SummonMultiplier = CreateTrigger()
-    TriggerAddAction(CombatEventTrigger_SummonMultiplier, CombatEventTrigger_SummonMultiplier_Actions)
-    TriggerRegisterAnyUnitEventBJ(CombatEventTrigger_SummonMultiplier, EVENT_PLAYER_UNIT_SUMMON)
+    -- CombatEventTrigger_SummonMultiplier = CreateTrigger()
+    -- TriggerAddAction(CombatEventTrigger_SummonMultiplier, CombatEventTrigger_SummonMultiplier_Actions)
+    -- TriggerRegisterAnyUnitEventBJ(CombatEventTrigger_SummonMultiplier, EVENT_PLAYER_UNIT_SUMMON)
 end)
 
 function CombatEventTrigger_SummonMultiplier_Actions()
-    local summoner = GetSummoningUnit()
-    local summoned = GetSummonedUnit()
+    -- local summoner = GetSummoningUnit()
+    -- local summoned = GetSummonedUnit()
     
-    ApplySummonPowerMultipliers(summoner, summoned)
+    --ApplySummonPowerMultipliers(summoner, summoned)
 end
 
 function ApplySummonPowerMultipliers(caster, target)

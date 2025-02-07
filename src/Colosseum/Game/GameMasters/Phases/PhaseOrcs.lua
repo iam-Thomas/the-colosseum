@@ -1,6 +1,6 @@
 function GetPhaseHorde()
     return {
-        signatureUnit = FourCC('o009'),
+        signatureUnitId = FourCC('o009'),
         groups = {
             commons = {
                 { { count = 3, unitString = "hordem0" } },
