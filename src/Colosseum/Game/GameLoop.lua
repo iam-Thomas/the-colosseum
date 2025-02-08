@@ -167,7 +167,7 @@ function GameLoop_SpawnUnits()
             for i = 1, nGroups do
 
                 local owner = GetOwningPlayer(selectorUnit)
-                GMSelections_PickRandomGroup_CommonRare(GMCurrentPhase.groups, function(unitType, nOfType)
+                GMSelections_PickRandomGroup_CommonRare(GMCurrentPhase.groups, function(unitType, nOfType, rarity)
                     local playerId = GetPlayerId(owner)
                     for i = 1, nOfType do
                         table.insert(glPlayerSelections[playerId + 1], unitType)
@@ -277,7 +277,7 @@ function GameLoop_EndRound()
     ForForce(udg_GameMasterPlayers, function()
         local player = GetEnumPlayer()
         if state.IsTransitionFight then
-            GameBalanceTrigger_AddScaling(player, 0.98, 0.65, 0.65)
+            GameBalanceTrigger_AddScaling(player, 0.80, 0.5, 0.5)
         else
             GameBalanceTrigger_AddScaling(player, 0.10, 0.05, 0.05)
         end

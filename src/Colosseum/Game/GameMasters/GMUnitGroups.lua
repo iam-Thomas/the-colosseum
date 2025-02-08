@@ -111,23 +111,23 @@ function DefUnitGroups()
 
     -- undeads
     udg_UnitTypesN = udg_UnitTypesN + 1
-    udg_UnitTypesArray[udg_UnitTypesN ] = FourCC('o001')
+    udg_UnitTypesArray[udg_UnitTypesN ] = FourCC('u001')
     udg_UnitLabelsArray[udg_UnitTypesN ] = "udm0"
 
     udg_UnitTypesN = udg_UnitTypesN + 1
-    udg_UnitTypesArray[udg_UnitTypesN ] = FourCC('o004')
+    udg_UnitTypesArray[udg_UnitTypesN ] = FourCC('u004')
     udg_UnitLabelsArray[udg_UnitTypesN ] = "udm1"
 
     udg_UnitTypesN = udg_UnitTypesN + 1
-    udg_UnitTypesArray[udg_UnitTypesN ] = FourCC('o008')
+    udg_UnitTypesArray[udg_UnitTypesN ] = FourCC('u008')
     udg_UnitLabelsArray[udg_UnitTypesN ] = "udr0"
 
     udg_UnitTypesN = udg_UnitTypesN + 1
-    udg_UnitTypesArray[udg_UnitTypesN ] = FourCC('n002')
+    udg_UnitTypesArray[udg_UnitTypesN ] = FourCC('u002')
     udg_UnitLabelsArray[udg_UnitTypesN ] = "udc0"
 
     udg_UnitTypesN = udg_UnitTypesN + 1
-    udg_UnitTypesArray[udg_UnitTypesN ] = FourCC('o003')
+    udg_UnitTypesArray[udg_UnitTypesN ] = FourCC('u003')
     udg_UnitLabelsArray[udg_UnitTypesN ] = "udc1"
 
     udg_UnitTypesN = udg_UnitTypesN + 1

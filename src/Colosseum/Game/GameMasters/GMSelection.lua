@@ -76,19 +76,25 @@ end
 function GMSelections_CreateUnits()
     -- Create initial selections
     for i = 1, #glSquadSelectionZones do
-
-        GMSelections_PickRandomGroup(GMCurrentPhase.groups, function()
-        end)
-
         if (CountUnitsInGroup(glSquadSelectionGroups[i]) < 1) then
             local point = GetRectCenter(glSquadSelectionZones[i])
             
-            GMSelections_PickRandomGroup(GMCurrentPhase.groups, function(unitType, nOfType)
+            GMSelections_PickRandomGroup(GMCurrentPhase.groups, function(unitType, nOfType, rarity)
                 for j = 1, nOfType do
                     local unit = CreateUnitAtLoc(Player(27), unitType, point, 0)
                     GroupAddUnit(glSquadSelectionGroups[i], unit)
                     SetUnitInvulnerable(unit, true)
                     PauseUnit(unit, true)
+
+                    if rarity == 4 then
+                        SetUnitVertexColor(unit, 255, 255, 0, 255)
+                    elseif rarity == 3 then
+                        SetUnitVertexColor(unit, 255, 40, 255, 255)
+                    elseif rarity == 2 then
+                        SetUnitVertexColor(unit, 135, 135, 255, 255)
+                    else
+                        SetUnitVertexColor(unit, 190, 255, 190, 255)
+                    end
                 end
             end)
 

@@ -41,11 +41,12 @@ function CreateEffectOnUnitByBuff(attachPointName, unit, effect, buffcode)
 end
 
 function DangerAreaAt(point, time, radius)
-    local scaleFactor = math.max(1.00, radius / 100.00)
+    local scaleFactor = math.max(0.10, radius / 92.00)
     local effect = AddSpecialEffectLoc("buildings\\other\\CircleOfPower\\CircleOfPower", point)
     BlzSetSpecialEffectColor(effect, 255, 0, 0)
-    BlzSetSpecialEffectAlpha(effect, 180)
+    BlzSetSpecialEffectAlpha(effect, 70)
     BlzSetSpecialEffectScale(effect, scaleFactor)
+    BlzSetSpecialEffectZ(effect, 10.00)
     local timer = CreateTimer()
     TimerStart(timer, time, false, function()
         DestroyTimer(timer)
@@ -58,8 +59,9 @@ function DangerAreaAtUntimed(point, radius)
     local scaleFactor = math.max(1.00, radius / 100.00)
     local effect = AddSpecialEffectLoc("buildings\\other\\CircleOfPower\\CircleOfPower", point)
     BlzSetSpecialEffectColor(effect, 255, 0, 0)
-    BlzSetSpecialEffectAlpha(effect, 180)
+    BlzSetSpecialEffectAlpha(effect, 70)
     BlzSetSpecialEffectScale(effect, scaleFactor)
+    BlzSetSpecialEffectZ(effect, 10.00)
     return effect
 end
 
