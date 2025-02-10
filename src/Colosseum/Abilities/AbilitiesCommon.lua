@@ -67,7 +67,29 @@ end
 
 ManagedBuffHashtable = InitHashtable()
 function ApplyManagedBuff(target, abilityId, buffId, duration, effectAttachmentPoint, effect)
+    ApplyManagedBuff_Predicate(target, abilityId, buffId, duration, effectAttachmentPoint, effect, function(target)
+        return false
+    end)
+end
+
+function ApplyManagedBuff_Magic(target, abilityId, buffId, duration, effectAttachmentPoint, effect)
+    ApplyManagedBuff_Predicate(target, abilityId, buffId, duration, effectAttachmentPoint, effect, function(target)
+        return not IsUnit_Targetable(target)
+    end)
+end
+
+function ApplyManagedBuff_MagicElusive(target, abilityId, buffId, duration, effectAttachmentPoint, effect)
+    ApplyManagedBuff_Predicate(target, abilityId, buffId, duration, effectAttachmentPoint, effect, function(target)
+        return not IsUnit_ProjectileTargetable(target)
+    end)
+end
+
+function ApplyManagedBuff_Predicate(target, abilityId, buffId, duration, effectAttachmentPoint, effect, evadePredicate)
     local id = GetHandleId(target)
+
+    if evadePredicate(target) then
+        return
+    end
 
     local abilityLevelAtStart = GetUnitAbilityLevel(target, abilityId)
     UnitAddAbility(target, abilityId)
@@ -90,6 +112,10 @@ function ApplyManagedBuff(target, abilityId, buffId, duration, effectAttachmentP
         local t = LoadReal(ManagedBuffHashtable, id, abilityId)
 
         if not IsUnitAliveBJ(target) then
+            flush = true
+        end
+
+        if evadePredicate(target) then
             flush = true
         end
 
@@ -161,6 +187,12 @@ function FireProjectile_PointHeightToPoint(startPoint, startHeight, endPoint, mo
 end
 
 function FireHomingProjectile_PointToUnit(startPoint, targetUnit, model, speed, arcHeight, callback)
+    FireHomingProjectile_PointToUnit_TimeLimit(startPoint, targetUnit, model, speed, arcHeight, callback, 999999.00)
+end
+
+function FireHomingProjectile_PointToUnit_TimeLimit(startPoint, targetUnit, model, speed, arcHeight, callback, timeLimit)
+    local fizzled = false
+    local fizzleLoc = GetUnitLoc(targetUnit)
     local startX = GetLocationX(startPoint)
     local startY = GetLocationY(startPoint)
     local startZ = GetLocationZ(startPoint) + 50.00
@@ -173,16 +205,34 @@ function FireHomingProjectile_PointToUnit(startPoint, targetUnit, model, speed, 
     local projectile = AddSpecialEffect(model, startX, startY)
     
     local currentPoint = Location(startX, startY)
+    local totalTime = 0.00
     local timer = CreateTimer()
     TimerStart(timer, 0.03, true, function()
+        totalTime = totalTime + 0.03
+        if not (IsUnit_ProjectileTargetable(targetUnit)) and not fizzled then
+            fizzled = true
+            RemoveLocation(fizzleLoc)
+            fizzleLoc = GetUnitLoc(targetUnit)
+        end
+
         local targetPoint = GetUnitLoc(targetUnit)
+        if fizzled then
+            RemoveLocation(targetPoint)
+            targetPoint = Location(GetLocationX(fizzleLoc), GetLocationY(fizzleLoc))
+        end
         local dist = DistanceBetweenPoints(currentPoint, targetPoint)
-        if dist < (speed * 0.03) then
+        if dist <= (speed * 0.04) or totalTime > timeLimit then
             DestroyTimer(timer)
             DestroyEffect(projectile)
             RemoveLocation(currentPoint)
             RemoveLocation(targetPoint)
-            callback()
+            if not fizzled and totalTime <= timeLimit then
+                callback()
+            end
+
+            if fizzled then
+                RemoveLocation(fizzleLoc)
+            end
             return
         end
 
@@ -190,9 +240,9 @@ function FireHomingProjectile_PointToUnit(startPoint, targetUnit, model, speed, 
         local currentPosY = GetLocationY(currentPoint)
         local currentPosZ = GetLocationZ(currentPoint)
 
-        local newEndX = GetUnitX(targetUnit)
-        local newEndY = GetUnitY(targetUnit)
-        local newEndZ = BlzGetUnitZ(targetUnit) + 50.00
+        local newEndX = GetLocationX(targetPoint)
+        local newEndY = GetLocationY(targetPoint)
+        local newEndZ = GetLocationZ(targetPoint) + 50.00
 
         local angle = Atan2(newEndY - currentPosY, newEndX - currentPosX)
         local progress = (distance - dist) / distance

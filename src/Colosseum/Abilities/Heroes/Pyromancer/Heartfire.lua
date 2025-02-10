@@ -10,5 +10,5 @@ function AbilityTrigger_Pyro_Heartfire_Two_Actions()
 
     local duration = 5.00 + (3.00 * GetUnitAbilityLevel(caster, FourCC('A03P')))
 
-    ApplyManagedBuff(target, FourCC('A03R'), FourCC('B00R'), duration, "origin", "Abilities\\Spells\\NightElf\\Immolation\\ImmolationTarget.mdl")
+    ApplyManagedBuff_Magic(target, FourCC('A03R'), FourCC('B00R'), duration, "origin", "Abilities\\Spells\\NightElf\\Immolation\\ImmolationTarget.mdl")
 end

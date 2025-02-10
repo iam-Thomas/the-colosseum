@@ -84,7 +84,7 @@ function AbilityTrigger_Abom_Hook_Actions()
         hookLocY = GetLocationY(newLoc)
 
         if hit and target ~= nil then
-            if IsUnit_Targetable(target) then
+            if IsUnit_ProjectileTargetable(target) then
                 SetUnitX(target, hookX)
                 SetUnitY(target, hookY)
             else

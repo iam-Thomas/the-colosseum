@@ -13,7 +13,7 @@ function AbilityTrigger_Pyro_Incinerate_Damaging_Actions()
     local target = BlzGetEventDamageTarget()
     
     if isAttack then
-        ApplyManagedBuff(target, FourCC('A03N'), FourCC('B00Q'), 5.00, "overhead", "Abilities\\Spells\\Other\\Incinerate\\IncinerateBuff.mdl")
+        ApplyManagedBuff_Magic(target, FourCC('A03N'), FourCC('B00Q'), 5.00, "overhead", "Abilities\\Spells\\Other\\Incinerate\\IncinerateBuff.mdl")
         return
     end
 end

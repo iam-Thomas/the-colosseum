@@ -64,7 +64,7 @@ function CombatEventTrigger_Damage_Action()
 
         if IsUnitType(target, UNIT_TYPE_HERO) then
             local int = GetHeroInt(target, true)
-            local intFactor = 100.00 / (100.00 + (int * 0.5))
+            local intFactor = 100.00 / (100.00 + (int * 1.2))
             factor = factor * intFactor
         end
     end

@@ -66,6 +66,15 @@ function IsUnit_EnemyTargetablePhysical(caster, target)
     return true
 end
 
+function IsUnit_ProjectileTargetable(target)
+    if ( not ( IsUnit_Targetable(target) ) ) then
+        return false
+    elseif ( IsUnitElusive(target) ) then
+        return false
+    end
+    return true
+end
+
 -- Returns true if the 'target' is a targetable ground unit and an enemy of 'caster'
 function IsUnit_EnemyGroundTargetable(caster, target)
     if ( not ( IsUnit_GroundTargetable(target) ) ) then

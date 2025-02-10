@@ -26,7 +26,7 @@ function AbilityTrigger_Lich_Fear_InflictFearAoE(caster, loc, range)
     local targets = GetUnitsInRange_EnemyTargetable(caster, loc, range)
     for i = 1, #targets do
         AbilityTrigger_Lich_Fear_Actions_OrderMove(caster, targets[i])
-        ApplyManagedBuff(targets[i], FourCC('A05D'), FourCC('B00X'), 11.00, "overhead", "Abilities\\Spells\\Other\\HowlOfTerror\\HowlTarget.mdl")
+        ApplyManagedBuff_Magic(targets[i], FourCC('A05D'), FourCC('B00X'), 11.00, "overhead", "Abilities\\Spells\\Other\\HowlOfTerror\\HowlTarget.mdl")
     end
 end
 

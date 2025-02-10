@@ -17,7 +17,7 @@ function AbilityTrigger_Pyro_Cauterize_Actions()
     local damage = baseDamage + (bonusFromLevels * heroLevel)
 
     local isCauterized = UnitHasBuffBJ(target, FourCC('B00Q'))
-    ApplyManagedBuff(target, FourCC('A03N'), FourCC('B00Q'), 22.00, "overhead", "Abilities\\Spells\\Other\\Incinerate\\IncinerateBuff.mdl")
+    ApplyManagedBuff_Magic(target, FourCC('A03N'), FourCC('B00Q'), 22.00, "overhead", "Abilities\\Spells\\Other\\Incinerate\\IncinerateBuff.mdl")
     if IsUnitEnemy(target, casterOwner) then
         CauseMagicDamage_Fire(caster, target, damage)
     else

@@ -53,7 +53,7 @@ function BattleRoyale_Update()
     if BattleRoyale_Time > 180.00 then
         BattleRoyale_TargetWidth = 50.00
         BattleRoyale_TargetHeight = 50.00
-    elseif BattleRoyale_Time > 120.00 then
+    elseif BattleRoyale_Time > 135.00 then
         BattleRoyale_TargetWidth = 600.00
         BattleRoyale_TargetHeight = 600.00
     elseif BattleRoyale_Time > 90.00 then
@@ -61,6 +61,7 @@ function BattleRoyale_Update()
         BattleRoyale_TargetHeight = 1500.00
     elseif BattleRoyale_Time > 87.00 then
         if BattleRoyale_LightningTop == nil then
+            print("Creating lightning")
             BattleRoyale_LightningTop = AddLightning("CLPB", true, -BattleRoyale_Width, BattleRoyale_Height, BattleRoyale_Width, BattleRoyale_Height)
             BattleRoyale_LightningRight = AddLightning("CLPB", true, BattleRoyale_Width, -BattleRoyale_Height, BattleRoyale_Width, BattleRoyale_Height)
             BattleRoyale_LightningBot = AddLightning("CLPB", true, -BattleRoyale_Width, -BattleRoyale_Height, BattleRoyale_Width, -BattleRoyale_Height)
