@@ -2,6 +2,10 @@ function CauseAttack(caster, target, amount, ranged)
     UnitDamageTarget(caster, target, amount, true, ranged, ATTACK_TYPE_NORMAL, DAMAGE_TYPE_NORMAL, WEAPON_TYPE_WHOKNOWS)
 end
 
+function CauseAttackDamage(caster, target, amount)
+    UnitDamageTarget(caster, target, amount, true, true, ATTACK_TYPE_NORMAL, DAMAGE_TYPE_NORMAL, WEAPON_TYPE_WHOKNOWS)
+end
+
 function CauseForceDamage(caster, target, amount)
     UnitDamageTarget(caster, target, amount, false, true, ATTACK_TYPE_NORMAL, DAMAGE_TYPE_FORCE, WEAPON_TYPE_WHOKNOWS)
 end

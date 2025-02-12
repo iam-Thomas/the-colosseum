@@ -14,7 +14,7 @@ function ItemTrigger_ArcaniteShield_Damaging_Actions()
 
     local damage = GetEventDamage()
     local lifePercent = GetUnitLifePercent(caster)
-    if lifePercent > 30.00 and damage > 1.00 then
+    if lifePercent > 30.00 or damage < 1.00 then
         return
     end
 
@@ -41,4 +41,6 @@ function ItemTrigger_ArcaniteShield_Damaging_Actions()
     BlzSetSpecialEffectYaw(effectA, 000.00 / 57.2958)
     BlzSetSpecialEffectYaw(effectB, 120.00 / 57.2958)
     BlzSetSpecialEffectYaw(effectC, 240.00 / 57.2958)
+
+    RemoveLocation(casterLoc)
 end

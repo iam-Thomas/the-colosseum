@@ -5,7 +5,7 @@ RegInit(function()
 end)
 
 function ItemTrigger_ClawsOfAttack_Actions()
-    local isAttack = BlzGetEventIsAttack()    
+    local isAttack = BlzGetEventIsAttack()
     if not isAttack then
         return
     end

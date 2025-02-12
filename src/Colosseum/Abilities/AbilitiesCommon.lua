@@ -119,13 +119,19 @@ function ApplyManagedBuff_Predicate(target, abilityId, buffId, duration, effectA
             flush = true
         end
 
+        if not UnitHasBuffBJ(target, buffId) then
+            flush = true
+        end
+
         if udg_ElapsedTime > t then
             flush = true
         end
 
         if flush then
             UnitRemoveAbility(target, abilityId)
-            FlushChildHashtable(ManagedBuffHashtable, id)
+            --Cant flush child specific tables (child key), flushing (cleanup) should happens in AbilitiesCommonCleanup.lua
+            --instead just set the time for the buff to 0.00
+            SaveReal(ManagedBuffHashtable, id, abilityId, 0.00)
             DestroyTimer(timer)
             UnitRemoveBuffBJ(buffId, target)
 
@@ -142,6 +148,15 @@ function ApplyManagedBuff_Predicate(target, abilityId, buffId, duration, effectA
             return
         end
     end)
+end
+
+function RemoveManagedManagedBuff(target, abilityId, buffId)
+    if GetUnitAbilityLevel(target, abilityId) < 1 then
+        return
+    end
+
+    UnitRemoveAbility(target, abilityId)
+    UnitRemoveBuffBJ(buffId, target)
 end
 
 function FireProjectile_PointToPoint(startPoint, endPoint, model, speed, arcHeight, callback)

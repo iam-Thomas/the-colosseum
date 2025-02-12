@@ -48,7 +48,7 @@ function CombatEventTrigger_Damage_Action()
     elseif (damageType == DAMAGE_TYPE_NORMAL) then
         --print("DAMAGE_TYPE_NORMAL")
         --factor = GetUnitStrMultiplier(source)
-        factor = GetUnitIntMultiplier(source)
+        --factor = GetUnitIntMultiplier(source)
     elseif (damageType == DAMAGE_TYPE_FORCE) then
         --print("DAMAGE_TYPE_FORCE")
         factor = GetUnitIntMultiplier(source)

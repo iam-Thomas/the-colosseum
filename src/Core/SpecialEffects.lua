@@ -46,7 +46,7 @@ function DangerAreaAt(point, time, radius)
     BlzSetSpecialEffectColor(effect, 255, 0, 0)
     BlzSetSpecialEffectAlpha(effect, 70)
     BlzSetSpecialEffectScale(effect, scaleFactor)
-    BlzSetSpecialEffectZ(effect, 10.00)
+    BlzSetSpecialEffectZ(effect, GetLocationZ(point) + 10.00)
     local timer = CreateTimer()
     TimerStart(timer, time, false, function()
         DestroyTimer(timer)
@@ -61,7 +61,7 @@ function DangerAreaAtUntimed(point, radius)
     BlzSetSpecialEffectColor(effect, 255, 0, 0)
     BlzSetSpecialEffectAlpha(effect, 70)
     BlzSetSpecialEffectScale(effect, scaleFactor)
-    BlzSetSpecialEffectZ(effect, 10.00)
+    BlzSetSpecialEffectZ(effect, GetLocationZ(point) + 10.00)
     return effect
 end
 
