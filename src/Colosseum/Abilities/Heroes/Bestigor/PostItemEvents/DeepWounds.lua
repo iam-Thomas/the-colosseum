@@ -19,6 +19,9 @@ function AbilityTrigger_BEST_Deep_Wounds_Actions()
     local target = BlzGetEventDamageTarget()
     local id = GetHandleId(target)
     local ticksDefault = 4
+    if UnitHasBuffBJ(target, FourCC('B014')) then
+        ticksDefault = 10
+    end
     
     local storedCaster = LoadUnitHandle(AbilityTrigger_BEST_Deep_Wounds_Hashtable, id, 0)
     if storedCaster == nil then
@@ -28,7 +31,7 @@ function AbilityTrigger_BEST_Deep_Wounds_Actions()
             local bleedValue = LoadReal(AbilityTrigger_BEST_Deep_Wounds_Hashtable, id, 1)
             local ticksRemain = LoadInteger(AbilityTrigger_BEST_Deep_Wounds_Hashtable, id, 2)
             
-            CauseDefensiveDamage(caster, target, bleedValue * 0.20)
+            CauseNormalDamage(caster, target, bleedValue * 0.15)
 
             if ticksRemain - 1 < 1 then
                 FlushChildHashtable(AbilityTrigger_BEST_Deep_Wounds_Hashtable, id)
@@ -41,8 +44,9 @@ function AbilityTrigger_BEST_Deep_Wounds_Actions()
 
     local damage = GetEventDamage()
     local storedDamage = LoadReal(AbilityTrigger_BEST_Deep_Wounds_Hashtable, id, 1)
+    local storedTicks = LoadInteger(AbilityTrigger_BEST_Deep_Wounds_Hashtable, id, 2)
     SaveReal(AbilityTrigger_BEST_Deep_Wounds_Hashtable, id, 1, math.max(storedDamage, damage))
-    SaveInteger(AbilityTrigger_BEST_Deep_Wounds_Hashtable, id, 2, ticksDefault)
+    SaveInteger(AbilityTrigger_BEST_Deep_Wounds_Hashtable, id, 2, math.max(ticksDefault, storedTicks))
 
     CreateEffectOnUnit("chest", target, "Abilities\\Spells\\Other\\Stampede\\StampedeMissileDeath.mdl", 2.00)
 end

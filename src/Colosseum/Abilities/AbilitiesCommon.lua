@@ -202,7 +202,7 @@ function FireProjectile_PointHeightToPoint(startPoint, startHeight, endPoint, mo
 end
 
 function FireHomingProjectile_PointToUnit(startPoint, targetUnit, model, speed, arcHeight, callback)
-    FireHomingProjectile_PointToUnit_TimeLimit(startPoint, targetUnit, model, speed, arcHeight, callback, 999999.00)
+    return FireHomingProjectile_PointToUnit_TimeLimit(startPoint, targetUnit, model, speed, arcHeight, callback, 999999.00)
 end
 
 function FireHomingProjectile_PointToUnit_TimeLimit(startPoint, targetUnit, model, speed, arcHeight, callback, timeLimit)
@@ -276,6 +276,8 @@ function FireHomingProjectile_PointToUnit_TimeLimit(startPoint, targetUnit, mode
         currentPoint = targetLoc
         RemoveLocation(targetPoint)
     end)
+
+    return { projectileEffect = projectile }
 end
 
 function FireShockwaveProjectile(caster, startPoint, endPoint, model, speed, unitHitRange, unitCallback, periodicCallback)

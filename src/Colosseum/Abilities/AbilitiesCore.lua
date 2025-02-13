@@ -6,6 +6,10 @@ function CauseAttackDamage(caster, target, amount)
     UnitDamageTarget(caster, target, amount, true, true, ATTACK_TYPE_NORMAL, DAMAGE_TYPE_NORMAL, WEAPON_TYPE_WHOKNOWS)
 end
 
+function CauseNormalDamage(caster, target, amount)
+    UnitDamageTarget(caster, target, amount, false, true, ATTACK_TYPE_NORMAL, DAMAGE_TYPE_NORMAL, WEAPON_TYPE_WHOKNOWS)
+end
+
 function CauseForceDamage(caster, target, amount)
     UnitDamageTarget(caster, target, amount, false, true, ATTACK_TYPE_NORMAL, DAMAGE_TYPE_FORCE, WEAPON_TYPE_WHOKNOWS)
 end
@@ -29,6 +33,10 @@ function CauseDefensiveDamage(caster, target, amount)
 end
 
 function CauseHealUnscaled(caster, target, amount)
+    if not IsUnitAliveBJ(target) then
+        return
+    end
+
     local lifeCurrent = GetUnitStateSwap(UNIT_STATE_LIFE, target)
     SetUnitLifeBJ( target, ( lifeCurrent + (amount) ) )
 

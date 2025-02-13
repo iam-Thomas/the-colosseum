@@ -44,7 +44,7 @@ function ItemTrigger_StormHammer_Damaged_Actions()
     
     for i = 1, #units do
         if units[i] ~= target then
-            CauseAttackDamage(caster, units[i], damage * 0.5)
+            CauseDefensiveDamage(caster, units[i], damage * 0.5)
         end
         CastDummyAbilityOnTarget(caster, units[i], FourCC('A07I'), 1, "slow")
     end

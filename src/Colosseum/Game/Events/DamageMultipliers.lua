@@ -71,3 +71,15 @@ function CombatEventTrigger_Damage_Action()
 
     BlzSetEventDamage(damage * factor)
 end
+
+function IsDamageType_Defensive(damageType)
+    return damageType == DAMAGE_TYPE_DEFENSIVE
+end
+
+function IsDamageType_Physical(damageType)
+    return damageType == DAMAGE_TYPE_NORMAL
+end
+
+function IsDamageType_Magic(damageType)
+    return (not IsDamageType_Defensive(damageType)) and (not IsDamageType_Physical(damageType))
+end

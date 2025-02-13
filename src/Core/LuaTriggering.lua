@@ -11,6 +11,14 @@ function AddAbilityCastTrigger(abilityId, abilityFunction)
     return trg
 end
 
+function AddAbilityCastTrigger_CasterHasAbility(abilityId, abilityFunction)
+    local trg = CreateTrigger()
+    TriggerAddAction(trg, abilityFunction)
+    TriggerAddCondition(trg , Condition(function() return GetUnitAbilityLevel(GetSpellAbilityUnit(), abilityId) > 0 end))
+    TriggerRegisterAnyUnitEventBJ(trg , EVENT_PLAYER_UNIT_SPELL_EFFECT)
+    return trg
+end
+
 function AddAbilityCastTrigger_CasterHasItem(itemId, abilityFunction)
     local trg = CreateTrigger()
     TriggerAddAction(trg, abilityFunction)
