@@ -18,7 +18,7 @@ RegInit(function()
     GMSelections_Trigger_PickUnit = AddAbilityCastTrigger('A02G', GMSelections_SelectGroup)
     
     GMPhases = {
-        { GetPhaseBandits() },
+        { GetPhaseBandits(), GetPhaseMurlocs() },
         { GetPhaseCreepers() },
         { GetPhaseHorde(), GetPhaseUndeads() },
         { GetPhaseHorde() },

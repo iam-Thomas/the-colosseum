@@ -137,6 +137,15 @@ function DefUnitGroups()
     udg_UnitTypesN = udg_UnitTypesN + 1
     udg_UnitTypesArray[udg_UnitTypesN ] = FourCC('u007')
     udg_UnitLabelsArray[udg_UnitTypesN ] = "udb1"
+
+    -- murlocs
+    udg_UnitTypesN = udg_UnitTypesN + 1
+    udg_UnitTypesArray[udg_UnitTypesN ] = FourCC('n00P')
+    udg_UnitLabelsArray[udg_UnitTypesN ] = "mrlm0"
+
+    udg_UnitTypesN = udg_UnitTypesN + 1
+    udg_UnitTypesArray[udg_UnitTypesN ] = FourCC('n00Q')
+    udg_UnitLabelsArray[udg_UnitTypesN ] = "mrlb0"
 end
 
 function GetUnitTypeFromUnitString(unitString)

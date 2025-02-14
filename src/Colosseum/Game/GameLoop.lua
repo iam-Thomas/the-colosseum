@@ -7,8 +7,8 @@ glCountdownTimerDialog = nil
 glStarted = false
 glIsInFight = false
 glPhaseIndex = 1
-glRoundIndex = 1
-glPhaseRoundIndex = 1
+glRoundIndex = 0
+glPhaseRoundIndex = 0
 glIsInPhaseTransition = false
 
 glSquadSelectionZones = nil
@@ -73,7 +73,15 @@ end)
 function GameLoop_InitialCountDownEnd()
     glCountdownTimer = CreateTimer()
 
-    GMSelections_PhaseChange(GetPhaseBandits())
+    --GMSelections_PhaseChange(GetPhaseBandits())
+    GMCurrentPhase = {
+        evaluateState = function(roundIndex, phaseRoundIndex)
+            return {
+                IsTransitionFight = true,
+                IsBossFight = false,
+            }
+        end
+    }
     
     GameLoop_BeginRoundCountdown()
 end
@@ -84,7 +92,6 @@ function GameLoop_BeginRoundCountdown()
         glIsInPhaseTransition = true
         -- Clear everything, create transition adds
         GMSelections_ClearAll()
-        print("game loop: begin create trnasition units")
         GMSelections_CreateTransitionUnits()
         GameLoop_GrantSelectionsMana()
         return
