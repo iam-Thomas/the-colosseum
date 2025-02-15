@@ -16,7 +16,7 @@ end
 function ApplySummonPowerMultipliers(caster, target)
     local hp = BlzGetUnitMaxHP(target)
     local factor = GetUnitStrMultiplier(caster)
-    BlzSetUnitMaxHP(target, hp * factor)
+    BlzSetUnitMaxHP(target, math.floor((hp * factor) + 0.5))
     
     local armor = BlzGetUnitArmor(target)
     factor = GetUnitAgiMultiplier(caster)

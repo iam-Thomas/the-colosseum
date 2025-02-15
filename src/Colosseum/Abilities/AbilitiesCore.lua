@@ -122,3 +122,10 @@ function GetUnitIntMultiplier(caster)
     local multiplier = sum / 100
     return multiplier
 end
+
+function GetUnitValidLoc(targetLoc)
+    local item = CreateItemLoc(FourCC('I00V'), targetLoc)
+    local itemLoc = GetItemLoc(item)
+    RemoveItem(item)
+    return itemLoc
+end

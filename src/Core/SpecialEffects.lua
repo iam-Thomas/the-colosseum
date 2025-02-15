@@ -41,7 +41,7 @@ function CreateEffectOnUnitByBuff(attachPointName, unit, effect, buffcode)
 end
 
 function DangerAreaAt(point, time, radius)
-    local scaleFactor = math.max(0.10, radius / 92.00)
+    local scaleFactor = math.max(0.10, radius / 98.00)
     local effect = AddSpecialEffectLoc("buildings\\other\\CircleOfPower\\CircleOfPower", point)
     BlzSetSpecialEffectColor(effect, 255, 0, 0)
     BlzSetSpecialEffectAlpha(effect, 70)
@@ -56,7 +56,7 @@ function DangerAreaAt(point, time, radius)
 end
 
 function DangerAreaAtUntimed(point, radius)
-    local scaleFactor = math.max(1.00, radius / 100.00)
+    local scaleFactor = math.max(1.00, radius / 98.00)
     local effect = AddSpecialEffectLoc("buildings\\other\\CircleOfPower\\CircleOfPower", point)
     BlzSetSpecialEffectColor(effect, 255, 0, 0)
     BlzSetSpecialEffectAlpha(effect, 70)
@@ -66,19 +66,36 @@ function DangerAreaAtUntimed(point, radius)
 end
 
 function DangerCountdownAt(point, time)
-    local integer n = time
+    local textFunc = function(msg, pntt, tt)
+        local x = GetLocationX(pntt)
+        local y = GetLocationY(pntt)
+        local z = GetLocationZ(pntt)
+        local floatingText = CreateTextTag()
+        SetTextTagTextBJ(floatingText, msg, 18)
+        SetTextTagPos(floatingText, x, y, z)
+        SetTextTagColor(floatingText, 255, 0, 0, 255)
+        SetTextTagPermanent(floatingText, false)
+        SetTextTagLifespan(floatingText, tt)
+        SetTextTagVelocity(floatingText, 0.0, 0.03)
+        SetTextTagVisibility(floatingText, true)
+    end
+
+    local n = time
 
     if (n < 1) then
         return
     end
 
-    while n == 0 do
-        MessageToAll(I2S(n))
-        CreateTextTagLocBJ( I2S(n) + "!", PolarProjectionBJ(point, GetRandomReal(0.00, 0.00), GetRandomReal(0, 0)), 0, 16.00, 100, 20, 20, 20 )
-        SetTextTagPermanentBJ( GetLastCreatedTextTag(), false )
-        SetTextTagLifespanBJ( GetLastCreatedTextTag(), 1.20 )
-        SetTextTagVelocityBJ( GetLastCreatedTextTag(), 32.00, 90.00 )
-        PolledWait( 1 )
+    textFunc(tostring(n) .. "!", point, 1.11)
+    
+    local timer = CreateTimer()
+    TimerStart(timer, 1.00, true, function()
         n = n - 1
-    end
+        if n < 1 then
+            DestroyTimer(timer)
+            return
+        end
+
+        textFunc(tostring(n) .. "!", point, 1.11)
+    end)
 end

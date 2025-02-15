@@ -47,6 +47,24 @@ function Knockback_AngledNoInterrupt(target, angle, force, collisionCallback)
     end)
 end
 
+function Knockback_Explosion_EnemyTargetable(caster, point, range, distance, damage)
+    units = GetUnitsInRange_EnemyTargetable(caster, point, range)
+
+    for i = 1, #units do
+        local u = units[i]
+        local unitPos = GetUnitLoc(u)
+        local angle = AngleBetweenPoints(point, unitPos)
+
+        Knockback_Angled(u, angle, distance)
+
+        if (damage > 0) then
+            CauseMagicDamage(caster, u, damage)
+        end
+
+        RemoveLocation(unitPos)
+    end
+end
+
 function Knockback_Explosion_EnemyGroundTargetable(caster, point, range, distance, damage)
     units = GetUnitsInRange_EnemyGroundTargetable(caster, point, range)
 

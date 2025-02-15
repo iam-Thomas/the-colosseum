@@ -144,8 +144,24 @@ function DefUnitGroups()
     udg_UnitLabelsArray[udg_UnitTypesN ] = "mrlm0"
 
     udg_UnitTypesN = udg_UnitTypesN + 1
+    udg_UnitTypesArray[udg_UnitTypesN ] = FourCC('n00S')
+    udg_UnitLabelsArray[udg_UnitTypesN ] = "mrlm1"
+
+    udg_UnitTypesN = udg_UnitTypesN + 1
+    udg_UnitTypesArray[udg_UnitTypesN ] = FourCC('n00R')
+    udg_UnitLabelsArray[udg_UnitTypesN ] = "mrlr0"
+
+    udg_UnitTypesN = udg_UnitTypesN + 1
+    udg_UnitTypesArray[udg_UnitTypesN ] = FourCC('n00T')
+    udg_UnitLabelsArray[udg_UnitTypesN ] = "mrlc0"
+
+    udg_UnitTypesN = udg_UnitTypesN + 1
     udg_UnitTypesArray[udg_UnitTypesN ] = FourCC('n00Q')
     udg_UnitLabelsArray[udg_UnitTypesN ] = "mrlb0"
+
+    udg_UnitTypesN = udg_UnitTypesN + 1
+    udg_UnitTypesArray[udg_UnitTypesN ] = FourCC('n00U')
+    udg_UnitLabelsArray[udg_UnitTypesN ] = "mrlb1"
 end
 
 function GetUnitTypeFromUnitString(unitString)

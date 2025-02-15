@@ -41,11 +41,13 @@ function AbilityTrigger_Mage_ArcaneRift_Actions()
         end
 
         -- damage
-        SetUnitX(storedTarget, GetLocationX(teleportLoc))
-        SetUnitY(storedTarget, GetLocationY(teleportLoc))
+        local calculatedLoc = GetUnitValidLoc(teleportLoc)
+        SetUnitX(storedTarget, GetLocationX(calculatedLoc))
+        SetUnitY(storedTarget, GetLocationY(calculatedLoc))
         CauseMagicDamage(caster, storedTarget, damage)
         CauseStun2s(caster, storedTarget)
         RemoveLocation(teleportLoc)
+        RemoveLocation(calculatedLoc)
 
         if touchCaster ~= nil then
             -- change the touch timer to 0.1 seconds after dealing damage to the target
