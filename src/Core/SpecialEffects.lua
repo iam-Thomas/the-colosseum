@@ -25,7 +25,7 @@ function CreateEffectOnUnitByBuff(attachPointName, unit, effect, buffcode)
     local sfx = GetLastCreatedEffectBJ()
     local timer = CreateTimer()
     TimerStart(timer, 0.12, true, function()
-        if not IsUnitAliveBJ(whichUnit) then
+        if not IsUnitAliveBJ(unit) then
             DestroyTimer(timer)
             DestroyEffect(sfx)
             return

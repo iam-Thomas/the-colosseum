@@ -17,7 +17,7 @@ function AbilityTrigger_Mage_TouchOfTheMagi_Actions()
     local initialDamage = 10.00 + (abilityLevel * 10.00)
 
     SaveUnitHandle(AbilityTrigger_Mage_TouchOfTheMagi_Hashtable, id, 0, caster)
-    SaveReal(AbilityTrigger_Mage_TouchOfTheMagi_Hashtable, id, 1, udg_ElapsedTime + 4.00)
+    SaveReal(AbilityTrigger_Mage_TouchOfTheMagi_Hashtable, id, 1, udg_ElapsedTime + 10.00)
     SaveReal(AbilityTrigger_Mage_TouchOfTheMagi_Hashtable, id, 2, initialDamage)
     
     local touchEffect = AddSpecialEffectTarget("Abilities\\Spells\\Other\\Drain\\ManaDrainTarget.mdl", target, "origin")
@@ -85,7 +85,7 @@ function AbilityTrigger_Mage_TouchOfTheMagi_Damaged_Actions()
     end
 
     local damage = GetEventDamage()
-    SaveReal(AbilityTrigger_Mage_TouchOfTheMagi_Hashtable, id, 1, udg_ElapsedTime + 4.00)
+    --SaveReal(AbilityTrigger_Mage_TouchOfTheMagi_Hashtable, id, 1, udg_ElapsedTime + 4.00)
     local storedDamage = LoadReal(AbilityTrigger_Mage_TouchOfTheMagi_Hashtable, id, 2)
-    SaveReal(AbilityTrigger_Mage_TouchOfTheMagi_Hashtable, id, 2, storedDamage + (damage * 0.5))
+    SaveReal(AbilityTrigger_Mage_TouchOfTheMagi_Hashtable, id, 2, storedDamage + (damage * 0.35))
 end

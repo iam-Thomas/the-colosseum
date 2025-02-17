@@ -21,7 +21,7 @@ function AbilityTrigger_Mage_ArcaneRift_Actions()
     local id = GetHandleId(caster)
 
     local abilityLevel = GetUnitAbilityLevel(caster, FourCC('A07M'))
-    local damage = 10.00 + (abilityLevel * 10.00)
+    local damage = 70.00 + (abilityLevel * 70.00)
     local storedTarget = LoadUnitHandle(AbilityTrigger_Mage_ArcaneRift_Hashtable, id, 0)
 
     if (storedTarget ~= nil) and (IsUnitAliveBJ(storedTarget)) then
@@ -45,7 +45,7 @@ function AbilityTrigger_Mage_ArcaneRift_Actions()
         SetUnitX(storedTarget, GetLocationX(calculatedLoc))
         SetUnitY(storedTarget, GetLocationY(calculatedLoc))
         CauseMagicDamage(caster, storedTarget, damage)
-        CauseStun2s(caster, storedTarget)
+        CauseStun3s(caster, storedTarget)
         RemoveLocation(teleportLoc)
         RemoveLocation(calculatedLoc)
 

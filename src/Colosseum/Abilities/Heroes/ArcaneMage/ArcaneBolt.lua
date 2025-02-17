@@ -10,7 +10,7 @@ function AbilityTrigger_Mage_ArcaneBolt_Actions()
     local casterLoc = GetUnitLoc(caster)
 
     local abilityLevel = GetUnitAbilityLevel(caster, FourCC('A07K'))
-    local damage = 80.00 + (55.00 * abilityLevel)
+    local damage = 45.00 + (45.00 * abilityLevel)
     
     FireHomingProjectile_PointToUnit(casterLoc, target, "war3mapImported\\s_ArcaneRocket Projectile.mdx", 1100, 0.07, function()
         CauseMagicDamage(caster, target, damage)

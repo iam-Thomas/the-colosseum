@@ -339,9 +339,12 @@ function GameLoop_SetGladiatorsStateToRest()
 
             for i = 1, 6 do
                 local item = UnitItemInSlotBJ(unit, i)
-                local id = GetItemTypeId(item)
-                -- ring of regen
-                if id == FourCC('I00K') then
+                local id = GetItemTypeId(item)                
+                if id == FourCC('I00K') then -- ring of regen
+                    regenFromItems = regenFromItems + 200
+                elseif id == FourCC('I00Y') then -- mask of death
+                    regenFromItems = regenFromItems + 150
+                elseif id == FourCC('I00Z') then -- helm of battlethirst
                     regenFromItems = regenFromItems + 200
                 end
             end

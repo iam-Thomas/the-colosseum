@@ -169,6 +169,10 @@ function ApplyManagedBuff_Predicate(target, abilityId, buffId, duration, effectA
 end
 
 function RemoveManagedManagedBuff(target, abilityId, buffId)
+    RemoveManagedBuff(target, abilityId, buffId)
+end
+
+function RemoveManagedBuff(target, abilityId, buffId)
     if GetUnitAbilityLevel(target, abilityId) < 1 then
         return
     end
@@ -178,7 +182,7 @@ function RemoveManagedManagedBuff(target, abilityId, buffId)
 end
 
 function FireProjectile_PointToPoint(startPoint, endPoint, model, speed, arcHeight, callback)
-    FireProjectile_PointHeightToPoint(startPoint, 50.00, endPoint, model, speed, arcHeight, callback)
+    return FireProjectile_PointHeightToPoint(startPoint, 50.00, endPoint, model, speed, arcHeight, callback)
 end
 
 function FireProjectile_PointHeightToPoint(startPoint, startHeight, endPoint, model, speed, arcHeight, callback)
@@ -217,6 +221,8 @@ function FireProjectile_PointHeightToPoint(startPoint, startHeight, endPoint, mo
             callback()
         end
     end)
+
+    return { projectileEffect = projectile }
 end
 
 function FireHomingProjectile_PointToUnit(startPoint, targetUnit, model, speed, arcHeight, callback)

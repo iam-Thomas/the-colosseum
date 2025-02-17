@@ -104,6 +104,11 @@
 
 
     // abilities core functions
+    "CauseNormalDamage": {
+        "body": "CauseNormalDamage(${1:whichSource}, ${2:whichTarget}, ${3:amount})",
+        "description": "CauseNormalDamage (unit whichSource, unit whichTarget, real amount)",
+        "prefix": "CauseNormalDamage"
+    },
     "CauseMagicDamage": {
         "body": "CauseMagicDamage(${1:whichSource}, ${2:whichTarget}, ${3:amount})",
         "description": "CauseMagicDamage (unit whichSource, unit whichTarget, real amount)",
@@ -140,10 +145,162 @@
         "description": "CauseStun1s (unit whichSource, unit whichTarget)",
         "prefix": "CauseStun1s"
     },
+    "CauseStun2s": {
+        "body": "CauseStun2s(${1:whichSource}, ${2:whichTarget})",
+        "description": "CauseStun2s (unit whichSource, unit whichTarget)",
+        "prefix": "CauseStun2s"
+    },
+    "CauseStun3s": {
+        "body": "CauseStun3s(${1:whichSource}, ${2:whichTarget})",
+        "description": "CauseStun3s (unit whichSource, unit whichTarget)",
+        "prefix": "CauseStun3s"
+    },
+    "CauseStun5s": {
+        "body": "CauseStun5s(${1:whichSource}, ${2:whichTarget})",
+        "description": "CauseStun5s (unit whichSource, unit whichTarget)",
+        "prefix": "CauseStun5s"
+    },
     "CastDummyAbilityOnTarget": {
         "body": "CastDummyAbilityOnTarget(${1:caster}, ${2:target}, ${3:abilityId}, ${4:abilityLevel}, ${5:orderString})",
         "description": "CastDummyAbilityOnTarget (unit caster, unit target, integer abilityId, integer level, string orderString)",
         "prefix": "CastDummyAbilityOnTarget"
+    },
+
+    // abilities common functions
+    "Knockback_Angled": {
+        "body": "Knockback_Angled(${1:target}, ${2:angle}, ${3:force}, function()\n\t${4:-- code}\nend)",
+        "description": "Knockback_Angled (unit target, real angle, real force, function collisionCallback)",
+        "prefix": "Knockback_Angled"
+    },
+    "Knockback_AngledNoInterrupt": {
+        "body": "Knockback_AngledNoInterrupt(${1:target}, ${2:angle}, ${3:force}, function()\n\t${4:-- code}\nend)",
+        "description": "Knockback_AngledNoInterrupt (unit target, real angle, real force, function collisionCallback)",
+        "prefix": "Knockback_AngledNoInterrupt"
+    },
+    "ApplyManagedBuff": {
+        "body": "ApplyManagedBuff(${1:target}, FourCC('${2:abilityId}'), FourCC('${3:buffId}'), ${4:duration}, \"${5:effectAttachmentPoint}\", \"${6:effect}\")",
+        "description": "ApplyManagedBuff (unit target, abilityId, buffId, duration, effectAttachmentPoint, effect)",
+        "prefix": "ApplyManagedBuff"
+    },
+    "ApplyManagedBuff_Magic": {
+        "body": "ApplyManagedBuff_Magic(${1:target}, FourCC('${2:abilityId}'), FourCC('${3:buffId}'), ${4:duration}, \"${5:effectAttachmentPoint}\", \"${6:effect}\")",
+        "description": "ApplyManagedBuff_Magic (unit target, abilityId, buffId, duration, effectAttachmentPoint, effect)",
+        "prefix": "ApplyManagedBuff_Magic"
+    },
+    "ApplyManagedBuff_MagicElusive": {
+        "body": "ApplyManagedBuff_MagicElusive(${1:target}, FourCC('${2:abilityId}'), FourCC('${3:buffId}'), ${4:duration}, \"${5:effectAttachmentPoint}\", \"${6:effect}\")",
+        "description": "ApplyManagedBuff_MagicElusive (unit target, abilityId, buffId, duration, effectAttachmentPoint, effect)",
+        "prefix": "ApplyManagedBuff_MagicElusive"
+    },
+
+    // abilities unit selection functions
+    "IsUnit_Targetable": {
+        "body": "IsUnit_Targetable(${1:target})",
+        "description": "IsUnit_Targetable (unit target)",
+        "prefix": "IsUnit_Targetable"
+    },
+    "IsUnit_TargetablePhysical": {
+        "body": "IsUnit_TargetablePhysical(${1:target})",
+        "description": "IsUnit_TargetablePhysical (unit target)",
+        "prefix": "IsUnit_TargetablePhysical"
+    },
+    "IsUnit_GroundTargetable": {
+        "body": "IsUnit_GroundTargetable(${1:target})",
+        "description": "IsUnit_GroundTargetable (unit target)",
+        "prefix": "IsUnit_GroundTargetable"
+    },
+    "IsUnit_EnemyTargetable": {
+        "body": "IsUnit_EnemyTargetable(${1:caster}, ${2:target})",
+        "description": "IsUnit_EnemyTargetable (unit caster, unit target)",
+        "prefix": "IsUnit_EnemyTargetable"
+    },
+    "IsUnit_EnemyGroundTargetable": {
+        "body": "IsUnit_EnemyGroundTargetable(${1:caster}, ${2:target})",
+        "description": "IsUnit_EnemyGroundTargetable (unit caster, unit target)",
+        "prefix": "IsUnit_EnemyGroundTargetable"
+    },
+    "IsUnit_EnemyTargetablePhysical": {
+        "body": "IsUnit_EnemyTargetablePhysical(${1:caster}, ${2:target})",
+        "description": "IsUnit_EnemyTargetablePhysical (unit caster, unit target)",
+        "prefix": "IsUnit_EnemyTargetablePhysical"
+    },
+    "IsUnit_ProjectileTargetable": {
+        "body": "IsUnit_ProjectileTargetable(${1:target})",
+        "description": "IsUnit_ProjectileTargetable (unit target)",
+        "prefix": "IsUnit_ProjectileTargetable"
+    },
+    "IsUnit_FriendlyTargetable": {
+        "body": "IsUnit_FriendlyTargetable(${1:caster}, ${2:target})",
+        "description": "IsUnit_FriendlyTargetable (unit caster, unit target)",
+        "prefix": "IsUnit_FriendlyTargetable"
+    },
+    "IsUnit_FriendlyGroundTargetable": {
+        "body": "IsUnit_FriendlyGroundTargetable(${1:caster}, ${2:target})",
+        "description": "IsUnit_FriendlyGroundTargetable (unit caster, unit target)",
+        "prefix": "IsUnit_FriendlyGroundTargetable"
+    },
+    "GetUnitsInRange_Targetable": {
+        "body": "GetUnitsInRange_Targetable(${1:caster}, ${1:point}, ${1:range})",
+        "description": "GetUnitsInRange_Targetable (unit caster, location point, real range)",
+        "prefix": "GetUnitsInRange_Targetable"
+    },
+    "GetUnitsInRange_GroundTargetable": {
+        "body": "GetUnitsInRange_GroundTargetable(${1:caster}, ${1:point}, ${1:range})",
+        "description": "GetUnitsInRange_GroundTargetable (caster, point, range)",
+        "prefix": "GetUnitsInRange_GroundTargetable"
+    },
+    "GetUnitsInRange_EnemyTargetable": {
+        "body": "GetUnitsInRange_EnemyTargetable(${1:caster}, ${1:point}, ${1:range})",
+        "description": "GetUnitsInRange_EnemyTargetable (caster, point, range)",
+        "prefix": "GetUnitsInRange_EnemyTargetable"
+    },
+    "GetUnitsInRange_EnemyTargetablePhysical": {
+        "body": "GetUnitsInRange_EnemyTargetablePhysical(${1:caster}, ${1:point}, ${1:range})",
+        "description": "GetUnitsInRange_EnemyTargetablePhysical (caster, point, range)",
+        "prefix": "GetUnitsInRange_EnemyTargetablePhysical"
+    },
+    "GetUnitsInRange_EnemyGroundTargetable": {
+        "body": "GetUnitsInRange_EnemyGroundTargetable(${1:caster}, ${1:point}, ${1:range})",
+        "description": "GetUnitsInRange_EnemyGroundTargetable (caster, point, range)",
+        "prefix": "GetUnitsInRange_EnemyGroundTargetable"
+    },
+    "GetUnitsInRange_FriendlyTargetable": {
+        "body": "GetUnitsInRange_FriendlyTargetable(${1:caster}, ${1:point}, ${1:range})",
+        "description": "GetUnitsInRange_FriendlyTargetable (caster, point, range)",
+        "prefix": "GetUnitsInRange_FriendlyTargetable"
+    },
+    "GetUnitsInRange_FriendlyGroundTargetable": {
+        "body": "GetUnitsInRange_FriendlyGroundTargetable(${1:caster}, ${1:point}, ${1:range})",
+        "description": "GetUnitsInRange_FriendlyGroundTargetable (caster, point, range)",
+        "prefix": "GetUnitsInRange_FriendlyGroundTargetable"
+    },
+
+    "GetClosestUnitInTableFromPoint_NotInGroup": {
+        "body": "GetClosestUnitInTableFromPoint_NotInGroup(${1:table}, ${1:point}, ${1:group})",
+        "description": "GetClosestUnitInTableFromPoint_NotInGroup (luaTable table, location point, unitGroup group)",
+        "prefix": "GetClosestUnitInTableFromPoint_NotInGroup"
+    },
+
+    // stat bonusses
+    "GrantTempArmor": {
+        "body": "GrantTempArmor(${1:unit}, ${2:amount}, ${3:duration})",
+        "description": "GrantTempArmor (unit unit, integer amount, real duration)",
+        "prefix": "GrantTempArmor"
+    },
+    "GrantTempArmorByBuff": {
+        "body": "GrantTempArmor(${1:unit}, ${2:amount}, FourCC('${3:buffId}'))",
+        "description": "GrantTempArmor (unit unit, integer amount, integer buffId)",
+        "prefix": "GrantTempArmor"
+    },
+    "GrantTempDamage": {
+        "body": "GrantTempDamage(${1:unit}, ${2:amount}, ${3:duration})",
+        "description": "GrantTempDamage (unit unit, integer amount, real duration)",
+        "prefix": "GrantTempDamage"
+    },
+    "GrantTempStr": {
+        "body": "GrantTempStr(${1:unit}, ${2:amount}, ${3:duration})",
+        "description": "GrantTempStr (unit unit, integer amount, real duration)",
+        "prefix": "GrantTempStr"
     },
 
     // Special effects
@@ -162,6 +319,90 @@
         "description": "CreateEffectOnUnitByBuff (string attachPointName, unit unit, string effect, integer buffId)",
         "prefix": "CreateEffectOnUnitByBuff"
     },
+    "DangerAreaAt": {
+        "body": "DangerAreaAt(${1:point}, ${2:time}, ${3:radius})",
+        "description": "DangerAreaAt (location point, real time, real radius)",
+        "prefix": "DangerAreaAt"
+    },
+    "DangerAreaAtUntimed": {
+        "body": "DangerAreaAtUntimed(${1:point}, ${3:radius})",
+        "description": "DangerAreaAtUntimed (location point, real radius)",
+        "prefix": "DangerAreaAtUntimed"
+    },
+    "DangerCountdownAt": {
+        "body": "DangerCountdownAt(${1:point}, ${2:time})",
+        "description": "DangerCountdownAt (location point, real time)",
+        "prefix": "DangerCountdownAt"
+    },
+
+    // Timed functions
+    "DelayedCallback": {
+        "body": "DelayedCallback(${1:delay}, function()\n\t${2:-- code}\nend)",
+        "description": "DelayedCallback (real delay, function callback)",
+        "prefix": "DelayedCallback"
+    },
+    "PeriodicCallback": {
+        "body": "PeriodicCallback(${1:point}, function()\n\t${2:-- code}\nend)",
+        "description": "PeriodicCallback (real interval, function callback)",
+        "prefix": "PeriodicCallback"
+    },
+
+    // Ordering
+    "OrderStop": {
+        "body": "OrderStop(${1:unit})",
+        "description": "OrderStop (unit unit)",
+        "prefix": "OrderStop"
+    },
+
+    // Unit states - keywords
+    "MakeVulnerable": {
+        "body": "MakeVulnerable(${1:unit}, ${2:t})",
+        "description": "MakeVulnerable (unit unit, real t)",
+        "prefix": "MakeVulnerable"
+    },
+    "MakeEmpowered": {
+        "body": "MakeEmpowered(${1:unit}, ${2:t})",
+        "description": "MakeEmpowered (unit unit, real t)",
+        "prefix": "MakeEmpowered"
+    },
+    "MakeElusive": {
+        "body": "MakeElusive(${1:unit}, ${2:t})",
+        "description": "MakeElusive (unit unit, real t)",
+        "prefix": "MakeElusive"
+    },
+    "IsUnitVulnerable": {
+        "body": "IsUnitVulnerable(${1:unit})",
+        "description": "IsUnitVulnerable (unit unit)",
+        "prefix": "IsUnitVulnerable"
+    },
+    "IsUnitEmpowered": {
+        "body": "IsUnitEmpowered(${1:unit})",
+        "description": "IsUnitEmpowered (unit unit)",
+        "prefix": "IsUnitEmpowered"
+    },
+    "IsUnitElusive": {
+        "body": "IsUnitElusive(${1:unit})",
+        "description": "IsUnitElusive (unit unit)",
+        "prefix": "IsUnitElusive"
+    },
+
+    // Damage type checks
+    "IsDamageType_Defensive": {
+        "body": "IsDamageType_Defensive(${1:damageType})",
+        "description": "IsDamageType_Defensive (integer damageType)",
+        "prefix": "IsDamageType_Defensive"
+    },
+    "IsDamageType_Physical": {
+        "body": "IsDamageType_Physical(${1:damageType})",
+        "description": "IsDamageType_Physical (integer damageType)",
+        "prefix": "IsDamageType_Physical"
+    },
+    "IsDamageType_Magic": {
+        "body": "IsDamageType_Magic(${1:damageType})",
+        "description": "IsDamageType_Magic (integer damageType)",
+        "prefix": "IsDamageType_Magic"
+    },
+
 
     // Blizzard functions sourced from: https://www.hiveworkshop.com/threads/lua-vscode-integration.314974/
     "bj_PI": {

@@ -89,6 +89,14 @@ function AddDamagedEventTrigger_CasterHasAbility(abilityId, abilityFunction)
     return trg
 end
 
+function AddDamagedEventTrigger_CasterHasItem(itemId, abilityFunction)
+    local trg = CreateTrigger()
+    TriggerAddAction(trg, abilityFunction)
+    TriggerAddCondition(trg , Condition(function() return UnitHasItemOfTypeBJ(GetEventDamageSource(), itemId) end))
+    TriggerRegisterAnyUnitEventBJ(trg , EVENT_PLAYER_UNIT_DAMAGED)
+    return trg
+end
+
 function AddDamagedEventTrigger_TargetHasAbility(abilityId, abilityFunction)
     local trg = CreateTrigger()
     TriggerAddAction(trg, abilityFunction)

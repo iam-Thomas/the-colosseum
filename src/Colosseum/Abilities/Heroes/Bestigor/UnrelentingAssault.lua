@@ -30,6 +30,9 @@ function AbilityTrigger_BEST_UnrelentingAssault_Actions()
 
         BlzSetEventDamage(damage + bonusDamage)
 
+        if UnitHasBuffBJ(caster, FourCC('B01A')) then
+            return
+        end
         SetUnitState(caster, UNIT_STATE_MANA, mana - manaToBurn)
     end
 end
