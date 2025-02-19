@@ -199,22 +199,22 @@ function GetUnitsInRange_EnemyGroundTargetable(caster, point, range)
 end
 
 function GetUnitsInRange_FriendlyTargetable(caster, point, range)
-local result = {}
-local group = GetUnitsInRangeOfLocAll(range, point)
-local nextUnit = FirstOfGroup(group)
-while (not (nextUnit == nil)) do
-    if (IsUnit_FriendlyTargetable(caster, nextUnit)) then
-        table.insert(result, nextUnit)
+    local result = {}
+    local group = GetUnitsInRangeOfLocAll(range, point)
+    local nextUnit = FirstOfGroup(group)
+    while (not (nextUnit == nil)) do
+        if (IsUnit_FriendlyTargetable(caster, nextUnit)) then
+            table.insert(result, nextUnit)
+        end
+        GroupRemoveUnit(group, nextUnit)
+        nextUnit = FirstOfGroup(group)
     end
-    GroupRemoveUnit(group, nextUnit)
-    nextUnit = FirstOfGroup(group)
-end
 
-DestroyGroup(group)
-group = nil
-nextUnit = nil
+    DestroyGroup(group)
+    group = nil
+    nextUnit = nil
 
-return result
+    return result
 end
 
 function GetUnitsInRange_FriendlyGroundTargetable(caster, point, range)
@@ -251,4 +251,23 @@ function GetClosestUnitInTableFromPoint_NotInGroup(table, point, group)
         end
     end
     return closestUnit
+end
+
+function GetUnitsInRange_Corpse(caster, point, range)
+    local result = {}
+    local group = GetUnitsInRangeOfLocAll(range, point)
+    local nextUnit = FirstOfGroup(group)
+    while (not (nextUnit == nil)) do
+        if (IsUnitType(nextUnit, UNIT_TYPE_DEAD)) then
+            table.insert(result, nextUnit)
+        end
+        GroupRemoveUnit(group, nextUnit)
+        nextUnit = FirstOfGroup(group)
+    end
+
+    DestroyGroup(group)
+    group = nil
+    nextUnit = nil
+
+    return result
 end

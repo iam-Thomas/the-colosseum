@@ -13,6 +13,7 @@ glIsInPhaseTransition = false
 
 glSquadSelectionZones = nil
 glSquadSelectionGroups = nil
+glSquadSelectionGroupRarityEffects = nil
 glBossSelectionZones = nil
 glBossSelectionGroups = nil
 --    PanCameraToTimedLocForPlayer(owner, loc, 0.0)
@@ -55,6 +56,10 @@ RegInit(function()
     glSquadSelectionGroups = {
         CreateGroup(), CreateGroup(), CreateGroup(),
         CreateGroup(), CreateGroup(), CreateGroup(),
+    }
+
+    glSquadSelectionGroupRarityEffects = {
+        nil, nil, nil, nil, nil, nil
     }
 
     glBossSelectionZones = {
@@ -284,7 +289,7 @@ function GameLoop_EndRound()
     ForForce(udg_GameMasterPlayers, function()
         local player = GetEnumPlayer()
         if state.IsTransitionFight then
-            GameBalanceTrigger_AddScaling(player, 0.80, 0.5, 0.5)
+            GameBalanceTrigger_AddScaling(player, 0.90, 0.7, 0.7)
         else
             GameBalanceTrigger_AddScaling(player, 0.10, 0.05, 0.05)
         end

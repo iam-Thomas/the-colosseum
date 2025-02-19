@@ -5,19 +5,15 @@ function GMSelections_PickRandomGroup(groups, callback)
     local subgroup = nil
     local rarity = 1
     if rand > 0.97 and (#groups.legendaries > 0) then
-        print("LEGENDARY!")
         subgroup = groups.legendaries
         rarity = 4
     elseif rand > 0.90 and (#groups.epics > 0) then
-        print("Epic!@")
         subgroup = groups.epics
         rarity = 3
     elseif rand > 0.50 and (#groups.rares > 0) then
-        print("Rare!")
         subgroup = groups.rares
         rarity = 2
     else
-        print("Common")
         subgroup = groups.commons
     end
 

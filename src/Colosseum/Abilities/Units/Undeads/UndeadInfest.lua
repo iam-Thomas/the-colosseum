@@ -15,5 +15,5 @@ function AbilityTrigger_Undead_Infest_Actions()
     local caster = GetEventDamageSource()
     local target = BlzGetEventDamageTarget()
 
-    AbilityFunction_Undead_InfestTarget(caster, target, 0.40)
+    AbilityFunction_Undead_InfestTarget(caster, target, 1.0)
 end

@@ -11,6 +11,11 @@ function AbilityTrigger_Generic_Energize_Damaging_Actions()
     end
 
     local caster = GetEventDamageSource()
+    local target = BlzGetEventDamageTarget()
+    if not IsUnitEnemy(caster, GetOwningPlayer(target)) then
+        return
+    end
+
     local mana = GetUnitState(caster, UNIT_STATE_MANA)
     SetUnitState(caster, UNIT_STATE_MANA, mana + 10)
 end

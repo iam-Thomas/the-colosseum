@@ -80,21 +80,38 @@ function GMSelections_CreateUnits()
             local point = GetRectCenter(glSquadSelectionZones[i])
             
             GMSelections_PickRandomGroup(GMCurrentPhase.groups, function(unitType, nOfType, rarity)
+                local rarityEffect = AddSpecialEffectLoc("buildings\\other\\CircleOfPower\\CircleOfPower.mdl", point)
+                if rarity == 4 then
+                    BlzSetSpecialEffectColor(rarityEffect, 255, 255, 0)
+                    BlzSetSpecialEffectAlpha(rarityEffect, 140)
+                    BlzSetSpecialEffectScale(rarityEffect, 2.8)
+                elseif rarity == 3 then
+                    BlzSetSpecialEffectColor(rarityEffect, 255, 40, 255)
+                    BlzSetSpecialEffectAlpha(rarityEffect, 110)
+                    BlzSetSpecialEffectScale(rarityEffect, 2.5)
+                elseif rarity == 2 then
+                    BlzSetSpecialEffectColor(rarityEffect, 135, 135, 255)
+                    BlzSetSpecialEffectAlpha(rarityEffect, 80)
+                    BlzSetSpecialEffectScale(rarityEffect, 2.3)
+                else
+                    BlzSetSpecialEffectColor(rarityEffect, 190, 255, 190)
+                    BlzSetSpecialEffectAlpha(rarityEffect, 70)
+                    BlzSetSpecialEffectScale(rarityEffect, 2.2)
+                end
+
+                local otherRaritySfx = glSquadSelectionGroupRarityEffects[i]
+                if otherRaritySfx ~= nil then
+                    DestroyEffect(otherRaritySfx)
+                    glSquadSelectionGroupRarityEffects[i] = nil
+                end
+
+                glSquadSelectionGroupRarityEffects[i] = rarityEffect
+
                 for j = 1, nOfType do
                     local unit = CreateUnitAtLoc(Player(27), unitType, point, 0)
                     GroupAddUnit(glSquadSelectionGroups[i], unit)
                     SetUnitInvulnerable(unit, true)
                     PauseUnit(unit, true)
-
-                    if rarity == 4 then
-                        SetUnitVertexColor(unit, 255, 255, 0, 255)
-                    elseif rarity == 3 then
-                        SetUnitVertexColor(unit, 255, 40, 255, 255)
-                    elseif rarity == 2 then
-                        SetUnitVertexColor(unit, 135, 135, 255, 255)
-                    else
-                        SetUnitVertexColor(unit, 190, 255, 190, 255)
-                    end
                 end
             end)
 
@@ -135,10 +152,16 @@ function GMSelections_ClearUnits()
     for i = 1, #glSquadSelectionGroups do
         local group = glSquadSelectionGroups[i]
         ForGroup(group, function()
-            local unit = GetEnumUnit()
+            local unit = GetEnumUnit()            
             GroupRemoveUnit(group, unit)
             RemoveUnit(unit)
         end)
+
+        local raritySfx = glSquadSelectionGroupRarityEffects[i]
+        if raritySfx ~= nil then
+            DestroyEffect(raritySfx)
+            glSquadSelectionGroupRarityEffects[i] = nil
+        end
     end
 end
 

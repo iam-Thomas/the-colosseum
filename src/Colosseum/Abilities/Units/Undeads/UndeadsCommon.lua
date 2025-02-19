@@ -7,7 +7,7 @@ end)
 function AbilityFunction_Undead_InfestTarget(caster, target, infestStrength)
     local id = GetHandleId(target)
 
-    ApplyManagedBuff_MagicElusive(target, FourCC('A04J'), FourCC('B00W'), 11.00, nil, nil)
+    ApplyManagedBuff_MagicElusive(target, FourCC('A04J'), FourCC('B00W'), 8.00, nil, nil)
 
     local storedCaster = LoadUnitHandle(AbilityTrigger_Undead_Infest_Hashtable, id, 0)
     if storedCaster == nil then

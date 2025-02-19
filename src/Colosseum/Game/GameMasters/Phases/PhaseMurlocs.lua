@@ -16,7 +16,7 @@ function GetPhaseMurlocs()
                 { { count = 2, unitString = "mrlc0" }, { count = 3, unitString = "mrlm0" } },
             },
             legendaries = {
-
+                
             },
         },
         bosses = {
