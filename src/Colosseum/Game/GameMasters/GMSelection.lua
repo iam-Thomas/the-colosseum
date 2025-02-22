@@ -58,6 +58,20 @@ function GMSelections_CreateTransitionUnits()
     end
 end
 
+function GMSelections_PickRandomTransitionUnit()
+    local selectTable = {}
+    for i = 1, #glBossSelectionGroups do
+        if CountUnitsInGroup(glBossSelectionGroups[i]) > 0 then
+            selectTable[i] = FirstOfGroup(glBossSelectionGroups[i])
+        end
+    end
+
+    local selectedIndeces = GMSelections_GetSelectRandomBossIndexArray(#selectTable, 1)
+    local selectedIndex = selectedIndeces[1]
+    local unitId = GetUnitTypeId(selectTable[selectedIndex])
+    GMSelections_SelectPhase(unitId)
+end
+
 function GMSelections_ClearAll()
     GMSelections_ClearUnits()
     DestroyImmuneEffects()

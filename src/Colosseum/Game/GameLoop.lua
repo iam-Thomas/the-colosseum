@@ -1,8 +1,6 @@
 glGameStartDelayDuration = 15.00
+glPhaseStartDelayDuration = 15.00
 glIntermissionDuration = 15.00
-
-glCountdownTimer = nil
-glCountdownTimerDialog = nil
 
 glStarted = false
 glIsInFight = false
@@ -18,9 +16,10 @@ glBossSelectionZones = nil
 glBossSelectionGroups = nil
 --    PanCameraToTimedLocForPlayer(owner, loc, 0.0)
 
-GameLoop_Trigger_InitialCountdown = nil
+--GameLoop_Trigger_InitialCountdown = nil
 GameLoop_SelectorUnits = {}
 GameLoop_SelectorUnits_CurrentIndex = 0
+GameLoop_HeroSelectorUnits = {}
 
 GameLoop_Gladiators_GoldOnGreed = 200
 GameLoop_Gladiators_GoldOnNeed = 100
@@ -30,6 +29,7 @@ GameLoop_GladiatorsGreedyness = {}
 RegInit(function()
     GameLoop_SelectorUnit_Hashtable = InitHashtable()
 
+    -- Create selection units
     local timer = CreateTimer()
     TimerStart(timer, 1.60, false, function()
         ForForce(udg_GameMasterPlayers, function()
@@ -40,11 +40,30 @@ RegInit(function()
             RemoveLocation(loc)
         end)
         DestroyTimer(timer)
+
+        ForForce(udg_GladiatorPlayers, function()
+            local player = GetEnumPlayer()
+            local loc = GetRectCenter(gg_rct_GladiatorHeroSelectWispSpawn)
+            local unit = CreateUnitAtLoc(player, FourCC('e000'), loc, 0)
+            table.insert(GameLoop_HeroSelectorUnits, unit)
+            RemoveLocation(loc)
+        end)
     end)    
 
-    GameLoop_Trigger_InitialCountdown = CreateTrigger()
-    TriggerAddAction(GameLoop_Trigger_InitialCountdown, GameLoop_InitialCountDownEnd)
-    TriggerRegisterTimerEventSingle(GameLoop_Trigger_InitialCountdown, glGameStartDelayDuration)
+    -- GameLoop_Trigger_InitialCountdown = CreateTrigger()
+    -- TriggerAddAction(GameLoop_Trigger_InitialCountdown, GameLoop_InitialCountDownEnd)
+    -- TriggerRegisterTimerEventSingle(GameLoop_Trigger_InitialCountdown, glPhaseStartDelayDuration)
+    local timer = CreateTimer()
+    TimerStart(timer, glGameStartDelayDuration, false, function()
+        DestroyTimer(timer)
+        GameLoop_InitialCountDownEnd()
+    end)
+
+    GameLoop_BeginIntermissionTimer("Next Fight: ", glIntermissionDuration, function()
+        return false
+    end, function()
+        GameLoop_BeginRound()
+    end)
 
     glSquadSelectionZones = {
         gg_rct_TechSelect1,
@@ -76,9 +95,7 @@ RegInit(function()
 end)
 
 function GameLoop_InitialCountDownEnd()
-    glCountdownTimer = CreateTimer()
-
-    --GMSelections_PhaseChange(GetPhaseBandits())
+    --Create a dummy phase to signal that the game masters have to select a phase
     GMCurrentPhase = {
         evaluateState = function(roundIndex, phaseRoundIndex)
             return {
@@ -99,6 +116,17 @@ function GameLoop_BeginRoundCountdown()
         GMSelections_ClearAll()
         GMSelections_CreateTransitionUnits()
         GameLoop_GrantSelectionsMana()
+
+        GameLoop_BeginIntermissionTimer("Next phase: ", glPhaseStartDelayDuration, function()
+            local evalState = GMCurrentPhase.evaluateState(glRoundIndex, glPhaseRoundIndex)
+            return not evalState.IsTransitionFight
+        end, function()
+            local evalState = GMCurrentPhase.evaluateState(glRoundIndex, glPhaseRoundIndex)
+            if evalState.IsTransitionFight then
+                GMSelections_PickRandomTransitionUnit()
+            end
+        end)
+
         return
     end
 
@@ -114,10 +142,11 @@ function GameLoop_BeginRoundCountdown()
         GMSelections_MakeBossGroupsInvulnerable()
     end
 
-    TimerStart(glCountdownTimer, glIntermissionDuration, false, GameLoop_BeginRound)
-    glCountdownTimerDialog = CreateTimerDialog(glCountdownTimer)
-    TimerDialogSetTitle(glCountdownTimerDialog, "Next Fight: ")
-    TimerDialogDisplay(glCountdownTimerDialog, true)
+    GameLoop_BeginIntermissionTimer("Next Fight: ", glIntermissionDuration, function()
+        return false
+    end, function()
+        GameLoop_BeginRound()
+    end)
 end
 
 function GameLoop_GrantSelectionsMana()
@@ -153,8 +182,6 @@ function GameLoop_RevokeSelectionsMana()
 end
 
 function GameLoop_BeginRound()
-    TimerDialogDisplay(glCountdownTimerDialog, false)
-
     glIsInFight = true
 
     GameLoop_SetGladiatorUnitsToFight()
