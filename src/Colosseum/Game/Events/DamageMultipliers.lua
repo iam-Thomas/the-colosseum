@@ -54,7 +54,7 @@ function CombatEventTrigger_Damage_Action()
         factor = GetUnitIntMultiplier(source)
     elseif (damageType == DAMAGE_TYPE_ENHANCED) then
         --print("DAMAGE_TYPE_ENHANCED")
-        factor = GetUnitIntMultiplier(source)
+        --factor = GetUnitIntMultiplier(source)
     elseif (damageType == DAMAGE_TYPE_SONIC) then
         --print("DAMAGE_TYPE_SONIC")
         factor = GetUnitIntMultiplier(source)

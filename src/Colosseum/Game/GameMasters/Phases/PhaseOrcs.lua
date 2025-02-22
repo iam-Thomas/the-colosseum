@@ -5,7 +5,7 @@ function GetPhaseHorde()
             commons = {
                 { { count = 3, unitString = "hordem0" } },
                 { { count = 2, unitString = "hordem1" } },
-                { { count = 2, unitString = "hordec0" }, { count = 1, unitString = "hordem0" } },
+                { { count = 1, unitString = "hordec0" }, { count = 2, unitString = "hordem0" } },
                 { { count = 1, unitString = "hordec1" }, { count = 2, unitString = "hordem0" } },
             },
             rares = {

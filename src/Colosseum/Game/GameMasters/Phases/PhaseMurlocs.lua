@@ -22,7 +22,7 @@ function GetPhaseMurlocs()
         bosses = {
             { { count = 1, unitString = "mrlb0" }, { count = 3, unitString = "mrlm0" } },
             { { count = 1, unitString = "mrlb1" } },
-            { { count = 2, unitString = "mrlm1" }, { count = 3, unitString = "mrlc0" } },
+            { { count = 1, unitString = "mrlb2" } },
         },
         followUp = {
             FourCC('o009'), -- Horde, kodo

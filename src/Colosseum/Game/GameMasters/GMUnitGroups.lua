@@ -166,6 +166,10 @@ function DefUnitGroups()
     udg_UnitTypesN = udg_UnitTypesN + 1
     udg_UnitTypesArray[udg_UnitTypesN ] = FourCC('n00U')
     udg_UnitLabelsArray[udg_UnitTypesN ] = "mrlb1"
+
+    udg_UnitTypesN = udg_UnitTypesN + 1
+    udg_UnitTypesArray[udg_UnitTypesN ] = FourCC('n00W')
+    udg_UnitLabelsArray[udg_UnitTypesN ] = "mrlb2"
 end
 
 function GetUnitTypeFromUnitString(unitString)

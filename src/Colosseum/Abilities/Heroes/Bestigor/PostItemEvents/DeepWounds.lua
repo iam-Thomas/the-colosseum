@@ -31,7 +31,7 @@ function AbilityTrigger_BEST_Deep_Wounds_Actions()
             local bleedValue = LoadReal(AbilityTrigger_BEST_Deep_Wounds_Hashtable, id, 1)
             local ticksRemain = LoadInteger(AbilityTrigger_BEST_Deep_Wounds_Hashtable, id, 2)
             
-            CauseNormalDamage(caster, target, bleedValue * 0.15)
+            CauseEnhancedDamage(caster, target, bleedValue * 0.15)
 
             if ticksRemain - 1 < 1 then
                 FlushChildHashtable(AbilityTrigger_BEST_Deep_Wounds_Hashtable, id)

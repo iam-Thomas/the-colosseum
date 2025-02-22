@@ -28,7 +28,7 @@ function ItemTrigger_SpellBlade_Damaging_Actions()
         return
     end
 
-    local damage = 100.00
+    local damage = 40.00
     RemoveManagedManagedBuff(caster, FourCC('A07F'), FourCC('B012'))
 
     local target = BlzGetEventDamageTarget()

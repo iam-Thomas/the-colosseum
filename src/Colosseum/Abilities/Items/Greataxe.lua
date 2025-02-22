@@ -5,12 +5,14 @@ RegInit(function()
 end)
 
 function ItemTrigger_Greataxe_Actions()
+    local caster = GetEventDamageSource()
     local isAttack = BlzGetEventIsAttack()
-    if not isAttack then
+
+    if (not isAttack) or (not IsUnitType(caster, UNIT_TYPE_MELEE_ATTACKER)) then
         return
     end
+
     
-    local caster = GetEventDamageSource()
     local target = BlzGetEventDamageTarget()
     local damage = GetEventDamage()
 
@@ -20,7 +22,7 @@ function ItemTrigger_Greataxe_Actions()
     
     for i = 1, #units do
         if units[i] ~= target then
-            CauseAttackDamage(caster, units[i], damage * 0.25)
+            CauseDefensiveDamage(caster, units[i], damage * 0.18)
         end
     end
 

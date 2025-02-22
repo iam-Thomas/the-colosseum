@@ -8,8 +8,7 @@ RegInit(function()
 end)
 
 function AbilityTrigger_BEST_UnrelentingAssault_Actions()
-    local isAttack = BlzGetEventIsAttack()
-    
+    local isAttack = BlzGetEventIsAttack()    
     if not isAttack then
         return
     end
@@ -17,13 +16,15 @@ function AbilityTrigger_BEST_UnrelentingAssault_Actions()
     local caster = GetEventDamageSource()
     local target = BlzGetEventDamageTarget()
     local abilityLevel = GetUnitAbilityLevel(caster, FourCC('A02U'))
+    local bonus_damage = GetHeroBonusDamageFromItems(caster)
+    print("bonus damage from items: " .. bonus_damage)
 
     if UnitHasBuffBJ(caster, FourCC('B00J')) then
         local mana = GetUnitState(caster, UNIT_STATE_MANA)
         local manaToBurn = math.min(20, mana)
         local bonusDamageManaFactor = (manaToBurn / 20)
         local baseDamage = 15.00 + (5.00 * abilityLevel)
-        local dmgFactor = 0.25 + (0.05 * abilityLevel)
+        local dmgFactor = 0.12 + (0.04 * abilityLevel)
 
         local damage = GetEventDamage()
         local bonusDamage = ((damage * dmgFactor) + baseDamage) * bonusDamageManaFactor

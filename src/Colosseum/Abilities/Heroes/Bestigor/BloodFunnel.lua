@@ -1,14 +1,14 @@
-AbilityTrigger_BEST_TasteOfBlood = nil
-AbilityTrigger_BEST_TasteOfBlood_Damaging = nil
-AbilityTrigger_BEST_TasteOfBlood_Damaged = nil
+AbilityTrigger_BEST_BloodFunnel = nil
+AbilityTrigger_BEST_BloodFunnel_Damaging = nil
+AbilityTrigger_BEST_BloodFunnel_Damaged = nil
 
 RegInit(function()
-    AbilityTrigger_BEST_TasteOfBlood = AddAbilityCastTrigger('A07N', AbilityTrigger_BEST_TasteOfBlood_Actions)
-    AbilityTrigger_BEST_TasteOfBlood_Damaging = AddDamagingEventTrigger_CasterHasAbility(FourCC('A07N'), AbilityTrigger_BEST_TasteOfBlood_Damaging_Actions)
-    AbilityTrigger_BEST_TasteOfBlood_Damaged = AddDamagedEventTrigger_CasterHasAbility(FourCC('A07N'), AbilityTrigger_BEST_TasteOfBlood_Damaged_Actions)
+    AbilityTrigger_BEST_BloodFunnel = AddAbilityCastTrigger('A07N', AbilityTrigger_BEST_BloodFunnel_Actions)
+    AbilityTrigger_BEST_BloodFunnel_Damaging = AddDamagingEventTrigger_CasterHasAbility(FourCC('A07N'), AbilityTrigger_BEST_BloodFunnel_Damaging_Actions)
+    AbilityTrigger_BEST_BloodFunnel_Damaged = AddDamagedEventTrigger_CasterHasAbility(FourCC('A07N'), AbilityTrigger_BEST_BloodFunnel_Damaged_Actions)
 end)
 
-function AbilityTrigger_BEST_TasteOfBlood_Actions()
+function AbilityTrigger_BEST_BloodFunnel_Actions()
     --A07O
     --B014
     local caster = GetSpellAbilityUnit()
@@ -28,14 +28,14 @@ function AbilityTrigger_BEST_TasteOfBlood_Actions()
     end)
 end
 
-function AbilityTrigger_BEST_TasteOfBlood_Damaging_Actions()
+function AbilityTrigger_BEST_BloodFunnel_Damaging_Actions()
     local isAttack = BlzGetEventIsAttack()    
     if isAttack then
         return
     end
 
     local damageType = BlzGetEventDamageType()
-    if damageType ~= DAMAGE_TYPE_NORMAL then
+    if damageType ~= DAMAGE_TYPE_ENHANCED then
         return
     end
     
@@ -52,14 +52,14 @@ function AbilityTrigger_BEST_TasteOfBlood_Damaging_Actions()
     BlzSetEventDamage(damage * factor + bonusDamage)
 end
 
-function AbilityTrigger_BEST_TasteOfBlood_Damaged_Actions()
+function AbilityTrigger_BEST_BloodFunnel_Damaged_Actions()
     local isAttack = BlzGetEventIsAttack()    
     if isAttack then
         return
     end
 
     local damageType = BlzGetEventDamageType()
-    if damageType ~= DAMAGE_TYPE_NORMAL then
+    if damageType ~= DAMAGE_TYPE_ENHANCED then
         return
     end
 

@@ -30,7 +30,6 @@ function AbilityTrigger_Shaman_HealingWave_Iterate(caster, currentUnit, n, baseH
     local loc = GetUnitLoc(currentUnit)
     -- Add the current unit to a group which should not be selected, so that the wave cannot bounce on the same unit
     local potentialTargets = GetUnitsInRange_FriendlyTargetable(caster, loc, 500.00)
-    print("potentional targets: " .. #potentialTargets)
     local target = GetClosestUnitInTableFromPoint_NotInGroup(potentialTargets, loc, group)
     if target == nil then
         return

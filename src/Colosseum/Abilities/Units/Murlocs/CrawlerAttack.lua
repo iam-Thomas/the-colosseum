@@ -31,8 +31,6 @@ function AbilityTrigger_Murloc_CrawlerAttack_Damaging_Victim_Actions()
         return
     end
 
-    print("Victim attacked")
-
     local caster = BlzGetEventDamageTarget()
     local mana = GetUnitState(caster, UNIT_STATE_MANA)
     SetUnitState(caster, UNIT_STATE_MANA, mana - 25)

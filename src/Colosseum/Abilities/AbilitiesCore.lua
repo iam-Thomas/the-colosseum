@@ -10,6 +10,14 @@ function CauseNormalDamage(caster, target, amount)
     UnitDamageTarget(caster, target, amount, false, true, ATTACK_TYPE_NORMAL, DAMAGE_TYPE_NORMAL, WEAPON_TYPE_WHOKNOWS)
 end
 
+function CausePhysicalDamage_Hero(caster, target, amount)
+    UnitDamageTarget(caster, target, amount, false, true, ATTACK_TYPE_HERO, DAMAGE_TYPE_NORMAL, WEAPON_TYPE_WHOKNOWS)
+end
+
+function CauseEnhancedDamage(caster, target, amount)
+    UnitDamageTarget(caster, target, amount, false, true, ATTACK_TYPE_NORMAL, DAMAGE_TYPE_ENHANCED, WEAPON_TYPE_WHOKNOWS)
+end
+
 function CauseForceDamage(caster, target, amount)
     UnitDamageTarget(caster, target, amount, false, true, ATTACK_TYPE_NORMAL, DAMAGE_TYPE_FORCE, WEAPON_TYPE_WHOKNOWS)
 end
@@ -36,13 +44,20 @@ function CauseHealUnscaled(caster, target, amount)
     if not IsUnitAliveBJ(target) then
         return
     end
+    
+    -- Slowed (frozen) units receive 33% less healing
+    local healAmount = amount
+    if UnitHasBuffBJ(target, FourCC('Bfro')) then
+        healAmount = healAmount * 0.67
+    end
 
     local lifeCurrent = GetUnitStateSwap(UNIT_STATE_LIFE, target)
-    SetUnitLifeBJ( target, ( lifeCurrent + (amount) ) )
+    SetUnitLifeBJ( target, ( lifeCurrent + (healAmount) ) )
 
-    if (amount < 1.00) then
+    if (healAmount < 1.00) then
         return
     end
+    
 
     local text = "+" .. math.floor(amount)
     local point = GetUnitLoc(target)

@@ -205,6 +205,8 @@ function FireProjectile_PointHeightToPoint(startPoint, startHeight, endPoint, mo
     -- BlzSetSpecialEffectPitch(projectile, 90.00)
     -- BlzSetSpecialEffectScale(projectile, 0.50)
 
+    local projectileData = { projectileEffect = projectile }
+
     local timer = CreateTimer()
     TimerStart(timer, tickRate, true, function()
         ticks = ticks + 1
@@ -217,12 +219,12 @@ function FireProjectile_PointHeightToPoint(startPoint, startHeight, endPoint, mo
 
         if ticks >= totalTicks then
             DestroyTimer(timer)
+            callback(projectileData)
             DestroyEffect(projectile)
-            callback()
         end
     end)
 
-    return { projectileEffect = projectile }
+    return projectileData
 end
 
 function FireHomingProjectile_PointToUnit(startPoint, targetUnit, model, speed, arcHeight, callback)
@@ -245,6 +247,9 @@ function FireHomingProjectile_PointToUnit_TimeLimit(startPoint, targetUnit, mode
     
     local currentPoint = Location(startX, startY)
     local totalTime = 0.00
+
+    local data = { projectileEffect = projectile }
+
     local timer = CreateTimer()
     TimerStart(timer, 0.03, true, function()
         totalTime = totalTime + 0.03
@@ -266,7 +271,7 @@ function FireHomingProjectile_PointToUnit_TimeLimit(startPoint, targetUnit, mode
             RemoveLocation(currentPoint)
             RemoveLocation(targetPoint)
             if not fizzled and totalTime <= timeLimit then
-                callback()
+                callback(data)
             end
 
             if fizzled then
@@ -301,7 +306,7 @@ function FireHomingProjectile_PointToUnit_TimeLimit(startPoint, targetUnit, mode
         RemoveLocation(targetPoint)
     end)
 
-    return { projectileEffect = projectile }
+    return data
 end
 
 function FireShockwaveProjectile(caster, startPoint, endPoint, model, speed, unitHitRange, unitCallback, periodicCallback)

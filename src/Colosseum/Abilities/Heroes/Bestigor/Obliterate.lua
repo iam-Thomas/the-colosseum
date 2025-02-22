@@ -32,9 +32,9 @@ function AbilityTrigger_BEST_Obliterate_Actions()
         local damage = GetEventDamage()
         bonusDamage = strength * 5.00
         BlzSetEventDamage(damage + bonusDamage)
-    AddSpecialEffectLocBJ(loc, "Abilities\\Spells\\NightElf\\BattleRoar\\RoarCaster.mdl")
-    udg_SFXDurationArg = 2
-    TriggerExecute(gg_trg_SFX_Cleanup)
+        AddSpecialEffectLocBJ(loc, "Abilities\\Spells\\NightElf\\BattleRoar\\RoarCaster.mdl")
+        udg_SFXDurationArg = 2
+        TriggerExecute(gg_trg_SFX_Cleanup)
         -- The buff should be removed here! But since the "Rage" ability needs to detected whether the caster has the buff, the buff is instead removed there!
         if (GetUnitAbilityLevel(GetAttackedUnitBJ(), FourCC('A02S') < 1)) then
             -- If for some (future) reason the caster does not have the rage ability, remove it here as a safeguard

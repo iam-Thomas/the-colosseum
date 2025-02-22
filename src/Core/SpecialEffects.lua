@@ -86,7 +86,7 @@ function DangerCountdownAt(point, time)
         return
     end
 
-    textFunc(tostring(n) .. "!", point, 1.11)
+    DangerTextAt(tostring(n) .. "!", point, 1.11, 1.0)
     
     local timer = CreateTimer()
     TimerStart(timer, 1.00, true, function()
@@ -98,4 +98,18 @@ function DangerCountdownAt(point, time)
 
         textFunc(tostring(n) .. "!", point, 1.11)
     end)
+end
+
+function DangerTextAt(message, point, time, scale)
+    local x = GetLocationX(point)
+    local y = GetLocationY(point)
+    local z = GetLocationZ(point)
+    local floatingText = CreateTextTag()
+    SetTextTagTextBJ(floatingText, message, math.floor((18 * scale) + 0.5))
+    SetTextTagPos(floatingText, x, y, z)
+    SetTextTagColor(floatingText, 255, 0, 0, 255)
+    SetTextTagPermanent(floatingText, false)
+    SetTextTagLifespan(floatingText, time)
+    SetTextTagVelocity(floatingText, 0.0, 0.03)
+    SetTextTagVisibility(floatingText, true)
 end
