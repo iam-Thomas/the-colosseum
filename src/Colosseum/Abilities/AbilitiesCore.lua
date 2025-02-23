@@ -103,16 +103,72 @@ function CauseStun5s(source, target)
     CastDummyAbilityOnTarget(source, target, FourCC('A03I'), 1, "thunderbolt")
 end
 
-function CastDummyAbilityOnTarget(caster, target, abilityId, level, orderString)
+function CastDummyAbilityOnTarget(caster, target, abilityId, level, orderString, dummyDuration)
+    if dummyDuration == nil then
+        dummyDuration = 2.00
+    end
     udg_DummyOwner = GetOwningPlayer(caster)
     local loc = GetUnitLoc(target)
     udg_DummyPoint = loc
     udg_DummySkill = abilityId
     udg_DummySkillLevel = level
-    udg_DummyDuration = 2.00
+    udg_DummyDuration = dummyDuration
     udg_DummyOrderString = orderString
     udg_DummyCastType = "unit"
     udg_DummyTargetUnit = target
+    ConditionalTriggerExecute( gg_trg_Dummy_Start )
+    RemoveLocation(loc)
+end
+
+function CastDummyAbilityFromPointOnTarget(owner, target, abilityId, level, orderString, dummyPoint, dummyDuration)
+    if dummyDuration == nil then
+        dummyDuration = 2.00
+    end
+    local loc = Location(GetLocationX(dummyPoint), GetLocationY(dummyPoint))
+    udg_DummyOwner = owner
+    udg_DummyPoint = loc
+    udg_DummySkill = abilityId
+    udg_DummySkillLevel = level
+    udg_DummyDuration = dummyDuration
+    udg_DummyOrderString = orderString
+    udg_DummyCastType = "unit"
+    udg_DummyTargetUnit = target
+    ConditionalTriggerExecute( gg_trg_Dummy_Start )
+    RemoveLocation(loc)
+end
+
+function CastDummyAbilityOnPoint(owner, targetPoint, abilityId, level, orderString, dummyPoint, dummyDuration)
+    if dummyDuration == nil then
+        dummyDuration = 2.00
+    end
+    local loc = Location(GetLocationX(dummyPoint), GetLocationY(dummyPoint))
+    local loc2 = Location(GetLocationX(targetPoint), GetLocationY(targetPoint))
+    udg_DummyOwner = owner
+    udg_DummyPoint = loc
+    udg_DummySkill = abilityId
+    udg_DummySkillLevel = level
+    udg_DummyDuration = dummyDuration
+    udg_DummyOrderString = orderString
+    udg_DummyCastType = "point"
+    udg_DummyTargetPoint = loc2
+    ConditionalTriggerExecute( gg_trg_Dummy_Start )
+    RemoveLocation(loc)
+    RemoveLocation(loc2)
+end
+
+function CastDummyAbilityOnItem(owner, item, abilityId, level, orderString, dummyPoint, dummyDuration)
+    if dummyDuration == nil then
+        dummyDuration = 2.00
+    end
+    local loc = Location(GetLocationX(dummyPoint), GetLocationY(dummyPoint))
+    udg_DummyOwner = owner
+    udg_DummyPoint = loc
+    udg_DummySkill = abilityId
+    udg_DummySkillLevel = level
+    udg_DummyDuration = dummyDuration
+    udg_DummyOrderString = orderString
+    udg_DummyCastType = "item"
+    udg_DummyTargetItem = item
     ConditionalTriggerExecute( gg_trg_Dummy_Start )
     RemoveLocation(loc)
 end

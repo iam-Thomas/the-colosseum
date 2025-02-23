@@ -181,11 +181,20 @@ function RemoveManagedBuff(target, abilityId, buffId)
     UnitRemoveBuffBJ(buffId, target)
 end
 
-function FireProjectile_PointToPoint(startPoint, endPoint, model, speed, arcHeight, callback)
-    return FireProjectile_PointHeightToPoint(startPoint, 50.00, endPoint, model, speed, arcHeight, callback)
+function FireProjectile_PointToPoint(startPoint, endPoint, model, speed, arcHeight, callback, startingPitch, pitchRotation)
+    return FireProjectile_PointHeightToPoint(startPoint, 50.00, endPoint, model, speed, arcHeight, callback, startingPitch, pitchRotation)
 end
 
-function FireProjectile_PointHeightToPoint(startPoint, startHeight, endPoint, model, speed, arcHeight, callback)
+--startingPitch of 0 => it starts at normal pitch
+--startingPitch of math.pi (180 degrees) => it starts upside down
+--startingPitch of math.pi/2 (90 degrees) => it starts halfway pitched looking up
+--startingPitch of (math.pi*3)/2 (270 degrees) => it starts halfwatch pitched looking down
+
+--pitchRotation of 0 => it does not move its pitch
+--pitchRotation of math.pi => it rotatates halfway around its axis (so from upside down back to rightside up)
+--pitchRotation of 2*math.pi => it does a full rotation (so from upside down a full circle to upside down again)
+--pitchRotation of 8*math.pi => it does a 4 full rotations, so looking as if its tumbling around
+function FireProjectile_PointHeightToPoint(startPoint, startHeight, endPoint, model, speed, arcHeight, callback, startingPitch, pitchRotation)
     local startX = GetLocationX(startPoint)
     local startY = GetLocationY(startPoint)
     local startZ = GetLocationZ(startPoint) + startHeight
@@ -201,11 +210,37 @@ function FireProjectile_PointHeightToPoint(startPoint, startHeight, endPoint, mo
     local totalTicks = duration / tickRate
 
     local projectile = AddSpecialEffect(model, startX, startY)
-    BlzSetSpecialEffectYaw(projectile, angle)
-    -- BlzSetSpecialEffectPitch(projectile, 90.00)
-    -- BlzSetSpecialEffectScale(projectile, 0.50)
+    BlzSetSpecialEffectPosition( projectile, startX, startY, startHeight )
 
     local projectileData = { projectileEffect = projectile }
+
+    if arcHeight == nil then
+        arcHeight = 0
+    end
+    if startHeight == nil then
+        startHeight = 0
+    end
+
+    if pitchRotation == nil then
+        --assumption: a projectile usually rotates from looking 45 degrees up to 90 degrees down, so a rotation of 135 degrees = (math.pi*2)/3
+        pitchRotation = (math.pi*2)/3
+    end
+    
+    local currentPitch = 0
+    if startingPitch == nil then
+        --assumption: a projectile usually starts looking 45 degrees up = math.pi/4
+        startingPitch = -(math.pi/4)
+        currentPitch = GetStartingPitch(startHeight, arcHeightReal, pitchRotation, startingPitch)
+    else
+        currentPitch = startingPitch
+    end
+
+    BlzSetSpecialEffectOrientation( projectile, angle, currentPitch, 0.0 )
+
+    local pitchIncrement = 0
+    if totalTicks > 0 then
+        pitchIncrement = (((startingPitch + pitchRotation) - currentPitch) / totalTicks)
+    end
 
     local timer = CreateTimer()
     TimerStart(timer, tickRate, true, function()
@@ -215,7 +250,12 @@ function FireProjectile_PointHeightToPoint(startPoint, startHeight, endPoint, mo
         local currentY = startY + (endY - startY) * progress
         local currentZ = startZ + (endZ - startZ) * progress + arcHeightReal * 4 * progress * (1 - progress) -- Parabolic arc
 
-        BlzSetSpecialEffectPosition(projectile, currentX, currentY, currentZ)
+        BlzSetSpecialEffectPosition( projectile, currentX, currentY, currentZ )
+
+        if (pitchIncrement > 0) then
+            currentPitch = currentPitch + pitchIncrement
+            BlzSetSpecialEffectOrientation( projectile, angle, currentPitch, 0.0 )
+        end
 
         if ticks >= totalTicks then
             DestroyTimer(timer)
@@ -225,6 +265,29 @@ function FireProjectile_PointHeightToPoint(startPoint, startHeight, endPoint, mo
     end)
 
     return projectileData
+end
+
+--startHeight = the height of the unit (usually 50)
+--arcHeightReal = the maximum height the projectile will get to during travel
+--pitchRotation = the amount of radians the projectile's pitch will rotate during its travel (usually math.pi)
+--startingPitch = the amount of radians the projectile starts pre-angled, which differs per model (usually 0)
+function GetStartingPitch(startHeight, arcHeightReal, pitchRotation, startingPitch)
+    --if startHeight is 0, the projectile starts at the regular staringPitch
+    --if the startHeight is 100, and the maximum height (arcHeightReal) is 200, it should start pre-pitched 25% of the way so startingPitch + 0.25*pitchRotation
+    --if the startHeight is 200, and the maximum height (arcHeightReal) is 200, it should start pre-pitched 50% of the way so startingPitch + 0.5*pitchRotation
+    --if the startHeight is 10000, and the maximum height (arcHeightReal) is 200, just keep it simple and stick to 50% pre-pitched maximum
+    local pitchRatio = startHeight / (arcHeightReal * 2)
+    local pitchRatio = math.min(0.5, pitchRatio)
+
+    return startingPitch + (pitchRotation * pitchRatio)
+end
+
+function FireProjectile_PointToPoint_NoPitch(startPoint, endPoint, model, speed, arcHeight, callback)
+    return FireProjectile_PointHeightToPoint(startPoint, 50.00, endPoint, model, speed, arcHeight, callback, 0, 0)
+end
+
+function FireProjectile_PointHeightToPoint_NoPitch(startPoint, startHeight, endPoint, model, speed, arcHeight, callback)
+    return FireProjectile_PointHeightToPoint(startPoint, startHeight, endPoint, model, speed, arcHeight, callback, 0, 0)
 end
 
 function FireHomingProjectile_PointToUnit(startPoint, targetUnit, model, speed, arcHeight, callback)
