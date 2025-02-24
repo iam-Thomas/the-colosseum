@@ -1,5 +1,5 @@
 glGameStartDelayDuration = 15.00
-glPhaseStartDelayDuration = 15.00
+glPhaseStartDelayDuration = 30.00
 glIntermissionDuration = 15.00
 
 glStarted = false
@@ -50,19 +50,10 @@ RegInit(function()
         end)
     end)    
 
-    -- GameLoop_Trigger_InitialCountdown = CreateTrigger()
-    -- TriggerAddAction(GameLoop_Trigger_InitialCountdown, GameLoop_InitialCountDownEnd)
-    -- TriggerRegisterTimerEventSingle(GameLoop_Trigger_InitialCountdown, glPhaseStartDelayDuration)
     local timer = CreateTimer()
     TimerStart(timer, glGameStartDelayDuration, false, function()
         DestroyTimer(timer)
         GameLoop_InitialCountDownEnd()
-    end)
-
-    GameLoop_BeginIntermissionTimer("Next Fight: ", glIntermissionDuration, function()
-        return false
-    end, function()
-        GameLoop_BeginRound()
     end)
 
     glSquadSelectionZones = {
@@ -113,7 +104,6 @@ function GameLoop_BeginRoundCountdown()
     if eval.IsTransitionFight then
         glIsInPhaseTransition = true
         -- Clear everything, create transition adds
-        GMSelections_ClearAll()
         GMSelections_CreateTransitionUnits()
         GameLoop_GrantSelectionsMana()
 
@@ -149,38 +139,6 @@ function GameLoop_BeginRoundCountdown()
     end)
 end
 
-function GameLoop_GrantSelectionsMana()
-    local nGameMasterPlayers = CountPlayersInForceBJ(udg_GameMasterPlayers)
-    local nManaToGrant = CountPlayersInForceBJ(udg_GladiatorPlayers)
-    local nManaLeftToGrant = nManaToGrant
-
-    -- First, set the mana of all units to 0
-    for i = 1, #GameLoop_SelectorUnits do
-        local unit = GameLoop_SelectorUnits[i]
-        SetUnitState(unit, UNIT_STATE_MANA, 0)
-    end
-
-    -- Then, grant mana to all units
-    while (nManaLeftToGrant > 0) do
-        local index = ModuloInteger(GameLoop_SelectorUnits_CurrentIndex, nGameMasterPlayers)
-        local unit = GameLoop_SelectorUnits[index + 1]
-
-        local mana = GetUnitState(unit, UNIT_STATE_MANA)
-        local targetMana = mana + 1
-        SetUnitState(unit, UNIT_STATE_MANA, targetMana)
-
-        GameLoop_SelectorUnits_CurrentIndex = GameLoop_SelectorUnits_CurrentIndex + 1
-        nManaLeftToGrant = nManaLeftToGrant - 1
-    end
-end
-
-function GameLoop_RevokeSelectionsMana()
-    for i = 1, #GameLoop_SelectorUnits do
-        local unit = GameLoop_SelectorUnits[i]
-        SetUnitState(unit, UNIT_STATE_MANA, 0)
-    end
-end
-
 function GameLoop_BeginRound()
     glIsInFight = true
 
@@ -193,107 +151,6 @@ function GameLoop_BeginRound()
     BattleRoyale_Begin()
     -- reset damage meter?
     DamageMeter_Reset()
-end
-
-function GameLoop_SpawnUnits()
-    -- if any mana remains, random groups will be selected.
-    for i = 1, #GameLoop_SelectorUnits do
-        local selectorUnit = GameLoop_SelectorUnits[i]
-        local manaRemain = GetUnitState(selectorUnit, UNIT_STATE_MANA)
-        local nGroups = math.floor(manaRemain + 0.5)
-
-        if nGroups > 0 then
-            for i = 1, nGroups do
-
-                local owner = GetOwningPlayer(selectorUnit)
-                GMSelections_PickRandomGroup_CommonRare(GMCurrentPhase.groups, function(unitType, nOfType, rarity)
-                    local playerId = GetPlayerId(owner)
-                    for i = 1, nOfType do
-                        table.insert(glPlayerSelections[playerId + 1], unitType)
-                    end
-                end)
-            end
-        end
-    end
-
-    -- spawn units
-    for i = 1, #glPlayerSelections do
-        local owner = Player(i - 1)
-        local unitIdList = glPlayerSelections[i]
-
-        for j = 1, #unitIdList do
-            local unitId = unitIdList[j]
-
-            local pointValue = GetUnitPointValueByType(unitId)
-            local pointString = tostring(pointValue)
-            local spawnChar = string.sub(pointString, -2, -2)
-
-            local spawnLoc = nil
-            if spawnChar == "1" then
-                spawnLoc = GetRandomLocInRect(gg_rct_KingOfTheHillNorthCenterRegion)
-            else
-                spawnLoc = GetRectCenter(gg_rct_KingOfTheHillGMStart)
-            end
-            
-            local unit = CreateUnitAtLoc(owner, unitId, spawnLoc, 0)
-            GroupAddUnit(udg_GameMasterUnits, unit)
-            RemoveLocation(spawnLoc)
-        end
-    end
-
-    local remainingManaSum = 0
-    for i = 1, #GameLoop_SelectorUnits do
-        local unit = GameLoop_SelectorUnits[i]
-        local manaRemain = GetUnitState(unit, UNIT_STATE_MANA)
-        remainingManaSum = remainingManaSum + math.floor(manaRemain + 0.5)
-    end
-end
-
-function GameLoop_SetGladiatorUnitsToFight()
-    ForGroup(udg_GladiatorHeroes, function()
-        local unit = GetEnumUnit()
-        SetUnitInvulnerable(unit, false)
-        UnitResetCooldown(unit)
-        SetUnitManaPercentBJ(unit, 100)
-    end)
-end
-
-function GameLoop_MoveGladiatorUnitsToArena()
-    local point = GetRectCenter(gg_rct_KingOfTheHillGladiatorStart)
-
-    ForGroup(udg_GladiatorHeroes, function()
-        local unit = GetEnumUnit()
-        local owner = GetOwningPlayer(unit)
-        local playerIndex = GetPlayerId(owner)
-        if (not IsUnitAliveBJ(unit)) then
-            return
-        end
-
-        if (RectContainsUnit(gg_rct_GladiatorGreedRegion, unit)) then                
-            GameLoop_GladiatorsGreedyness[playerIndex] = true
-        elseif (RectContainsUnit(gg_rct_GladiatorShopRegion, unit)) then
-            -- after the shop round, gladiators gain greed gold and are healed to full
-            GameLoop_GladiatorsGreedyness[playerIndex] = true
-            SetUnitLifePercentBJ(unit, 100)
-        else
-            GameLoop_GladiatorsGreedyness[playerIndex] = false
-            SetUnitLifePercentBJ(unit, 100)
-        end
-
-        SetUnitPositionLoc(unit, point)
-        PanCameraToTimedLocForPlayer(owner, point, 0.0)
-    end)
-
-    ForGroup(udg_GladiatorUnits, function()
-        local unit = GetEnumUnit()
-        if (not IsUnitAliveBJ(unit)) then
-            return
-        end
-
-        SetUnitPositionLoc(unit, point)
-    end)
-
-    RemoveLocation(point)
 end
 
 function GameLoop_GameMastersVictory()
@@ -335,93 +192,4 @@ function GameLoop_EndRound()
     
     BattleRoyale_End()
     ResolveRoundCooldown()
-end
-
-function GameLoop_SetGladiatorsStateToRest()
-    ForGroup(udg_GladiatorUnits, function()
-        local unit = GetEnumUnit()
-        if (not IsUnitAliveBJ(unit)) then
-            return
-        end
-
-        --SetUnitLifePercentBJ(unit, 100)
-    end)
-
-    ForGroup(udg_GladiatorHeroes, function()
-        local unit = GetEnumUnit()
-        local owner = GetOwningPlayer(unit)
-        local playerIndex = GetPlayerId(owner)
-        -- dont give xp if the unit is dead, it will bug out
-        if IsUnitAliveBJ(unit) then
-            -- if the hero died, the player will not be awarded gold.
-            local didGreed = GameLoop_GladiatorsGreedyness[playerIndex]
-            if (didGreed) then                
-                GameLoop_AddGoldToPlayer(owner, GameLoop_Gladiators_GoldOnGreed)
-            else
-                GameLoop_AddGoldToPlayer(owner, GameLoop_Gladiators_GoldOnNeed)
-            end
-
-            local currentLevel = GetHeroLevel(unit)
-            SetHeroLevel(unit, math.min(20, currentLevel + 1), true)
-            SetUnitInvulnerable(unit, true)
-            --SetUnitLifePercentBJ(unit, 100)
-            
-            local defaultRegen = 50
-            local regenFromItems = 0
-
-            for i = 1, 6 do
-                local item = UnitItemInSlotBJ(unit, i)
-                local id = GetItemTypeId(item)                
-                if id == FourCC('I00K') then -- ring of regen
-                    regenFromItems = regenFromItems + 200
-                elseif id == FourCC('I00Y') then -- mask of death
-                    regenFromItems = regenFromItems + 150
-                elseif id == FourCC('I00Z') then -- helm of battlethirst
-                    regenFromItems = regenFromItems + 200
-                end
-            end
-
-            local str = GetHeroStr(unit, true)
-            CauseHealUnscaled(unit, unit, defaultRegen + regenFromItems + (str * 3))
-        end
-    end)
-end
-
-function GameLoop_MoveGladiatorUnitsToRest()
-    local point = nil
-    local state = GMCurrentPhase.evaluateState(glRoundIndex, glPhaseRoundIndex)
-    if state.IsTransitionFight then
-        point = GetRectCenter(gg_rct_GladiatorShopRegion)
-    else
-        point = GetRectCenter(gg_rct_GladiatorDraftRegion)
-    end
-
-    ForGroup(udg_GladiatorUnits, function()
-        local unit = GetEnumUnit()
-        if (not IsUnitAliveBJ(unit)) then
-            return
-        end
-
-        SetUnitPositionLoc(unit, point)
-    end)
-
-    ForGroup(udg_GladiatorHeroes, function()
-        local unit = GetEnumUnit()
-        if (not IsUnitAliveBJ(unit)) then
-            ReviveHeroLoc(unit, point, true)
-            -- give xp, if the hero was dead, it was not given xp
-            local currentLevel = GetHeroLevel(unit)
-            SetHeroLevel(unit, math.min(20, currentLevel + 1), true)
-            SetUnitInvulnerable(unit, true)
-        else
-            SetUnitPositionLoc(unit, point)
-        end
-
-        local camLoc = GetUnitLoc(unit)
-        local owner = GetOwningPlayer(unit)
-        PanCameraToTimedLocForPlayer(owner, camLoc, 0.0)
-        RemoveLocation(camLoc)
-    end)
-
-    RemoveLocation(point)
 end

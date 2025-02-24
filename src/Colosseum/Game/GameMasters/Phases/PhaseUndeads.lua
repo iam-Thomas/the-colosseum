@@ -24,7 +24,7 @@ function GetPhaseUndeads()
         bosses = {
             { { count = 1, unitString = "udb0" } },
             { { count = 1, unitString = "udb1" } },
-            { { count = 1, unitString = "udb2" }, { count = 2, unitString = "udc1" } },
+            { { count = 1, unitString = "udb2" }, { count = 2, unitString = "udc0" } },
         },
         followUp = {
             FourCC('h00E'), -- bandits

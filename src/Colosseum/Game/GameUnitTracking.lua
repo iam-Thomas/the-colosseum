@@ -26,7 +26,12 @@ function GameUnitTracking_HeroSelection_Select()
     local unitType = GetUnitTypeId(target)
     local owner = GetOwningPlayer(caster)
     local playerId = GetPlayerId(owner)
-    local loc = GetRectCenter(gg_rct_GladiatorSpawnRegion)
+    local loc = nil
+    if glIsInFight then
+        loc = GetRectCenter(gg_rct_KingOfTheHillGladiatorStart)
+    else
+        loc = GetRectCenter(gg_rct_GladiatorSpawnRegion)
+    end
     --local unit = CreateUnitAtLoc(owner, unitType, loc, 0.00)
     local unit = CreateUnit(owner, unitType, GetLocationX(loc), GetLocationY(loc), 0.00)
     GroupAddUnit(udg_GladiatorHeroes, unit)

@@ -87,6 +87,10 @@ function CauseManaBurnUnscaled(target, amount)
     SetUnitManaBJ( target, ( manaCurrent - amount ) )
 end
 
+function CauseStunMini(source, target)
+    CastDummyAbilityOnTarget(source, target, FourCC('A08B'), 1, "thunderbolt")
+end
+
 function CauseStun1s(source, target)
     CastDummyAbilityOnTarget(source, target, FourCC('A01R'), 1, "thunderbolt")
 end

@@ -12,29 +12,32 @@ function AbilityTrigger_Sample_The_Rum_Actions()
     end
 
     local caster = GetSpellAbilityUnit()
-    local castPoint = GetUnitLoc(caster)
 
     SetUnitAnimationByIndexAfterDelay(caster, 17 , 0.05)
     
     CastDummyAbilityOnTarget(caster, caster, FourCC('A093'), 1, 'innerfire')
-  
-    local first = true
-    local animTimer = CreateTimer()
-    TimerStart(animTimer, 0.1, true, function()
 
-        if (first) then
-            AddUnitAnimationProperties(caster, "alternate", true)
-            first = false
-        end
-
-        if (not UnitHasBuffBJ(caster, FourCC('B01L'))) then
-            AddUnitAnimationProperties(caster, "false", true)
-            DestroyTimer(animTimer)
-        end
-    end)
-
-    RemoveUnit(target)
-
-    RemoveLocation(castPoint)
+    -- If the caster already has the buff, skip the timer
+    if (not UnitHasBuffBJ(caster, FourCC('B01L'))) then
+        AddUnitAnimationProperties(caster, "alternate", true)
     
+        local animTimer = CreateTimer()
+        local index = 0
+        TimerStart(animTimer, 0.1, true, function()
+            index = index + 1
+    
+            if (not UnitHasBuffBJ(caster, FourCC('B01L'))) then
+                AddUnitAnimationProperties(caster, "false", true)
+                DestroyTimer(animTimer)
+            end
+    
+            if index >= 10 then
+                CauseHeal(caster, target, 20)
+                index = 0
+            end
+        end)
+    end
+    
+    -- TODO: Check if removing the unit will work properly with gameloop triggers
+    RemoveUnit(target)
 end

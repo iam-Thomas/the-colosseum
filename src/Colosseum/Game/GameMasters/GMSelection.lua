@@ -19,7 +19,7 @@ RegInit(function()
     
     GMPhases = {
         { GetPhaseBandits(), GetPhaseMurlocs() },
-        { GetPhaseCreepers() },
+        { GetPhasePirates(), GetPhaseCreepers() },
         { GetPhaseHorde(), GetPhaseUndeads() },
         { GetPhaseHorde() },
     }    
@@ -38,6 +38,8 @@ function GMSelections_Create()
 end
 
 function GMSelections_CreateTransitionUnits()
+    GMSelections_ClearAll()
+
     local tindex = math.min(glPhaseIndex, #GMPhases)
 
     local factions = GMPhases[tindex]
@@ -62,13 +64,15 @@ function GMSelections_PickRandomTransitionUnit()
     local selectTable = {}
     for i = 1, #glBossSelectionGroups do
         if CountUnitsInGroup(glBossSelectionGroups[i]) > 0 then
-            selectTable[i] = FirstOfGroup(glBossSelectionGroups[i])
+            local unit = FirstOfGroup(glBossSelectionGroups[i])
+            table.insert(selectTable, FirstOfGroup(glBossSelectionGroups[i]))
         end
     end
 
     local selectedIndeces = GMSelections_GetSelectRandomBossIndexArray(#selectTable, 1)
     local selectedIndex = selectedIndeces[1]
-    local unitId = GetUnitTypeId(selectTable[selectedIndex])
+    local unit = selectTable[selectedIndex]
+    local unitId = GetUnitTypeId(unit)
     GMSelections_SelectPhase(unitId)
 end
 
@@ -166,10 +170,11 @@ function GMSelections_ClearUnits()
     for i = 1, #glSquadSelectionGroups do
         local group = glSquadSelectionGroups[i]
         ForGroup(group, function()
-            local unit = GetEnumUnit()            
-            GroupRemoveUnit(group, unit)
+            local unit = GetEnumUnit()
             RemoveUnit(unit)
         end)
+
+        GroupClear(group)
 
         local raritySfx = glSquadSelectionGroupRarityEffects[i]
         if raritySfx ~= nil then
@@ -180,12 +185,13 @@ function GMSelections_ClearUnits()
 end
 
 function GMSelections_ClearBosses()
-    for i = 1, #glBossSelectionGroups do
+    for i = 1, #glBossSelectionGroups do        
         ForGroup(glBossSelectionGroups[i], function()
             local unit = GetEnumUnit()
-            GroupRemoveUnit(group, unit)
             RemoveUnit(unit)
         end)
+
+        GroupClear(glBossSelectionGroups[i])
     end
 end
 
@@ -355,4 +361,64 @@ function GMSelections_MakeBossGroupsInvulnerable()
             --AddSpecialEffectTargetUnitBJ("chest", eUnit, "Abilities\\Spells\\Human\\DivineShield\\DivineShieldTarget.mdl")
         end)
     end    
+end
+
+function tableContainsInteger(tabl, int)
+    for i = 1, #tabl do
+        if tabl[i] == int then
+            return true
+        end
+    end
+    return false
+end
+
+function GMSelections_GetUniqueUnitTypeIdsFromPhase(phase)
+    local result = {}
+
+    function addAllFunction(targetTable, sourceTable)
+        for i = 1, #sourceTable do
+            if not tableContainsInteger(targetTable, sourceTable[i]) then
+                table.insert(targetTable, sourceTable[i])
+            end
+        end
+    end
+
+    local commonsIds = GMSelections_GetUniqueUnitTypeIdsFromGroups(phase.groups.commons)
+    addAllFunction(result, commonsIds)
+    local raresIds = GMSelections_GetUniqueUnitTypeIdsFromGroups(phase.groups.rares)
+    addAllFunction(result, raresIds)
+    local epicsIds = GMSelections_GetUniqueUnitTypeIdsFromGroups(phase.groups.epics)
+    addAllFunction(result, epicsIds)
+    local legendariesIds = GMSelections_GetUniqueUnitTypeIdsFromGroups(phase.groups.legendaries)
+    addAllFunction(result, legendariesIds)
+    local bossesIds = GMSelections_GetUniqueUnitTypeIdsFromGroups(phase.bosses)
+    addAllFunction(result, bossesIds)
+
+    return result
+end
+
+function GMSelections_GetUniqueUnitTypeIdsFromGroups(groups)
+    local result = {}
+
+    local tableContainsInteger = function(tabl, typeId)
+        for i = 1, #tabl do
+            if tabl[i] == typeId then
+                return true
+            end
+        end
+        return false
+    end
+
+    for i = 1, #groups do
+        local group = groups[i]
+        for j = 1, #group do
+            local unitString = group[j].unitString
+            local unitTypeId = GetUnitTypeFromUnitString(unitString)
+            if not tableContainsInteger(result, unitTypeId) then
+                table.insert(result, unitTypeId)
+            end
+        end
+    end
+
+    return result
 end

@@ -22,9 +22,7 @@ function AbilityTrigger_Barrel_Of_Royal_Rum_Dies_Actions()
             SetUnitState(units[i], UNIT_STATE_LIFE, 1)
         else 
             CauseMagicDamage_Fire(caster, units[i], 100)
-            -- should be mini-stun of 0.3 or so seconds --
-            CauseStun1s(caster, units[i])
+            CauseStunMini(caster, units[i])
         end
     end
-
 end

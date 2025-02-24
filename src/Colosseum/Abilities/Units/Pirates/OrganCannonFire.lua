@@ -46,15 +46,13 @@ function AbilityTrigger_Organ_Cannon_Fire_Actions()
         local animationIndex = 2 + cannonballModulo
         SetUnitAnimationByIndex( caster, animationIndex )
 
-        print("here")
-        PlaySoundAtPoint(CannonTowerMissileLaunch2, 100, inFrontPoint, 65)
-        print("here2")
+        --print(tostring(gg_snd_CannonTowerMissileLaunch2))
+        PlaySoundAtPointBJ(gg_snd_CannonTowerMissileLaunch2, 100, inFrontPoint, 65)
 
         FireShockwaveProjectile_SingleHit(caster, cannonballStartPoint[cannonballModulo], cannonballTargetPoint[cannonballModulo], "war3mapImported\\Cannonball.mdl", cannonballSpeed, 65, function(hitUnit, projectile)
     
             if( IsUnit_EnemyTargetablePhysical(caster, hitUnit)) then
-                -- should be mini-stun of 0.3 or so seconds --
-                CauseStun1s(caster, hitUnit)
+                CauseStunMini(caster, hitUnit)
                 if UnitHasBuffBJ(caster, FourCC('B018')) then
                     CauseNormalDamage(caster, hitUnit, damage*1.25)
                 else

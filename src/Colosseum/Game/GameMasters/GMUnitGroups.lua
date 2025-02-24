@@ -170,6 +170,39 @@ function DefUnitGroups()
     udg_UnitTypesN = udg_UnitTypesN + 1
     udg_UnitTypesArray[udg_UnitTypesN ] = FourCC('n00W')
     udg_UnitLabelsArray[udg_UnitTypesN ] = "mrlb2"
+
+    --pirates
+    udg_UnitTypesN = udg_UnitTypesN + 1
+    udg_UnitTypesArray[udg_UnitTypesN ] = FourCC('h013')
+    udg_UnitLabelsArray[udg_UnitTypesN ] = "piratem0"
+
+    udg_UnitTypesN = udg_UnitTypesN + 1
+    udg_UnitTypesArray[udg_UnitTypesN ] = FourCC('n00X')
+    udg_UnitLabelsArray[udg_UnitTypesN ] = "piratem1"
+    
+    udg_UnitTypesN = udg_UnitTypesN + 1
+    udg_UnitTypesArray[udg_UnitTypesN ] = FourCC('h015')
+    udg_UnitLabelsArray[udg_UnitTypesN ] = "pirater0"
+    
+    udg_UnitTypesN = udg_UnitTypesN + 1
+    udg_UnitTypesArray[udg_UnitTypesN ] = FourCC('h016')
+    udg_UnitLabelsArray[udg_UnitTypesN ] = "pirater1"
+    
+    udg_UnitTypesN = udg_UnitTypesN + 1
+    udg_UnitTypesArray[udg_UnitTypesN ] = FourCC('h014')
+    udg_UnitLabelsArray[udg_UnitTypesN ] = "piratec0"
+    
+    udg_UnitTypesN = udg_UnitTypesN + 1
+    udg_UnitTypesArray[udg_UnitTypesN ] = FourCC('n00Y')
+    udg_UnitLabelsArray[udg_UnitTypesN ] = "pirateb0"
+    
+    udg_UnitTypesN = udg_UnitTypesN + 1
+    udg_UnitTypesArray[udg_UnitTypesN ] = FourCC('u00C')
+    udg_UnitLabelsArray[udg_UnitTypesN ] = "pirateb1"
+    
+    udg_UnitTypesN = udg_UnitTypesN + 1
+    udg_UnitTypesArray[udg_UnitTypesN ] = FourCC('u00B')
+    udg_UnitLabelsArray[udg_UnitTypesN ] = "pirateb2"
 end
 
 function GetUnitTypeFromUnitString(unitString)

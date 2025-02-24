@@ -8,7 +8,7 @@ function AbilityTrigger_Diveby_Actions()
     local caster = GetSpellAbilityUnit()
     local casterLoc = GetUnitLoc(caster)
     local targetLoc = GetSpellTargetLoc()
-    local baseDamage = 150
+    local baseDamage = 70
     local angle = AngleBetweenPoints(casterLoc, targetLoc)
     local distance = DistanceBetweenPoints(casterLoc, targetLoc)
     local speed = 700

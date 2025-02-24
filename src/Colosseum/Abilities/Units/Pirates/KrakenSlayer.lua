@@ -9,7 +9,7 @@ function AbilityTrigger_Kraken_Slayer_Actions()
     local facing = GetUnitFacing(caster)
     local targetPoint = GetSpellTargetLoc()
     local casterPoint = GetUnitLoc(caster)
-    local startPoint = PolarProjectionBJ(casterPoint, 50, facing)
+    local startPoint = PolarProjectionBJ(casterPoint, 70, facing)
     local flyingHeight = GetUnitFlyHeight(caster)
     local startingPitch = -(math.pi/2)
     local pitchRotation = (3*math.pi)/2 + startingPitch - 0.05
@@ -21,7 +21,9 @@ function AbilityTrigger_Kraken_Slayer_Actions()
     local distance = DistanceBetweenPoints(targetPoint, startPoint)
     local speed = ((distance/maximumCastRange) * (maximumSpeed - minimumSpeed)) + minimumSpeed
 
+    local dangerEffect = DangerAreaAtUntimed(projectileTargetLoc, 250)
     local afterProjectile = FireProjectile_PointHeightToPoint(startPoint, flyingHeight, targetPoint, "Abilities\\Weapons\\Mortar\\MortarMissile.mdl", speed, 0.6, function(projectileData)
+        DestroyEffect(dangerEffect)
 
         local effect = projectileData.projectileEffect
         BlzSetSpecialEffectScale(effect, 1.7);

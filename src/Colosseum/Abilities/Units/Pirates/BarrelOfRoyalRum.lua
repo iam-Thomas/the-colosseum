@@ -27,9 +27,4 @@ function AbilityTrigger_Barrel_Of_Royal_Rum_Actions()
         RemoveLocation(targetPoint)
         RemoveLocation(startPoint)
     end)
-
-
-    -- local effect = projectile.projectileEffect --
-    -- BlzSetSpecialEffectScale(effect, 1); --
-
 end
