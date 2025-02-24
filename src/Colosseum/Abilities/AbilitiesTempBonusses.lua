@@ -151,6 +151,35 @@ function GrantTempDamage_Callback()
     DestroyTimer(timer)
 end
 
+function GrantTempDamageByBuff(unit, amount, buffId)
+    local n = math.ceil(amount)
+    local timer = CreateTimer()
+    local timerId = GetHandleId(timer)    
+    local unitId = GetHandleId(unit)
+
+    local currentBonus = LoadInteger(AbilitiesStatBonusses_HT, unitId, KEYS_STAT_DAMAGE)
+    local targetBonus = currentBonus + n
+
+    SaveUnitHandle(udg_TimerHashtable, timerId, 0, unit)
+    SaveInteger(udg_TimerHashtable, timerId, 1, n)
+
+    SaveInteger(AbilitiesStatBonusses_HT, unitId, KEYS_STAT_DAMAGE, targetBonus)
+
+    GrantTempDamage_Apply(unit)
+
+    TimerStart(timer, 0.2, true, function()
+        if UnitHasBuffBJ(unit, buffId) then
+            return
+        end
+
+        local cbCurrentBonus = LoadInteger(AbilitiesStatBonusses_HT, unitId, KEYS_STAT_DAMAGE)
+        local cbTargetBonus = cbCurrentBonus - amount
+        SaveInteger(AbilitiesStatBonusses_HT, unitId, KEYS_STAT_DAMAGE, cbTargetBonus)
+        GrantTempDamage_Apply(unit)
+        DestroyTimer(timer)
+    end)
+end
+
 function GrantTempDamage_Apply(unit)
     local unitId = GetHandleId(unit)
     local bonus = LoadInteger(AbilitiesStatBonusses_HT, unitId, KEYS_STAT_DAMAGE)

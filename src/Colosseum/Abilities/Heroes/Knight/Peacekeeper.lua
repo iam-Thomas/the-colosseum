@@ -1,10 +1,10 @@
-AbilityTrigger_Knight_Strike = nil
+AbilityTrigger_Knight_Peacekeerp = nil
 
 RegInit(function()
-    AbilityTrigger_Knight_Strike = AddAbilityCastTrigger('A08J', AbilityTrigger_Knight_Strike_Actions)
+    AbilityTrigger_Knight_Peacekeerp = AddAbilityCastTrigger('A08J', AbilityTrigger_Knight_Peacekeerp_Actions)
 end)
 
-function AbilityTrigger_Knight_Strike_Actions()
+function AbilityTrigger_Knight_Peacekeerp_Actions()
     local caster = GetSpellAbilityUnit()
 
     local baseDamage = BlzGetUnitBaseDamage(caster, 0)
@@ -12,18 +12,18 @@ function AbilityTrigger_Knight_Strike_Actions()
 
     local damage = (baseDamage + bonusDamage) * 1.6
 
-    AbilityTrigger_Knight_Strike_AoEDamage(caster, damage)
+    AbilityTrigger_Knight_Peacekeerp_AoEDamage(caster, damage)
 
     local timer = CreateTimer()
     TimerStart(timer, 0.36, false, function()
         if GetUnitCurrentOrder(caster) == String2OrderIdBJ("thunderbolt") then
-            AbilityTrigger_Knight_Strike_AoEDamage(caster, damage)
+            AbilityTrigger_Knight_Peacekeerp_AoEDamage(caster, damage)
         end        
         DestroyTimer(timer)
     end)
 end
 
-function AbilityTrigger_Knight_Strike_AoEDamage(caster, damage)
+function AbilityTrigger_Knight_Peacekeerp_AoEDamage(caster, damage)
     local angle = GetUnitFacing(caster)
     local casterLoc = GetUnitLoc(caster)
     local aoeLoc = PolarProjectionBJ(casterLoc, 120, angle)

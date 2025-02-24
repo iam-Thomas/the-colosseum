@@ -13,13 +13,28 @@ function GetHeroBonusDamageFromItems(hero)
                 local str = BlzGetAbilityStringField(ability, ABILITY_SF_NAME)
                 local rss = string.find(str, "Damage")
                 if rss ~= nil then
-                    local bonusDamage = BlzGetAbilityIntegerLevelField(ability, ABILITY_ILF_MAX_MANA_GAINED, 0)
+                    local bonusDamage = BlzGetAbilityIntegerLevelField(ability, ABILITY_ILF_ATTACK_BONUS, 0)
                     result = result + bonusDamage
                 end
                 
             end
         end        
     end
+
+    local kLevel = GetUnitAbilityLevel(hero, FourCC('A02K'))
+    local abil = BlzGetUnitAbility(hero, FourCC('A02K'))
+    local bonusFromTempStats = BlzGetAbilityIntegerLevelField(abil, ABILITY_ILF_ATTACK_BONUS, kLevel - 1)
+    result = result + bonusFromTempStats
+    
+    kLevel = GetUnitAbilityLevel(hero, FourCC('A02L'))
+    abil = BlzGetUnitAbility(hero, FourCC('A02L'))
+    bonusFromTempStats = BlzGetAbilityIntegerLevelField(abil, ABILITY_ILF_ATTACK_BONUS, kLevel - 1)
+    result = result + bonusFromTempStats
+    
+    kLevel = GetUnitAbilityLevel(hero, FourCC('A02M'))
+    abil = BlzGetUnitAbility(hero, FourCC('A02M'))
+    bonusFromTempStats = BlzGetAbilityIntegerLevelField(abil, ABILITY_ILF_ATTACK_BONUS, kLevel - 1)
+    result = result + bonusFromTempStats
 
     return result
 end

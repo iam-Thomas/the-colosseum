@@ -2,7 +2,6 @@ ItemTrigger_CloakOfFlames = nil
 
 RegInit(function()
     ItemTrigger_CloakOfFlames = AddItemTrigger_Periodic(FourCC('I008'), 1.0, ItemTrigger_CloakOfFlames_Actions)
-    ItemTrigger_CloakOfFlames_Damaging = AddDamagingEventTrigger_TargetHasItem(FourCC('I008'), ItemTrigger_CloakOfFlames_Damaging_Actions)
 end)
 
 function ItemTrigger_CloakOfFlames_Actions(hero)
@@ -17,16 +16,4 @@ function ItemTrigger_CloakOfFlames_Actions(hero)
     end
 end
 
-function ItemTrigger_CloakOfFlames_Damaging_Actions()
-    local isAttack = BlzGetEventIsAttack()    
-    if isAttack then
-        return
-    end
-
-    local damageType = BlzGetEventDamageType()
-    if damageType == DAMAGE_TYPE_DEFENSIVE then
-        return
-    end
-
-    BlzSetEventDamage(GetEventDamage() * 0.75)
-end
+-- magic damage reduction trigger handled in Common.MagicDamageResist.lua

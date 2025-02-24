@@ -88,23 +88,37 @@ function CauseManaBurnUnscaled(target, amount)
 end
 
 function CauseStunMini(source, target)
-    CastDummyAbilityOnTarget(source, target, FourCC('A08B'), 1, "thunderbolt")
+    CauseStunByAbility(source, target, FourCC('A08B'))
 end
 
 function CauseStun1s(source, target)
-    CastDummyAbilityOnTarget(source, target, FourCC('A01R'), 1, "thunderbolt")
+    CauseStunByAbility(source, target, FourCC('A01R'))
 end
 
 function CauseStun2s(source, target)
-    CastDummyAbilityOnTarget(source, target, FourCC('A065'), 1, "thunderbolt")
+    CauseStunByAbility(source, target, FourCC('A065'))
 end
 
 function CauseStun3s(source, target)
-    CastDummyAbilityOnTarget(source, target, FourCC('A048'), 1, "thunderbolt")
+    CauseStunByAbility(source, target, FourCC('A048'))
 end
 
 function CauseStun5s(source, target)
-    CastDummyAbilityOnTarget(source, target, FourCC('A03I'), 1, "thunderbolt")
+    CauseStunByAbility(source, target, FourCC('A03I'))
+end
+
+function CauseStun10s(source, target)
+    CauseStunByAbility(source, target, FourCC('A01I'))
+end
+
+function CauseStunByAbility(source, target, abilityId)
+    if IsUnitTenacious(target) then
+        return
+    end
+    if ItemFunction_MedallionOfTenacity_Function(source, target) then
+        return
+    end
+    CastDummyAbilityOnTarget(source, target, abilityId, 1, "thunderbolt")
 end
 
 function CastDummyAbilityOnTarget(caster, target, abilityId, level, orderString, dummyDuration)

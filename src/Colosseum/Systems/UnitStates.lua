@@ -38,6 +38,28 @@ function MakeElusive(unit, t)
     end
 end
 
+function MakeTenacious(unit, t)
+    local hasBuff = false
+    if UnitHasBuffBJ(unit, FourCC('B01O')) then
+        hasBuff = true
+    end
+
+    ApplyManagedBuff(unit, FourCC('S007'), FourCC('B01O'), t, nil, nil)
+    CreateEffectOnUnit("origin", unit, "Abilities\\Spells\\Items\\AIda\\AIdaCaster.mdl", 3.0)
+
+    if (UnitHasBuffBJ(unit, FourCC('BSTN'))) then
+        UnitRemoveBuffBJ(FourCC('BSTN'), unit)
+    end
+
+    if UnitHasBuffBJ(unit, FourCC('BPSE')) then
+        UnitRemoveBuffBJ(FourCC('BPSE'), unit)
+    end
+
+    if not hasBuff then
+        CreateEffectOnUnitByBuff("overhead", unit, "Abilities\\Spells\\Items\\AIda\\AIdaTarget.mdl", FourCC('B01O'))
+    end
+end
+
 function IsUnitVulnerable(unit)
     return UnitHasBuffBJ(unit, FourCC('B01D'))
 end
@@ -48,6 +70,10 @@ end
 
 function IsUnitElusive(unit)
     return UnitHasBuffBJ(unit, FourCC('B01C'))
+end
+
+function IsUnitTenacious(unit)
+    return UnitHasBuffBJ(unit, FourCC('B01O'))
 end
 
 StatusTrigger_Fear = nil
