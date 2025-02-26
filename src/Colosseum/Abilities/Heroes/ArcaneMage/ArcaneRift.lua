@@ -42,8 +42,10 @@ function AbilityTrigger_Mage_ArcaneRift_Actions()
 
         -- damage
         local calculatedLoc = GetUnitValidLoc(teleportLoc)
-        SetUnitX(storedTarget, GetLocationX(calculatedLoc))
-        SetUnitY(storedTarget, GetLocationY(calculatedLoc))
+        if GetUnitDefaultMoveSpeed(storedTarget) > 1.0 then
+            SetUnitX(storedTarget, GetLocationX(calculatedLoc))
+            SetUnitY(storedTarget, GetLocationY(calculatedLoc))
+        end
         CauseMagicDamage(caster, storedTarget, damage)
         CauseStun3s(caster, storedTarget)
         RemoveLocation(teleportLoc)

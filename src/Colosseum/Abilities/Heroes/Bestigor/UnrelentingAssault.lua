@@ -16,7 +16,6 @@ function AbilityTrigger_BEST_UnrelentingAssault_Actions()
     local caster = GetEventDamageSource()
     local target = BlzGetEventDamageTarget()
     local abilityLevel = GetUnitAbilityLevel(caster, FourCC('A02U'))
-    local bonus_damage = GetHeroBonusDamageFromItems(caster)
 
     if UnitHasBuffBJ(caster, FourCC('B00J')) then
         local mana = GetUnitState(caster, UNIT_STATE_MANA)

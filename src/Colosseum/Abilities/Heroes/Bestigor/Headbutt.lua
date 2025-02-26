@@ -9,13 +9,27 @@ function AbilityTrigger_BEST_Headbutt_Actions()
     local casterLoc = GetUnitLoc(caster)
     local targetLoc = GetSpellTargetLoc()
     local strength = GetHeroStr(caster, true)
-    local baseDamage = strength * 0.75
+    local strengthFactor = 0.75
+    if IsUnitTenacious(caster) then
+        strengthFactor = strengthFactor * 2.25
+        -- local cdTimer = CreateTimer()
+        -- TimerStart(cdTimer, 0.1, false, function()
+        --     BlzStartUnitAbilityCooldown(caster, FourCC('A02J'), 1, 4.0)
+        --     DestroyTimer(cdTimer)
+        -- end)
+    end
+    local cdTimer = CreateTimer()
+    TimerStart(cdTimer, 0.1, false, function()
+        BlzStartUnitAbilityCooldown(caster, FourCC('A02J'), 1, 8.0)
+        DestroyTimer(cdTimer)
+    end)
+    local baseDamage = strength * strengthFactor
     local angle = AngleBetweenPoints(casterLoc, targetLoc)
     local distance = DistanceBetweenPoints(casterLoc, targetLoc)
     local speed = 700
     local maxTime = 1.1
     distance = math.min(distance, speed * maxTime)
-    maxTime = distance / speed
+    maxTime = distance / speed    
 
     local shockwaveEffect = AddSpecialEffectTarget("Abilities\\Spells\\Orc\\Shockwave\\ShockwaveMissile.mdl", caster, "origin")
     BlzSetSpecialEffectAlpha(shockwaveEffect, 80)

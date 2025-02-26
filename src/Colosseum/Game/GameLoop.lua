@@ -141,7 +141,7 @@ end
 
 function GameLoop_BeginRound()
     glIsInFight = true
-
+    
     GameLoop_SetGladiatorUnitsToFight()
     GameLoop_MoveGladiatorUnitsToArena()
     GameLoop_SpawnUnits()
@@ -173,7 +173,7 @@ function GameLoop_EndRound()
     ForForce(udg_GameMasterPlayers, function()
         local player = GetEnumPlayer()
         if state.IsTransitionFight then
-            GameBalanceTrigger_AddScaling(player, 0.90, 0.7, 0.7)
+            GameBalanceTrigger_AddScaling(player, 0.70, 0.5, 0.5)
         else
             GameBalanceTrigger_AddScaling(player, 0.10, 0.05, 0.05)
         end

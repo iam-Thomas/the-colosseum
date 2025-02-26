@@ -70,7 +70,11 @@ function AbilityTrigger_BEST_BloodFunnel_Damaged_Actions()
 
     local projectile = FireHomingProjectile_PointToUnit(targetLoc, caster, "war3mapImported\\Windwalk Blood.mdl", 300.00, 0.11, function()
         RemoveLocation(targetLoc)
-        CauseHealUnscaled(caster, caster, damage * 0.40)
+        local healFactor = 1.0
+        if UnitHasBuffBJ(caster, FourCC('B01A')) then
+            healFactor = 3.0
+        end
+        CauseHealUnscaled(caster, caster, damage * 0.40 * healFactor)
     end)
 
     local effect = projectile.projectileEffect

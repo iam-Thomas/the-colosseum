@@ -17,7 +17,7 @@ function GetPhasePirates()
             epics = {
                 { { count = 3, unitString = "pirater0" } },
                 { { count = 2, unitString = "pirater1" } },
-                { { count = 2, unitString = "pirater0" }, { count = 3, unitString = "piratem1" } },
+                { { count = 2, unitString = "pirater0" }, { count = 3, unitString = "piratem0" } },
                 { { count = 2, unitString = "piratem1" }, { count = 1, unitString = "piratec0" } },
                 { { count = 1, unitString = "piratec0" }, { count = 4, unitString = "piratem0" } },
                 { { count = 1, unitString = "piratem1" }, { count = 3, unitString = "piratec0" } },

@@ -140,6 +140,11 @@
         "description": "CauseManaBurnUnscaled (unit whichSource, unit whichTarget, real amount)",
         "prefix": "CauseManaBurnUnscaled"
     },
+    "CauseStunMini": {
+        "body": "CauseStunMini(${1:whichSource}, ${2:whichTarget})",
+        "description": "CauseStunMini (unit whichSource, unit whichTarget)",
+        "prefix": "CauseStunMini"
+    },
     "CauseStun1s": {
         "body": "CauseStun1s(${1:whichSource}, ${2:whichTarget})",
         "description": "CauseStun1s (unit whichSource, unit whichTarget)",
@@ -160,10 +165,35 @@
         "description": "CauseStun5s (unit whichSource, unit whichTarget)",
         "prefix": "CauseStun5s"
     },
+    "CauseStun10s": {
+        "body": "CauseStun10s(${1:whichSource}, ${2:whichTarget})",
+        "description": "CauseStun10s (unit whichSource, unit whichTarget)",
+        "prefix": "CauseStun10s"
+    },
     "CastDummyAbilityOnTarget": {
-        "body": "CastDummyAbilityOnTarget(${1:caster}, ${2:target}, ${3:abilityId}, ${4:abilityLevel}, ${5:orderString})",
-        "description": "CastDummyAbilityOnTarget (unit caster, unit target, integer abilityId, integer level, string orderString)",
+        "body": "CastDummyAbilityOnTarget(${1:caster}, ${2:target}, ${3:abilityId}, ${4:abilityLevel}, ${5:orderString},${6:dummyDuration})",
+        "description": "CastDummyAbilityOnTarget (unit caster, unit target, integer abilityId, integer level, string orderString, float dummyDuration (optional))",
         "prefix": "CastDummyAbilityOnTarget"
+    },
+    "CastDummyAbilityFromPointOnTarget": {
+        "body": "CastDummyAbilityFromPointOnTarget(${1:owner}, ${2:target}, ${3:abilityId}, ${4:abilityLevel}, ${5:orderString}, ${6:dummyPoint}, ${7:dummyDuration})",
+        "description": "CastDummyAbilityFromPointOnTarget(player owner, unit target, integer abilityId, integer level, string orderString, location dummyPoint, float dummyDuration (optional))",
+        "prefix": "CastDummyAbilityFromPointOnTarget"
+    },
+    "CastDummyAbilityOnPoint": {
+        "body": "CastDummyAbilityOnPoint(${1:owner}, ${2:targetPoint}, ${3:abilityId}, ${4:abilityLevel}, ${5:orderString}, ${6:dummyPoint}, ${7:dummyDuration})",
+        "description": "CastDummyAbilityOnPoint (player owner, location targetPoint, integer abilityId, integer level, string orderString, location dummyPoint, float dummyDuration (optional))",
+        "prefix": "CastDummyAbilityOnPoint"
+    },
+    "CastDummyAbilityOnItem": {
+        "body": "CastDummyAbilityOnItem(${1:owner}, ${2:item}, ${3:abilityId}, ${4:abilityLevel}, ${5:orderString}, ${6:dummyPoint}, ${7:dummyDuration})",
+        "description": "CastDummyAbilityOnItem (player owner, item item, integer abilityId, integer level, string orderString, location dummyPoint, float dummyDuration (optional))",
+        "prefix": "CastDummyAbilityOnItem"
+    },
+    "CastDummyAbilityNoTarget": {
+        "body": "CastDummyAbilityNoTarget(${1:owner}, ${2:abilityId}, ${3:abilityLevel}, ${4:orderString}, ${5:dummyPoint}, ${6:dummyDuration})",
+        "description": "CastDummyAbilityNoTarget (player owner,  integer abilityId, integer level, string orderString, location dummyPoint, float dummyDuration (optional))",
+        "prefix": "CastDummyAbilityNoTarget"
     },
 
     // abilities common functions
@@ -191,6 +221,42 @@
         "body": "ApplyManagedBuff_MagicElusive(${1:target}, FourCC('${2:abilityId}'), FourCC('${3:buffId}'), ${4:duration}, \"${5:effectAttachmentPoint}\", \"${6:effect}\")",
         "description": "ApplyManagedBuff_MagicElusive (unit target, abilityId, buffId, duration, effectAttachmentPoint, effect)",
         "prefix": "ApplyManagedBuff_MagicElusive"
+    },
+
+    "FireProjectile_PointHeightToPoint": {
+        "body": "FireProjectile_PointHeightToPoint(${1:startPoint}, ${2:startHeight}, ${3:endPoint}, ${4:model}, ${5:speed}, ${6:arcHeight}, function()\n\t${7:-- code}\nend, ${8:startingPitch}, ${6:pitchRotation})",
+        "description": "FireProjectile_PointHeightToPoint (location startpoint, float startHeight, location endPoint, string model, float speed, float arcHeight, function callback, float startingPitch (optional), float pitchRotation (optional))",
+        "prefix": "FireProjectile_PointHeightToPoint"
+    },    
+    "FireProjectile_PointToPoint": {
+        "body": "FireProjectile_PointToPoint(${1:startPoint}, ${2:endPoint}, ${3:model}, ${4:speed}, ${5:arcHeight}, function()\n\t${6:-- code}\nend, ${7:startingPitch}, ${8:pitchRotation})",
+        "description": "FireProjectile_PointToPoint (location startpoint, location endPoint, string model, float speed, float arcHeight, function callback, float startingPitch (optional), float pitchRotation (optional))",
+        "prefix": "FireProjectile_PointToPoint"
+    },
+    "FireProjectile_PointHeightToPoint_NoPitch": {
+        "body": "FireProjectile_PointHeightToPoint(${1:startPoint}, ${2:startHeight}, ${3:endPoint}, ${4:model}, ${5:speed}, ${6:arcHeight}, function()\n\t${7:-- code}\nend)",
+        "description": "FireProjectile_PointHeightToPoint (location startpoint, float startHeight, location endPoint, string model, float speed, float arcHeight, function callback)",
+        "prefix": "FireProjectile_PointHeightToPoint"
+    },
+    "FireProjectile_PointToPoint_NoPitch": {
+        "body": "FireProjectile_PointToPoint_NoPitch(${1:startPoint}, ${2:endPoint}, ${3:model}, ${4:speed}, ${5:arcHeight}, function()\n\t${6:-- code}\nend)",
+        "description": "FireProjectile_PointToPoint_NoPitch (location startpoint, location endPoint, string model, float speed, float arcHeight, function callback)",
+        "prefix": "FireProjectile_PointToPoint_NoPitch"
+    },
+    "GetStartingPitch": {
+        "body": "GetStartingPitch(${1:startHeight}, ${2:arcHeightReal}, ${3:pitchRotation}, ${4:startingPitch})",
+        "description": "GetStartingPitch(float startHeight, float arcHeightReal, float pitchRotation, float startingPitch)",
+        "prefix": "GetStartingPitch"
+    },
+    "SetUnitAnimationByIndexAfterDelay": {
+        "body": "SetUnitAnimationByIndexAfterDelay(${1:caster}, ${2:index}, ${3:delay})",
+        "description": "SetUnitAnimationByIndexAfterDelay(unit caster, integer index, float delay)",
+        "prefix": "SetUnitAnimationByIndexAfterDelay"
+    },
+    "GetUnitLonelyLoc": {
+        "body": "GetUnitLonelyLoc(${1:loc}, ${2:area})",
+        "description": "GetUnitLonelyLoc(location loc, float area)",
+        "prefix": "GetUnitLonelyLoc"
     },
 
     // abilities unit selection functions
@@ -240,43 +306,43 @@
         "prefix": "IsUnit_FriendlyGroundTargetable"
     },
     "GetUnitsInRange_Targetable": {
-        "body": "GetUnitsInRange_Targetable(${1:caster}, ${1:point}, ${1:range})",
+        "body": "GetUnitsInRange_Targetable(${1:caster}, ${2:point}, ${3:range})",
         "description": "GetUnitsInRange_Targetable (unit caster, location point, real range)",
         "prefix": "GetUnitsInRange_Targetable"
     },
     "GetUnitsInRange_GroundTargetable": {
-        "body": "GetUnitsInRange_GroundTargetable(${1:caster}, ${1:point}, ${1:range})",
+        "body": "GetUnitsInRange_GroundTargetable(${1:caster}, ${2:point}, ${3:range})",
         "description": "GetUnitsInRange_GroundTargetable (caster, point, range)",
         "prefix": "GetUnitsInRange_GroundTargetable"
     },
     "GetUnitsInRange_EnemyTargetable": {
-        "body": "GetUnitsInRange_EnemyTargetable(${1:caster}, ${1:point}, ${1:range})",
+        "body": "GetUnitsInRange_EnemyTargetable(${1:caster}, ${2:point}, ${3:range})",
         "description": "GetUnitsInRange_EnemyTargetable (caster, point, range)",
         "prefix": "GetUnitsInRange_EnemyTargetable"
     },
     "GetUnitsInRange_EnemyTargetablePhysical": {
-        "body": "GetUnitsInRange_EnemyTargetablePhysical(${1:caster}, ${1:point}, ${1:range})",
+        "body": "GetUnitsInRange_EnemyTargetablePhysical(${1:caster}, ${2:point}, ${3:range})",
         "description": "GetUnitsInRange_EnemyTargetablePhysical (caster, point, range)",
         "prefix": "GetUnitsInRange_EnemyTargetablePhysical"
     },
     "GetUnitsInRange_EnemyGroundTargetable": {
-        "body": "GetUnitsInRange_EnemyGroundTargetable(${1:caster}, ${1:point}, ${1:range})",
+        "body": "GetUnitsInRange_EnemyGroundTargetable(${1:caster}, ${2:point}, ${3:range})",
         "description": "GetUnitsInRange_EnemyGroundTargetable (caster, point, range)",
         "prefix": "GetUnitsInRange_EnemyGroundTargetable"
     },
     "GetUnitsInRange_FriendlyTargetable": {
-        "body": "GetUnitsInRange_FriendlyTargetable(${1:caster}, ${1:point}, ${1:range})",
+        "body": "GetUnitsInRange_FriendlyTargetable(${1:caster}, ${2:point}, ${3:range})",
         "description": "GetUnitsInRange_FriendlyTargetable (caster, point, range)",
         "prefix": "GetUnitsInRange_FriendlyTargetable"
     },
     "GetUnitsInRange_FriendlyGroundTargetable": {
-        "body": "GetUnitsInRange_FriendlyGroundTargetable(${1:caster}, ${1:point}, ${1:range})",
+        "body": "GetUnitsInRange_FriendlyGroundTargetable(${1:caster}, ${2:point}, ${3:range})",
         "description": "GetUnitsInRange_FriendlyGroundTargetable (caster, point, range)",
         "prefix": "GetUnitsInRange_FriendlyGroundTargetable"
     },
 
     "GetClosestUnitInTableFromPoint_NotInGroup": {
-        "body": "GetClosestUnitInTableFromPoint_NotInGroup(${1:table}, ${1:point}, ${1:group})",
+        "body": "GetClosestUnitInTableFromPoint_NotInGroup(${1:table}, ${2:point}, ${3:group})",
         "description": "GetClosestUnitInTableFromPoint_NotInGroup (luaTable table, location point, unitGroup group)",
         "prefix": "GetClosestUnitInTableFromPoint_NotInGroup"
     },
@@ -288,7 +354,7 @@
         "prefix": "GrantTempArmor"
     },
     "GrantTempArmorByBuff": {
-        "body": "GrantTempArmor(${1:unit}, ${2:amount}, FourCC('${3:buffId}'))",
+        "body": "GrantTempArmorByBuff(${1:unit}, ${2:amount}, FourCC('${3:buffId}'))",
         "description": "GrantTempArmor (unit unit, integer amount, integer buffId)",
         "prefix": "GrantTempArmor"
     },
@@ -296,6 +362,11 @@
         "body": "GrantTempDamage(${1:unit}, ${2:amount}, ${3:duration})",
         "description": "GrantTempDamage (unit unit, integer amount, real duration)",
         "prefix": "GrantTempDamage"
+    },
+    "GrantTempDamageByBuff": {
+        "body": "GrantTempDamageByBuff(${1:unit}, ${2:amount}, FourCC('${3:buffId}'))",
+        "description": "GrantTempArmor (unit unit, integer amount, integer buffId)",
+        "prefix": "GrantTempArmor"
     },
     "GrantTempStr": {
         "body": "GrantTempStr(${1:unit}, ${2:amount}, ${3:duration})",
@@ -370,6 +441,11 @@
         "description": "MakeElusive (unit unit, real t)",
         "prefix": "MakeElusive"
     },
+    "MakeTenacious": {
+        "body": "MakeTenacious(${1:unit}, ${2:t})",
+        "description": "MakeTenacious (unit unit, real t)",
+        "prefix": "MakeTenacious"
+    },
     "IsUnitVulnerable": {
         "body": "IsUnitVulnerable(${1:unit})",
         "description": "IsUnitVulnerable (unit unit)",
@@ -384,6 +460,17 @@
         "body": "IsUnitElusive(${1:unit})",
         "description": "IsUnitElusive (unit unit)",
         "prefix": "IsUnitElusive"
+    },
+    "IsUnitTenacious": {
+        "body": "IsUnitTenacious(${1:unit})",
+        "description": "IsUnitTenacious (unit unit)",
+        "prefix": "IsUnitTenacious"
+    },
+    // Unit states - hero
+    "GetHeroBonusDamageFromItemsAndTempBonus": {
+        "body": "GetHeroBonusDamageFromItemsAndTempBonus(${1:hero})",
+        "description": "GetHeroBonusDamageFromItemsAndTempBonus (unit hero)",
+        "prefix": "GetHeroBonusDamageFromItemsAndTempBonus"
     },
 
     // Damage type checks

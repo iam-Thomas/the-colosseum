@@ -4,6 +4,17 @@ function Knockback_Angled(target, angle, force, collisionCallback)
 end
 
 function Knockback_AngledNoInterrupt(target, angle, force, collisionCallback)
+    local defaultMovementSpeed = GetUnitDefaultMoveSpeed(target)
+    if defaultMovementSpeed < 1.00 then
+        -- targets without movementspeed cannot be knocked back
+        return
+    end
+
+    if IsUnitTenacious(target) then
+        -- tenacious units cannot be knocked back
+        return
+    end
+
     local velocity = force
     local timer = CreateTimer()
     local time = 0.00

@@ -2,7 +2,7 @@ RegInit(function()
     
 end)
 
-function GetHeroBonusDamageFromItems(hero)
+function GetHeroBonusDamageFromItemsAndTempBonus(hero)
     local result = 0
 
     for i = 1, 6 do
@@ -38,4 +38,7 @@ function GetHeroBonusDamageFromItems(hero)
 
     return result
 end
-    
+
+function GetHeroDamageTotal(hero)
+    return BlzGetUnitBaseDamage(hero, 0) + GetHeroBonusDamageFromItemsAndTempBonus(hero)
+end

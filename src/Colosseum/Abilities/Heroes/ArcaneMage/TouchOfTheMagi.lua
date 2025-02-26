@@ -53,7 +53,7 @@ function AbilityTrigger_Mage_TouchOfTheMagi_Actions()
             CauseDefensiveDamage(caster, target, storedDamage)
         end
 
-        CreateEffectAtPoint(loc, "war3mapImported\\Flamestrike Starfire I.mdl", 3.0)
+        CreateEffectAtPoint(loc, "war3mapImported\\Flamestrike Starfire II.mdl", 3.0)
 
         DestroyEffect(touchEffect)
     end)
