@@ -60,6 +60,10 @@ function MakeTenacious(unit, t)
     end
 end
 
+function IsUnitResistant(unit)
+    return IsUnitType(unit, UNIT_TYPE_HERO) or (GetUnitAbilityLevel(unit, FourCC('A06X')) > 0)
+end
+
 function IsUnitVulnerable(unit)
     return UnitHasBuffBJ(unit, FourCC('B01D'))
 end

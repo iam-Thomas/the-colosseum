@@ -29,7 +29,7 @@ function AbilityTrigger_Mage_ArcaneRift_Actions()
         local touchId = GetHandleId(storedTarget)
         local touchCaster = LoadUnitHandle(AbilityTrigger_Mage_TouchOfTheMagi_Hashtable, touchId, 0)
 
-        local isResistant = IsUnitType(storedTarget, UNIT_TYPE_HERO) or (GetUnitAbilityLevel(storedTarget, FourCC('A06X')) > 0) -- A06X = 'Boss Resistant Skin ability'
+        local isResistant = IsUnitResistant(storedTarget)
         local teleportLoc = Location(GetLocationX(targetLoc), GetLocationY(targetLoc))
         if isResistant then
             local unitLoc = GetUnitLoc(storedTarget)

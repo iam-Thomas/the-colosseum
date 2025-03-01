@@ -21,7 +21,7 @@ RegInit(function()
         { GetPhaseBandits(), GetPhaseMurlocs() },
         { GetPhasePirates(), GetPhaseCreepers() },
         { GetPhaseHorde(), GetPhaseUndeads() },
-        { GetPhaseHorde() },
+        { GetPhasePirates() },
     }    
 end)
 

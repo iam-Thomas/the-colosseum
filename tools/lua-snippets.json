@@ -472,6 +472,11 @@
         "description": "GetHeroBonusDamageFromItemsAndTempBonus (unit hero)",
         "prefix": "GetHeroBonusDamageFromItemsAndTempBonus"
     },
+    "GetHeroDamageTotal": {
+        "body": "GetHeroDamageTotal(${1:hero})",
+        "description": "GetHeroDamageTotal (unit hero)",
+        "prefix": "GetHeroDamageTotal"
+    },
 
     // Damage type checks
     "IsDamageType_Defensive": {

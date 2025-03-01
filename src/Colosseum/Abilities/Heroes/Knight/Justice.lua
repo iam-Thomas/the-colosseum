@@ -11,7 +11,7 @@ function AbilityTrigger_Knight_Justice_Actions()
     local targetLoc = GetSpellTargetLoc()
 
     local abilityLevel = GetUnitAbilityLevel(caster, FourCC('A08K'))
-    local bonusDamagePerTick = 2
+    local bonusDamagePerTick = 4
     local castBaseDamage = 100.00 + (50.00 * abilityLevel)
     local attackDamageFactor = 1.5
     local duration = 20.00 + (5.00 * abilityLevel)
@@ -23,13 +23,16 @@ function AbilityTrigger_Knight_Justice_Actions()
     GrantTempDamageByBuff(caster, bonusDamagePerTick, FourCC('B01P'))
 
     local timer = CreateTimer()
-    TimerStart(timer, 0.25, true, function()
+    TimerStart(timer, 0.5, true, function()
         if GetUnitCurrentOrder(caster) == String2OrderIdBJ("divineshield") then
             GrantTempDamageByBuff(caster, bonusDamagePerTick, FourCC('B01P'))
             return
         end  
         DestroyTimer(timer)
+    end)
 
+    local swordTimer = CreateTimer()
+    TimerStart(swordTimer, 2.0, false, function()
         local baseDamage = BlzGetUnitBaseDamage(caster, 0)
         local bonusDamage = GetHeroBonusDamageFromItemsAndTempBonus(caster)
         local damage = castBaseDamage + ((baseDamage + bonusDamage) * attackDamageFactor)
@@ -41,9 +44,11 @@ function AbilityTrigger_Knight_Justice_Actions()
             local thunderEffect = CreateEffectAtPoint(targetLoc, "Abilities\\Spells\\Orc\\WarStomp\\WarStompCaster.mdl", 4.0)
             BlzSetSpecialEffectScale(thunderEffect, 2.2)
             local flameStrikeEffect = CreateEffectAtPoint(targetLoc, "war3mapImported\\Flamestrike II.mdl", 4.0)
-            BlzSetSpecialEffectScale(flameStrikeEffect, 1.3)
+            --local flameStrikeEffect = CreateEffectAtPoint(targetLoc, "war3mapImported\\Kingdom Come_opt.mdl", 6.0)
+            BlzSetSpecialEffectScale(flameStrikeEffect, 1.15)
             BlzSetSpecialEffectTimeScale(flameStrikeEffect, 0.6)
             BlzSetSpecialEffectAlpha(flameStrikeEffect, 120)
+            BlzSetSpecialEffectYaw(flameStrikeEffect, 90.0 / 57.29)
             DestroyEffect(warnEffect)
 
             local targets = GetUnitsInRange_EnemyTargetablePhysical(caster, targetLoc, 380)
@@ -58,6 +63,8 @@ function AbilityTrigger_Knight_Justice_Actions()
         end, (math.pi/2), 0)
 
         BlzSetSpecialEffectScale(projectileData.projectileEffect, 3)
+
+        DestroyTimer(swordTimer)
     end)
 
     SetRoundCooldown_R(caster, 1)

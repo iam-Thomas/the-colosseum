@@ -12,17 +12,12 @@ function AbilityTrigger_BEST_Headbutt_Actions()
     local strengthFactor = 0.75
     if IsUnitTenacious(caster) then
         strengthFactor = strengthFactor * 2.25
-        -- local cdTimer = CreateTimer()
-        -- TimerStart(cdTimer, 0.1, false, function()
-        --     BlzStartUnitAbilityCooldown(caster, FourCC('A02J'), 1, 4.0)
-        --     DestroyTimer(cdTimer)
-        -- end)
+        local cdTimer = CreateTimer()
+        TimerStart(cdTimer, 0.1, false, function()
+            BlzStartUnitAbilityCooldown(caster, FourCC('A02J'), 4.0)
+            DestroyTimer(cdTimer)
+        end)
     end
-    local cdTimer = CreateTimer()
-    TimerStart(cdTimer, 0.1, false, function()
-        BlzStartUnitAbilityCooldown(caster, FourCC('A02J'), 1, 8.0)
-        DestroyTimer(cdTimer)
-    end)
     local baseDamage = strength * strengthFactor
     local angle = AngleBetweenPoints(casterLoc, targetLoc)
     local distance = DistanceBetweenPoints(casterLoc, targetLoc)
