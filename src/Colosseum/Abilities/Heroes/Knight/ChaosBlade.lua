@@ -13,12 +13,12 @@ function AbilityTrigger_Knight_ChaosBlade_Damaging_Actions()
     local caster = GetEventDamageSource()
     local target = BlzGetEventDamageTarget()
 
-    local rand = math.random()    
-    if rand < 0.8 then
+    if not IsUnitBurnt(target) and not UnitHasBuffBJ(caster, FourCC('B020')) then
         return
     end
 
-    local damage = GetHeroDamageTotal(caster) * 0.5
+    local damage = GetHeroDamageTotal(caster) * 0.18
+    damage = damage * GetFactorToExcludeMultiplierFactor(DAMAGE_TYPE_FIRE, caster, target)
 
     local targetLoc = GetUnitLoc(target)
     local affectedUnits = GetUnitsInRange_EnemyTargetable(caster, targetLoc, 140)
@@ -28,7 +28,7 @@ function AbilityTrigger_Knight_ChaosBlade_Damaging_Actions()
     end
     
     local effect = AddSpecialEffectLoc("Abilities\\Weapons\\RedDragonBreath\\RedDragonMissile.mdl", targetLoc)
-    BlzSetSpecialEffectScale(effect, 1.4)
+    BlzSetSpecialEffectScale(effect, 1.2)
     BlzSetSpecialEffectZ(effect, GetLocationZ(targetLoc) + 40)
     DestroyEffect(effect)
 

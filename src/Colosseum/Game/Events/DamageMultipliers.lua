@@ -40,26 +40,27 @@ function CombatEventTrigger_Damage_Action()
     local target = BlzGetEventDamageTarget()
     local damageType = BlzGetEventDamageType()
 
+    local factor = GetFactorForDamageType(damageType, source, target)
+
+    BlzSetEventDamage(damage * factor)
+end
+
+function GetFactorForDamageType(damageType, source, target)
     local factor = 1.00
 
     if (damageType == DAMAGE_TYPE_DEFENSIVE) then
-        --print("DAMAGE_TYPE_DEFENSIVE")
-        factor = 1.00    
+        return factor
     elseif (damageType == DAMAGE_TYPE_NORMAL) then
-        --print("DAMAGE_TYPE_NORMAL")
-        --factor = GetUnitStrMultiplier(source)
-        --factor = GetUnitIntMultiplier(source)
-    elseif (damageType == DAMAGE_TYPE_FORCE) then
-        --print("DAMAGE_TYPE_FORCE")
-        factor = GetUnitIntMultiplier(source)
+        return factor
     elseif (damageType == DAMAGE_TYPE_ENHANCED) then
-        --print("DAMAGE_TYPE_ENHANCED")
+        return factor
+    elseif (damageType == DAMAGE_TYPE_FORCE) then
         --factor = GetUnitIntMultiplier(source)
+        return factor
     elseif (damageType == DAMAGE_TYPE_SONIC) then
-        --print("DAMAGE_TYPE_SONIC")
-        factor = GetUnitIntMultiplier(source)
+        --factor = GetUnitIntMultiplier(source)
+        return factor
     else
-        --print("DAMAGE_TYPE_ else")
         factor = GetUnitIntMultiplier(source)
 
         if IsUnitType(target, UNIT_TYPE_HERO) then
@@ -69,7 +70,13 @@ function CombatEventTrigger_Damage_Action()
         end
     end
 
-    BlzSetEventDamage(damage * factor)
+    return factor
+end
+
+function GetFactorToExcludeMultiplierFactor(damageType, source, target)
+    local factor = GetFactorForDamageType(damageType, source, target)
+    local newFactor = 1.00 / factor
+    return newFactor
 end
 
 function IsDamageType_Defensive(damageType)

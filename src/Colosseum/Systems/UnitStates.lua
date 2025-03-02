@@ -60,6 +60,24 @@ function MakeTenacious(unit, t)
     end
 end
 
+function MakeReckless(unit, t)
+    local hasBuff = false
+    if UnitHasBuffBJ(unit, FourCC('B021')) then
+        hasBuff = true
+    end
+
+    ApplyManagedBuff(unit, FourCC('S00C'), FourCC('B021'), t, nil, nil)
+    CreateEffectOnUnit("origin", unit, "Abilities\\Spells\\Items\\AIda\\AIdaCaster.mdl", 3.0)
+
+    if not hasBuff then
+        CreateEffectOnUnitByBuff("origin", unit, "war3mapImported\\Windwalk Fire.mdl", FourCC('B021'))
+    end
+end
+
+function MakeBurnt(unit, t)
+    ApplyManagedBuff_Magic(unit, FourCC('A03N'), FourCC('B00Q'), t, "overhead", "Abilities\\Spells\\Other\\Incinerate\\IncinerateBuff.mdl")
+end
+
 function IsUnitResistant(unit)
     return IsUnitType(unit, UNIT_TYPE_HERO) or (GetUnitAbilityLevel(unit, FourCC('A06X')) > 0)
 end
@@ -78,6 +96,18 @@ end
 
 function IsUnitTenacious(unit)
     return UnitHasBuffBJ(unit, FourCC('B01O'))
+end
+
+function IsUnitTenacious(unit)
+    return UnitHasBuffBJ(unit, FourCC('B01O'))
+end
+
+function IsUnitReckless(unit)
+    return UnitHasBuffBJ(unit, FourCC('B021'))
+end
+
+function IsUnitBurnt(unit)
+    return UnitHasBuffBJ(unit, FourCC('B00Q'))
 end
 
 StatusTrigger_Fear = nil

@@ -446,6 +446,16 @@
         "description": "MakeTenacious (unit unit, real t)",
         "prefix": "MakeTenacious"
     },
+    "MakeReckless": {
+        "body": "MakeReckless(${1:unit}, ${2:t})",
+        "description": "MakeReckless (unit unit, real t)",
+        "prefix": "MakeReckless"
+    },
+    "MakeBurnt": {
+        "body": "MakeBurnt(${1:unit}, ${2:t})",
+        "description": "MakeBurnt (unit unit, real t)",
+        "prefix": "MakeBurnt"
+    },
     "IsUnitVulnerable": {
         "body": "IsUnitVulnerable(${1:unit})",
         "description": "IsUnitVulnerable (unit unit)",
@@ -465,6 +475,16 @@
         "body": "IsUnitTenacious(${1:unit})",
         "description": "IsUnitTenacious (unit unit)",
         "prefix": "IsUnitTenacious"
+    },
+    "IsUnitReckless": {
+        "body": "IsUnitReckless(${1:unit})",
+        "description": "IsUnitReckless (unit unit)",
+        "prefix": "IsUnitReckless"
+    },
+    "IsUnitBurnt": {
+        "body": "IsUnitBurnt(${1:unit})",
+        "description": "IsUnitBurnt (unit unit)",
+        "prefix": "IsUnitBurnt"
     },
     // Unit states - hero
     "GetHeroBonusDamageFromItemsAndTempBonus": {

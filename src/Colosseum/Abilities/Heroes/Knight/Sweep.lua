@@ -1,29 +1,29 @@
-AbilityTrigger_Knight_Executioner = nil
+AbilityTrigger_Knight_Sweep = nil
 
 RegInit(function()
-    AbilityTrigger_Knight_Executioner = AddAbilityCastTrigger('A08J', AbilityTrigger_Knight_Executioner_Actions)
+    AbilityTrigger_Knight_Sweep = AddAbilityCastTrigger('A08J', AbilityTrigger_Knight_Sweep_Actions)
 end)
 
-function AbilityTrigger_Knight_Executioner_Actions()
+function AbilityTrigger_Knight_Sweep_Actions()
     local caster = GetSpellAbilityUnit()
+    local abilityLevel = GetUnitAbilityLevel(caster, FourCC('A08J'))
 
-    local baseDamage = BlzGetUnitBaseDamage(caster, 0)
-    local bonusDamage = GetHeroBonusDamageFromItemsAndTempBonus(caster)
+    local attackDamage = GetHeroDamageTotal(caster)
 
-    local damage = (baseDamage + bonusDamage) * 1.6
+    local damage = (10.00 + (10.00 * abilityLevel)) + (attackDamage * 1.2)
 
-    AbilityTrigger_Knight_Executioner_AoEDamage(caster, damage)
+    AbilityTrigger_Knight_Sweep_AoEDamage(caster, damage)
 
     local timer = CreateTimer()
     TimerStart(timer, 0.36, false, function()
         if GetUnitCurrentOrder(caster) == String2OrderIdBJ("thunderbolt") then
-            AbilityTrigger_Knight_Executioner_AoEDamage(caster, damage)
+            AbilityTrigger_Knight_Sweep_AoEDamage(caster, damage)
         end        
         DestroyTimer(timer)
     end)
 end
 
-function AbilityTrigger_Knight_Executioner_AoEDamage(caster, damage)
+function AbilityTrigger_Knight_Sweep_AoEDamage(caster, damage)
     local angle = GetUnitFacing(caster)
     local casterLoc = GetUnitLoc(caster)
     local aoeLoc = PolarProjectionBJ(casterLoc, 120, angle)

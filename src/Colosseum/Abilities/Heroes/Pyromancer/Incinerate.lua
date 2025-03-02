@@ -13,13 +13,18 @@ function AbilityTrigger_Pyro_Incinerate_Damaging_Actions()
     local target = BlzGetEventDamageTarget()
     
     if isAttack then
-        ApplyManagedBuff_Magic(target, FourCC('A03N'), FourCC('B00Q'), 5.00, "overhead", "Abilities\\Spells\\Other\\Incinerate\\IncinerateBuff.mdl")
+        MakeBurnt(target, 5.00)
         return
     end
 end
 
 function AbilityTrigger_Pyro_Incinerate_Damaged_Actions()
+    local caster = GetEventDamageSource()
     local target = BlzGetEventDamageTarget()
+
+    if GetUnitAbilityLevel(caster, FourCC('A03O')) < 1 then
+        return
+    end
 
     if not UnitHasBuffBJ(target, FourCC('B00Q')) then
         return
