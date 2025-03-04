@@ -111,6 +111,14 @@ function CauseStun10s(source, target)
     CauseStunByAbility(source, target, FourCC('A01I'))
 end
 
+function CauseInvisStun(source, target)
+    CastDummyAbilityOnTarget(source, target, FourCC('A03J'), 1, "thunderbolt")
+end
+
+function RevokeInvisStun(target)
+    UnitRemoveBuffBJ(FourCC('B00O'), target)
+end
+
 function CauseStunByAbility(source, target, abilityId)
     if IsUnitTenacious(target) then
         return

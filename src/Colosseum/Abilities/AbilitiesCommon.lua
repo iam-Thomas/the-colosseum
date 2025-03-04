@@ -1,8 +1,13 @@
+RegInit(function()
+    KnockbackHashtable = InitHashtable()
+end)
+
 function Knockback_Angled(target, angle, force, collisionCallback)
     OrderStop(target)
     Knockback_AngledNoInterrupt(target, angle, force, collisionCallback)
 end
 
+KnockbackHashtable = nil
 function Knockback_AngledNoInterrupt(target, angle, force, collisionCallback)
     local defaultMovementSpeed = GetUnitDefaultMoveSpeed(target)
     if defaultMovementSpeed < 1.00 then
@@ -15,17 +20,26 @@ function Knockback_AngledNoInterrupt(target, angle, force, collisionCallback)
         return
     end
 
+    local id = GetHandleId(target)
+    SaveBoolean(KnockbackHashtable, id, 0, true)
+
     local velocity = force
     local timer = CreateTimer()
     local time = 0.00
     TimerStart(timer, 0.03, true, function()
         time = time + 0.03
+        local stop = false
+
         if time > 1.02 then
-            DestroyTimer(timer)
-            return
+            stop = true
+        elseif not IsUnit_Targetable(target) then
+            stop = true
+        elseif not LoadBoolean(KnockbackHashtable, id, 0) then
+            stop = true
         end
 
-        if not IsUnit_Targetable(target) then
+        if stop then
+            FlushChildHashtable(KnockbackHashtable, id)
             DestroyTimer(timer)
             return
         end
@@ -56,6 +70,17 @@ function Knockback_AngledNoInterrupt(target, angle, force, collisionCallback)
         RemoveLocation(targetPoint)
         RemoveLocation(pathingPoint)
     end)
+end
+
+function Knockback_Stop(target)
+    local id = GetHandleId(target)
+    local isKb = LoadBoolean(KnockbackHashtable, id, 0)
+    -- dont save the boolean if it is already false. the non-existing knockback timer would otherwise not flush the hasbtable
+    if isKb then
+        SaveBoolean(KnockbackHashtable, id, 0, false)
+        return true
+    end
+    return false
 end
 
 function Knockback_Explosion_EnemyTargetable(caster, point, range, distance, damage)

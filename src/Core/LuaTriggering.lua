@@ -130,15 +130,22 @@ function AddKillEventTrigger_KillerHasAbility(abilityId, abilityFunction)
 end
 
 function AddPeriodicPassiveAbility_CasterHasAbility(abilityId, abilityFunction)
+    return AddPeriodicPassiveAbility_Interval_CasterHasAbility(abilityId, 1.0, abilityFunction)
+end
+
+function AddPeriodicPassiveAbility_Interval_CasterHasAbility(abilityId, interval, abilityFunction)
     local trg = CreateTrigger()
     TriggerAddAction(trg, function()
         local caster = GetEnteringUnit()
         local timer = CreateTimer()
         local tick = -1
-        TimerStart(timer, 1.0, true, function()
+        local intervalReal = math.max(0.1, interval)
+        TimerStart(timer, intervalReal, true, function()
             tick = tick + 1
             if not IsUnitAliveBJ(caster) then
-                DestroyTimer(timer)
+                if not IsUnitType(caster, UNIT_TYPE_HERO) then
+                    DestroyTimer(timer)
+                end
                 return
             end
 

@@ -7,7 +7,7 @@ function AbilityTrigger_Hoplite_Skewer_Actions()
     local startPoint = GetUnitLoc(caster)
     local targetPoint = GetSpellTargetLoc()
     local angle = AngleBetweenPoints(startPoint, targetPoint)
-    local endPoint = PolarProjectionBJ(startPoint, 1100, angle)
+    local endPoint = PolarProjectionBJ(startPoint, 1350, angle)
 
     local abilityLevel = GetUnitAbilityLevel( udg_Hoplite, FourCC('A02X'))
     local dmg = 40.00 + (40.00 * GetUnitAbilityLevel( udg_Hoplite, FourCC('A02X') ) )
@@ -15,7 +15,7 @@ function AbilityTrigger_Hoplite_Skewer_Actions()
     local damageFinal = dmg + (attackDamage * 1.5)
     
 
-    FireShockwaveProjectile(caster, startPoint, endPoint, "war3mapImported\\SpearOfMars.mdx", 800, 140, function(target)
+    FireShockwaveProjectile(caster, startPoint, endPoint, "war3mapImported\\SpearOfMars.mdx", 1200, 140, function(target)
         if not IsUnitEnemy(target, GetOwningPlayer(caster)) then
             return
         end

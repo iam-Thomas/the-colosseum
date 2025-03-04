@@ -236,6 +236,23 @@ function GetUnitsInRange_FriendlyGroundTargetable(caster, point, range)
     return result
 end
 
+function GetClosestUnitInTableFromPoint(table, point)
+    local closestUnit = nil
+    local closestDistance = 999999.00
+    for i = 1, #table do
+        print("checking unit: " .. GetUnitName(table[i]))
+        local u = table[i]
+        local unitLoc = GetUnitLoc(u)
+        local distance = DistanceBetweenPoints(point, unitLoc)
+        RemoveLocation(unitLoc)
+        if (distance < closestDistance) then
+            closestUnit = u
+            closestDistance = distance
+        end
+    end
+    return closestUnit
+end
+
 function GetClosestUnitInTableFromPoint_NotInGroup(table, point, group)
     local closestUnit = nil
     local closestDistance = 999999.00
@@ -243,7 +260,9 @@ function GetClosestUnitInTableFromPoint_NotInGroup(table, point, group)
         print("checking unit: " .. GetUnitName(table[i]))
         local u = table[i]
         if (not IsUnitInGroup(u, group)) then
+            local unitLoc = GetUnitLoc(u)
             local distance = DistanceBetweenPoints(point, GetUnitLoc(u))
+            RemoveLocation(unitLoc)
             if (distance < closestDistance) then
                 closestUnit = u
                 closestDistance = distance

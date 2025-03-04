@@ -19,7 +19,6 @@ function AbilityTrigger_Hoplite_ArenaVeteran_Damaging_Actions()
     if IsUnitVulnerable(target) then
         local caster = GetEventDamageSource()
         local armor = BlzGetUnitArmor(caster)
-        print(armor)
         BlzSetEventDamage(GetEventDamage() * (1.10 + (armor / 200)))
     end
 end
