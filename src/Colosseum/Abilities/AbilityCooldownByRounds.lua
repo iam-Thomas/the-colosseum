@@ -22,6 +22,8 @@ end
 function SetRoundCooldown_R(caster, rounds)
     local owner = GetOwningPlayer(caster)
     SetPlayerTechResearched(owner, FourCC('R009'), CDUpgradesMaxLevel - (rounds + 1))
+
+    
 end
 
 function SetRoundCooldown_E(caster, rounds)

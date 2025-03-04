@@ -31,7 +31,7 @@ function AbilityTrigger_OrcWarlord_Crush_Damaging_Actions()
     end
     
     SaveInteger(AbilityTrigger_OrcWarlord_Crush_Hashtable, id, 0, 0)
-    if IsUnitElusive(target) then
+    if IsUnitElusive(target) or IsUnitTenacious(target) then
         CauseStun5s(caster, caster)
         return
     end

@@ -14,11 +14,13 @@ function AbilityTrigger_BS_StormEarthFire_Actions()
     BlzStartUnitAbilityCooldown( caster, FourCC('A062'), 20.00 )
     BlzStartUnitAbilityCooldown( caster, FourCC('A00Y'), 20.00 )
 
+    MakeEmpowered(caster, 20.00)
+    MakeTenacious(caster, 20.00)
+    MakeReckless(caster, 20.00)
+
     AbilityTrigger_BS_ChannelStorm_StartUnrestricted(caster, 20.00)
     AbilityTrigger_BS_ChannelEarth_StartUnrestricted(caster, 20.00)
     AbilityTrigger_BS_ChannelFire_StartUnrestricted(caster, 20.00)
-
-    MakeEmpowered(caster, 20.00)
 
     local abilityLevel = GetUnitAbilityLevel(caster, FourCC('A063'))
     local roundCds = 5 - abilityLevel

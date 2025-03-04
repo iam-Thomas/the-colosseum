@@ -28,10 +28,12 @@ function GameBalanceTrigger_UnitSpawned_Function()
 
     local hp = BlzGetUnitMaxHP(unit)
     BlzSetUnitMaxHP(unit, math.ceil(hp * (1.00 + hpScaling)))
-    SetUnitLifePercentBJ(unit, 100)
+    SetUnitLifePercentBJ(unit, 100)    
 
     local dmg = BlzGetUnitBaseDamage(unit, 0)
     BlzSetUnitBaseDamage(unit, math.ceil(dmg * (1.00 + damageScaling)), 0)
+    local dmg2 = BlzGetUnitBaseDamage(unit, 1)
+    BlzSetUnitBaseDamage(unit, math.ceil(dmg2 * (1.00 + damageScaling)), 1)
 end
 
 function GameBalanceTrigger_Damaging_Function()

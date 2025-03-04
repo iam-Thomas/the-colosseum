@@ -10,7 +10,7 @@ end)
 
 function AbilityTrigger_BS_ChannelFire_Actions()
     local caster = GetSpellAbilityUnit()
-    AbilityTrigger_BS_ChannelFire_StartUnrestricted(caster, 20.00)
+    AbilityTrigger_BS_ChannelFire_StartRestricted(caster, 20.00)
 end
 
 function AbilityTrigger_BS_ChannelFire_StartRestricted(caster, time)
@@ -21,7 +21,6 @@ function AbilityTrigger_BS_ChannelFire_StartRestricted(caster, time)
     end
 
     local eCaster = LoadUnitHandle(AbilityTrigger_BS_ChannelEarth_Hashtable, id, 0)
-    print(eCaster)
     if eCaster ~= nil then
         SaveReal(AbilityTrigger_BS_ChannelEarth_Hashtable, id, 1, 0.00)
     end
@@ -30,6 +29,9 @@ function AbilityTrigger_BS_ChannelFire_StartRestricted(caster, time)
     -- if fCaster ~= nil then
     --     SaveReal(AbilityTrigger_BS_ChannelFire_Hashtable, id, 1, 0.00)
     -- end
+
+    MakeReckless(caster, 6)
+    AbilityTrigger_BS_ChannelFire_StartUnrestricted(caster, time)
 end
 
 function AbilityTrigger_BS_ChannelFire_StartUnrestricted(caster, time)
@@ -43,6 +45,12 @@ function AbilityTrigger_BS_ChannelFire_StartUnrestricted(caster, time)
     local sfxA = GetLastCreatedEffectBJ()
     AddSpecialEffectTargetUnitBJ("hand right", caster, "Abilities\\Weapons\\PhoenixMissile\\Phoenix_Missile_mini.mdl")
     local sfxB = GetLastCreatedEffectBJ()
+
+    if IsUnitEmpowered(caster) then
+        local castLoc = GetUnitLoc(caster)
+        AbilityTrigger_BS_ChannelFire_Evoke(caster, castLoc)
+        RemoveLocation(castLoc)
+    end
 
     local interval = 0.1
     local timer = CreateTimer()
@@ -79,8 +87,8 @@ function AbilityTrigger_BS_ChannelFire_Damaging_Actions()
     -- CreateEffectOnUnit("chest", target, "Abilities\\Weapons\\RedDragonBreath\\RedDragonMissile.mdl", 0.0)
 
     local chance = 0.20
-    if IsUnitEmpowered(caster) then
-        chance = 0.50
+    if IsUnitTenacious(caster) then
+        chance = 0.60
     end
 
     if (math.random() > chance) then
@@ -109,34 +117,14 @@ function AbilityTrigger_BS_ChannelFire_Evoke(caster, location)
     local timer = CreateTimer()
     local ticks = 10
 
-    CreateEffectAtPoint(locReal, "Abilities\\Spells\\Human\\MarkOfChaos\\MarkOfChaosTarget.mdl", 3.0)
+    CreateEffectAtPoint(locReal, "war3mapImported\\Flamestrike I.mdl", 3.0)
     local abilityLevel = GetUnitAbilityLevel(caster, FourCC('A00Y'))
-    local tickDamage = 6.00 + (3.00 * abilityLevel)
+    local tickDamage = 40.00 + (20.00 * abilityLevel)
 
-    local effects = {}
-    for i = 1, 24 do
-        local loc = PolarProjectionBJ(locReal, math.random(15, 290), math.random(0, 210))
-        AddSpecialEffectLocBJ(loc, "Abilities\\Spells\\Human\\FlameStrike\\FlameStrikeEmbers.mdl")
-        table.insert( effects, GetLastCreatedEffectBJ() )
-        --table.insert(effects, CreateEffectAtPoint(loc, "Abilities\\Spells\\Human\\FlameStrike\\FlameStrikeEmbers.mdl", 10.0))
-        RemoveLocation(loc)
+    local targets = GetUnitsInRange_EnemyTargetable(caster, locReal, 230.00)
+    for i = 1, #targets do
+        CauseMagicDamage_Fire(caster, targets[i], tickDamage)
     end
-
-    TimerStart(timer, 1.0, true, function()
-        ticks = ticks - 1
-        if ticks < 1 then
-            for i = 1, #effects do
-                DestroyEffect(effects[i])
-            end
-            RemoveLocation(locReal)
-            DestroyTimer(timer)
-        end
-
-        local targets = GetUnitsInRange_EnemyTargetable(caster, locReal, 230.00)
-        for i = 1, #targets do
-            CauseMagicDamage_Fire(caster, targets[i], tickDamage)
-        end
-    end)
 end
 
 function AbilityTrigger_BS_ChannelFire_IsChanneled(caster)

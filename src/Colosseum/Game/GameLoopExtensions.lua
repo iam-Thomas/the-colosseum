@@ -37,7 +37,6 @@ function GameLoop_BeginIntermissionTimer(message, time, cancelPredicate, callbac
 end
 
 function GameLoop_GrantSelectionsMana()
-    local nGameMasterPlayers = CountPlayersInForceBJ(udg_GameMasterPlayers)
     local nManaToGrant = CountPlayersInForceBJ(udg_GladiatorPlayers)
     local nManaLeftToGrant = nManaToGrant
 
@@ -49,16 +48,22 @@ function GameLoop_GrantSelectionsMana()
 
     -- Then, grant mana to all units
     while (nManaLeftToGrant > 0) do
-        local index = ModuloInteger(GameLoop_SelectorUnits_CurrentIndex, nGameMasterPlayers)
-        local unit = GameLoop_SelectorUnits[index + 1]
+        local unit = GameLoop_GetNextIndexedSelectorUnit()
 
         local mana = GetUnitState(unit, UNIT_STATE_MANA)
         local targetMana = mana + 1
         SetUnitState(unit, UNIT_STATE_MANA, targetMana)
 
-        GameLoop_SelectorUnits_CurrentIndex = GameLoop_SelectorUnits_CurrentIndex + 1
         nManaLeftToGrant = nManaLeftToGrant - 1
     end
+end
+
+function GameLoop_GetNextIndexedSelectorUnit()
+    local nGameMasterPlayers = CountPlayersInForceBJ(udg_GameMasterPlayers)
+    local index = ModuloInteger(GameLoop_SelectorUnits_CurrentIndex, nGameMasterPlayers)
+    local unit = GameLoop_SelectorUnits[index + 1]
+    GameLoop_SelectorUnits_CurrentIndex = GameLoop_SelectorUnits_CurrentIndex + 1
+    return unit
 end
 
 function GameLoop_RevokeSelectionsMana()
@@ -69,6 +74,7 @@ function GameLoop_RevokeSelectionsMana()
 end
 
 function GameLoop_SpawnUnits()
+    print("spawb units by mana")
     -- if any mana remains, random groups will be selected.
     for i = 1, #GameLoop_SelectorUnits do
         local selectorUnit = GameLoop_SelectorUnits[i]
@@ -89,6 +95,7 @@ function GameLoop_SpawnUnits()
         end
     end
 
+    print("spawb units by selections")
     -- spawn units
     for i = 1, #glPlayerSelections do
         local owner = Player(i - 1)
@@ -96,21 +103,41 @@ function GameLoop_SpawnUnits()
 
         for j = 1, #unitIdList do
             local unitId = unitIdList[j]
-
-            local pointValue = GetUnitPointValueByType(unitId)
-            local pointString = tostring(pointValue)
-            local spawnChar = string.sub(pointString, -2, -2)
-
-            local spawnLoc = nil
-            if spawnChar == "1" then
-                spawnLoc = GetRandomLocInRect(gg_rct_KingOfTheHillNorthCenterRegion)
-            else
-                spawnLoc = GetRectCenter(gg_rct_KingOfTheHillGMStart)
-            end
+            print("spawning unit by id for player: " .. unitId)
+            local spawnLoc = GameLoop_GetSpawnLocationForUnit(0, unitId)
             
             local unit = CreateUnitAtLoc(owner, unitId, spawnLoc, 0)
             GroupAddUnit(udg_GameMasterUnits, unit)
             RemoveLocation(spawnLoc)
+        end
+    end
+
+    print("spawb units by phase")
+    -- spawn default phase units
+    print(tostring(GMCurrentPhase.defaultGroups))
+    if GMCurrentPhase.defaultGroups ~= nil then
+        for i = 1, #GMCurrentPhase.defaultGroups do
+            local defaultGroup = GMCurrentPhase.defaultGroups[i]
+            print(tostring(defaultGroup))
+            for j = 1, #defaultGroup do
+                local defaultTypeGroup = defaultGroup[j]
+                print(tostring(defaultTypeGroup))
+                --for k = 1, #defaultTypeGroup do
+                    local unitTypeString = defaultTypeGroup.unitString                    
+                    local unitId = GetUnitTypeFromUnitString(unitTypeString)
+                    print(tostring(unitId))
+                    print(tostring(unitTypeString))
+                    print(tostring(defaultTypeGroup.count))
+                    for n = 1, defaultTypeGroup.count do
+                        local nextSelectorUnit = GameLoop_GetNextIndexedSelectorUnit()
+                        print(GetUnitName(nextSelectorUnit))
+                        local defSpawnLoc = GameLoop_GetSpawnLocationForUnit(0, unitId)
+                        print(tostring(defSpawnLoc))
+                        CreateUnitAtLoc(GetOwningPlayer(nextSelectorUnit), unitId, defSpawnLoc, 0)
+                        RemoveLocation(defSpawnLoc)
+                    end
+                --end
+            end
         end
     end
 
@@ -120,6 +147,21 @@ function GameLoop_SpawnUnits()
         local manaRemain = GetUnitState(unit, UNIT_STATE_MANA)
         remainingManaSum = remainingManaSum + math.floor(manaRemain + 0.5)
     end
+end
+
+function GameLoop_GetSpawnLocationForUnit(groupIndex, unitId)
+    local pointValue = GetUnitPointValueByType(unitId)
+    local pointString = tostring(pointValue)
+    local spawnChar = string.sub(pointString, -2, -2)
+
+    local spawnLoc = nil
+    if spawnChar == "1" then
+        spawnLoc = GetRandomLocInRect(gg_rct_KingOfTheHillNorthCenterRegion)
+    else
+        spawnLoc = GetRectCenter(gg_rct_KingOfTheHillGMStart)
+    end
+
+    return spawnLoc
 end
 
 function GameLoop_MoveGladiatorUnitsToArena()

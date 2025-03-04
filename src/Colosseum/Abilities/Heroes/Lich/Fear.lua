@@ -20,13 +20,16 @@ function AbilityTrigger_Lich_Fear_Actions()
     RemoveLocation(targetLoc)
 end
 
-function AbilityTrigger_Lich_Fear_InflictFearAoE(caster, loc, range)
+function AbilityTrigger_Lich_Fear_InflictFearAoE(caster, loc, range, callback)
     CreateEffectAtPoint(loc, "Abilities\\Spells\\Other\\HowlOfTerror\\HowlCaster.mdl", 2.0)
     
     local targets = GetUnitsInRange_EnemyTargetable(caster, loc, range)
     for i = 1, #targets do
         AbilityTrigger_Lich_Fear_Actions_OrderMove(caster, targets[i])
         ApplyManagedBuff_Magic(targets[i], FourCC('A05D'), FourCC('B00X'), 11.00, "overhead", "Abilities\\Spells\\Other\\HowlOfTerror\\HowlTarget.mdl")
+        if callback ~= nil then
+            callback(caster, targets[i])
+        end
     end
 end
 

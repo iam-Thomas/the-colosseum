@@ -9,6 +9,9 @@ function ItemTrigger_MagmaBlade_Actions()
     if not isAttack then
         return
     end
+    if not IsDamageType_Physical(BlzGetEventDamageType()) then
+        -- body
+    end
     
     local caster = GetEventDamageSource()
     local target = BlzGetEventDamageTarget()

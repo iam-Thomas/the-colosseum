@@ -1,4 +1,4 @@
-glGameStartDelayDuration = 1500.00
+glGameStartDelayDuration = 15.00
 glPhaseStartDelayDuration = 30.00
 glIntermissionDuration = 15.00
 

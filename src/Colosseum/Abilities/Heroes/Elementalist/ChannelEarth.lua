@@ -32,13 +32,14 @@ function AbilityTrigger_BS_ChannelEarth_StartRestricted(caster, time)
         SaveReal(AbilityTrigger_BS_ChannelFire_Hashtable, id, 1, 0.00)
     end
 
+    MakeTenacious(caster, 6)
     AbilityTrigger_BS_ChannelEarth_StartUnrestricted(caster, time)
 end
 
 function AbilityTrigger_BS_ChannelEarth_StartUnrestricted(caster, time)
     local id = GetHandleId(caster)
 
-    AddSpecialEffectTargetUnitBJ("chest", caster, "Abilities\\Spells\\Orc\\SpiritLink\\SpiritLinkTarget.mdl")
+    AddSpecialEffectTargetUnitBJ("origin", caster, "Abilities\\Spells\\Orc\\SpiritLink\\SpiritLinkTarget.mdl")
     local sfx = GetLastCreatedEffectBJ()
     BlzSetSpecialEffectScale(sfx, 2.0)
 
@@ -46,6 +47,30 @@ function AbilityTrigger_BS_ChannelEarth_StartUnrestricted(caster, time)
     SaveUnitHandle(AbilityTrigger_BS_ChannelEarth_Hashtable, id, 0, caster)
     SaveReal(AbilityTrigger_BS_ChannelEarth_Hashtable, id, 1, t)
     SaveInteger(AbilityTrigger_BS_ChannelEarth_Hashtable, id, 2, 5)
+
+    if IsUnitEmpowered(caster) then
+        local castLoc = GetUnitLoc(caster)
+        AbilityTrigger_BS_ChannelEarth_Evoke(caster, castLoc)
+        RemoveLocation(castLoc)
+    end
+
+    if IsUnitReckless(caster) then
+        local castLoc = GetUnitLoc(caster)
+        local targets = GetUnitsInRange_EnemyTargetable(caster, castLoc, 250.00)
+        local magmaDamage = 30.00 + (30.00 * GetUnitAbilityLevel(caster, FourCC('A062')))
+        for i = 1, 12 do
+            local targetMagmaLoc = PolarProjectionBJ(castLoc, math.random(200, 700), math.random(0, 360))
+            FireProjectile_PointToPoint_NoPitch(castLoc, targetMagmaLoc, "Abilities\\Weapons\\DemolisherFireMissile\\DemolisherFireMissile.mdl", 450, 0.35, function()
+                local magmaTargets = GetUnitsInRange_EnemyTargetable(caster, targetMagmaLoc, 130.00)
+                for j = 1, #magmaTargets do
+                    CauseMagicDamage_Fire(caster, magmaTargets[j], magmaDamage)
+                    MakeBurnt(magmaTargets[j], 8.0)
+                end
+                RemoveLocation(targetMagmaLoc)
+            end)
+        end
+        RemoveLocation(castLoc)
+    end
 
     local interval = 0.1
     local timer = CreateTimer()

@@ -26,6 +26,9 @@ function GetPhaseBandits()
             { { count = 2, unitString = "bandtr2" } },
             { { count = 1, unitString = "bandtc2" } },
         },
+        defaultGroups = {
+            { { count = 1, unitString = "bandtm0" } },
+        },
         followUp = {
             FourCC('n008'), -- Creepers, broodmother
         },

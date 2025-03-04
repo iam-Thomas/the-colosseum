@@ -31,6 +31,7 @@ function AbilityTrigger_BS_ChannelStorm_StartRestricted(caster, time)
         SaveReal(AbilityTrigger_BS_ChannelFire_Hashtable, id, 1, 0.00)
     end
 
+    MakeEmpowered(caster, 6)
     AbilityTrigger_BS_ChannelStorm_StartUnrestricted(caster, time)
 end
 
@@ -44,6 +45,15 @@ function AbilityTrigger_BS_ChannelStorm_StartUnrestricted(caster, time)
     SaveUnitHandle(AbilityTrigger_BS_ChannelStorm_Hashtable, id, 0, caster)
     SaveReal(AbilityTrigger_BS_ChannelStorm_Hashtable, id, 1, t)
 
+    if IsUnitTenacious(caster) then
+        local castLoc = GetUnitLoc(caster)
+        local slowTargets = GetUnitsInRange_EnemyTargetable(caster, castLoc, 300.00)
+        for i = 1, #slowTargets do
+            ApplyManagedBuff_MagicElusive(slowTargets[i], FourCC('A0A1'), FourCC('B023'), 3.0, "chest", "Abilities\\Spells\\Orc\\Purge\\PurgeBuffTarget.mdl")
+        end
+        RemoveLocation(castLoc)
+    end
+
     local interval = 0.2
     local timer = CreateTimer()
     TimerStart(timer, interval, true, function()
@@ -55,16 +65,11 @@ function AbilityTrigger_BS_ChannelStorm_StartUnrestricted(caster, time)
             return
         end
 
-        if not IsUnitEmpowered(caster) then
+        if not IsUnitReckless(caster) then
             return
         end
 
         local casterLoc = GetUnitLoc(caster)
-
-        if not IsUnitEmpowered(caster) then
-            return
-        end
-
         local chance = 0.1
         local abilityLevel = GetUnitAbilityLevel(caster, FourCC('A05Y'))
         local monsoonDamage = 20.00 + (10.00 * abilityLevel)
