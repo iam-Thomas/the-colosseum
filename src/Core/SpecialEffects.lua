@@ -65,7 +65,7 @@ function DangerAreaAtUntimed(point, radius)
     return effect
 end
 
-function DangerCountdownAt(point, time)
+function DangerCountdownAt(point, time, cancelPredicate)
     local textFunc = function(msg, pntt, tt)
         local x = GetLocationX(pntt)
         local y = GetLocationY(pntt)
@@ -90,6 +90,13 @@ function DangerCountdownAt(point, time)
     
     local timer = CreateTimer()
     TimerStart(timer, 1.00, true, function()
+        if cancelPredicate ~= nil then
+            if cancelPredicate() then
+                DestroyTimer(timer)
+                return
+            end
+        end
+
         n = n - 1
         if n < 1 then
             DestroyTimer(timer)

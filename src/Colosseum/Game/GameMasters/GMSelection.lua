@@ -19,7 +19,7 @@ RegInit(function()
     
     GMPhases = {
         { GetPhaseBandits(), GetPhaseMurlocs() },
-        { GetPhasePirates(), GetPhaseCreepers() },
+        { GetPhaseGnolls(), GetPhaseCreepers() },
         { GetPhaseHorde(), GetPhaseUndeads() },
         { GetPhasePirates() },
     }    

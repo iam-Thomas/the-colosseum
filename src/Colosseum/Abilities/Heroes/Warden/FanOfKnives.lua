@@ -9,7 +9,7 @@ function AbilityTrigger_Warden_FanOfKnives()
     
     local attackDamage = GetHeroDamageTotal(caster)
     local abilityDamage = 30.00 + (10.00 * abilityLevel)
-    local damage = abilityDamage + (attackDamage * 0.2)
+    local damage = abilityDamage + (attackDamage * 0.5)
 
     --Abilities\Spells\NightElf\FanOfKnives\FanOfKnivesCaster.mdl
     --Abilities\Spells\NightElf\FanOfKnives\FanOfKnivesMissile.mdl

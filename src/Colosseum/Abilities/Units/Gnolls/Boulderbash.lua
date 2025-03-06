@@ -5,13 +5,10 @@ RegInit(function()
 end)
 
 function AbilityTrigger_Boulderbash_Actions()
-    local caster = GetEventDamageSource()
+    local caster = GetSpellAbilityUnit()
     local casterPoint = GetUnitLoc(caster)
-    local target = BlzGetEventDamageTarget()
+    local target = GetSpellTargetUnit()
     local targetPoint = GetUnitLoc(target)
 
-    Knockback_Angled(target, AngleBetweenPoints(casterPoint, targetPoint), 650, function()
-        -- code
-    end)
-
+    Knockback_Angled(target, AngleBetweenPoints(casterPoint, targetPoint), 550)
 end

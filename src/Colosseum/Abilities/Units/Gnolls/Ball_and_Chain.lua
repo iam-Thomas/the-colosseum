@@ -19,8 +19,6 @@ function AbilityTrigger_Ball_and_Chain_Actions()
 
     local damage = GetEventDamage()
     if random <= chance then
-        Knockback_Angled(target, AngleBetweenPoints(casterPoint, targetPoint), 75, function()
-            -- code
-        end)
+        Knockback_Angled(target, AngleBetweenPoints(casterPoint, targetPoint), 75)
     end
 end

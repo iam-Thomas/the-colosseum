@@ -62,22 +62,19 @@ function ChainwindIsOver(unit, tick, duration)
 end
 
 function DealChainwindDamage(caster, aoe, damage)
-    local targets = nil
-
-    if IsUnitAliveBJ(caster) then
-        local casterpoint = GetUnitLoc(caster)
-        targets = GetUnitsInRange_EnemyGroundTargetable(caster, casterpoint, aoe)
-        
-        for i = 1, #targets do
-            local targetpoint = GetUnitLoc(targets[i])
-            CauseNormalDamage(caster, targets[i], damage)
-            Knockback_Angled(targets[i], AngleBetweenPoints(casterpoint, targetpoint), 300, function()
-                -- code
-            end)
-            RemoveLocation(casterpoint)
-        end
-
-        RemoveLocation(casterpoint)
+    if not IsUnitAliveBJ(caster) then
+        return
     end
 
+    local casterpoint = GetUnitLoc(caster)
+    local targets = GetUnitsInRange_EnemyGroundTargetable(caster, casterpoint, aoe)
+    
+    for i = 1, #targets do
+        local targetpoint = GetUnitLoc(targets[i])
+        CauseNormalDamage(caster, targets[i], damage)
+        Knockback_Angled(targets[i], AngleBetweenPoints(casterpoint, targetpoint), 300, nil)
+        RemoveLocation(targetpoint)
+    end
+
+    RemoveLocation(casterpoint)
 end

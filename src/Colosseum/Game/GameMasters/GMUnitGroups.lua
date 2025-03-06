@@ -203,6 +203,39 @@ function DefUnitGroups()
     udg_UnitTypesN = udg_UnitTypesN + 1
     udg_UnitTypesArray[udg_UnitTypesN ] = FourCC('u00B')
     udg_UnitLabelsArray[udg_UnitTypesN ] = "pirateb2"
+
+    --gnolls
+    udg_UnitTypesN = udg_UnitTypesN + 1
+    udg_UnitTypesArray[udg_UnitTypesN ] = FourCC('n00Z')
+    udg_UnitLabelsArray[udg_UnitTypesN ] = "gnoll_gnasher"
+
+    udg_UnitTypesN = udg_UnitTypesN + 1
+    udg_UnitTypesArray[udg_UnitTypesN ] = FourCC('n011')
+    udg_UnitLabelsArray[udg_UnitTypesN ] = "gnoll_brute"
+    
+    udg_UnitTypesN = udg_UnitTypesN + 1
+    udg_UnitTypesArray[udg_UnitTypesN ] = FourCC('n010')
+    udg_UnitLabelsArray[udg_UnitTypesN ] = "gnoll_poacher"
+    
+    udg_UnitTypesN = udg_UnitTypesN + 1
+    udg_UnitTypesArray[udg_UnitTypesN ] = FourCC('u00D')
+    udg_UnitLabelsArray[udg_UnitTypesN ] = "gnoll_wagon"
+    
+    udg_UnitTypesN = udg_UnitTypesN + 1
+    udg_UnitTypesArray[udg_UnitTypesN ] = FourCC('o00J')
+    udg_UnitLabelsArray[udg_UnitTypesN ] = "gnoll_spikey"
+    
+    udg_UnitTypesN = udg_UnitTypesN + 1
+    udg_UnitTypesArray[udg_UnitTypesN ] = FourCC('n013')
+    udg_UnitLabelsArray[udg_UnitTypesN ] = "gnoll_hogger"
+    
+    udg_UnitTypesN = udg_UnitTypesN + 1
+    udg_UnitTypesArray[udg_UnitTypesN ] = FourCC('n012')
+    udg_UnitLabelsArray[udg_UnitTypesN ] = "gnoll_trapper"
+    
+    -- udg_UnitTypesN = udg_UnitTypesN + 1
+    -- udg_UnitTypesArray[udg_UnitTypesN ] = FourCC('u00B')
+    -- udg_UnitLabelsArray[udg_UnitTypesN ] = "pirateb2"
 end
 
 function GetUnitTypeFromUnitString(unitString)

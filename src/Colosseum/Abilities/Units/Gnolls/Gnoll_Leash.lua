@@ -5,15 +5,18 @@ RegInit(function()
 end)
 
 function AbilityTrigger_Gnoll_Leash_Actions()
-    local caster = GetEventDamageSource()
+    local caster = GetSpellAbilityUnit()
     local casterPoint = GetUnitLoc(caster)
-    local target = BlzGetEventDamageTarget()
-    local targetPoint = GetUnitLoc(target)
+    local target = GetSpellTargetUnit()
 
-    local distance = DistanceBetweenPoints(targetPoint, casterPoint) / 2
-
-    Knockback_Angled(target, AngleBetweenPoints(targetPoint, casterPoint), distance, function()
-        -- code
+    FireHomingProjectile_PointToUnit(casterPoint, target, "Abilities\\Spells\\Orc\\Ensnare\\EnsnareMissile.mdl", 700, 0, function()
+        local sourcePoint = GetUnitLoc(caster)
+        local targetPoint = GetUnitLoc(target)
+        local distance = DistanceBetweenPoints(sourcePoint, targetPoint) - 160
+        Knockback_Angled(target, AngleBetweenPoints(targetPoint, sourcePoint), distance, nil)
+        RemoveLocation(sourcePoint)  
+        RemoveLocation(targetPoint)  
     end)
 
+    RemoveLocation(casterPoint)   
 end

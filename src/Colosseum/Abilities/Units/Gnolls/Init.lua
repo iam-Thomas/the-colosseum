@@ -1,5 +1,5 @@
 --new unit CarrionFleshPileUID = 'h018'
---new ability for GnollFeast (also includes a buff) GnollFeastDummySID = 'A09X'
+--new ability for GnollFeast (also includes a buff) GnollFeastDummySID = 'A039'
 --change tooltip of Carrion Feast to ATTACK SPEED instead of attack damage
 --change meatgrinder tooltip to dealing 150 damage flat, instead of doing 25 damage per second
 --increase castrange of meatgrinder to 1400 instead of 1000
@@ -20,7 +20,7 @@ TrapperUID = 'n012'
 BoulderbashSID = 'A09N'
 CarrionFeastSID = 'A09K'
 ChainwindSID = 'A09Q'
-GnollExplosiveSID = 'A09U'
+GnollExplosiveSID = 'A03B'
 GnollExplosiveDummySID = 'A09W'
 GreatCarrionFeastSID = 'A09S'
 GnollLeashSID = 'A09V'
@@ -31,27 +31,10 @@ FastClaptrapSID = 'A09T'
 MadDashSID = 'A09R'
 BallAndChainSID = 'A09J'
 SpikeySpikesSID = 'A09I'
-GnollFeastDummySID = 'A09X'
+GnollFeastDummySID = 'A039'
 
 -- set this to true for the pillar boss round
 IsPillarBossRound = false
-
-function GnollFeast(unit, duration, isGreaterFeast)
-    local level = 0
-
-    if (duration == 0) then
-        level = 10
-    else
-        level = math.floor( duration / 5 )
-        level = math.min( level, 9 )
-    end
-
-    if (isGreaterFeast) then
-        level = level + 10
-    end
-
-    CastDummyAbilityOnTarget(unit, unit, FourCC(GnollFeastDummySID), level, "bloodlust")
-end
 
 function UnitIsAGnoll(target)
     return GetUnitTypeId(target) == FourCC(GnasherUID) or
