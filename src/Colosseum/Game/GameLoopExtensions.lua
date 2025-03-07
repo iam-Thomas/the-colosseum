@@ -73,7 +73,6 @@ function GameLoop_RevokeSelectionsMana()
     end
 end
 
-LOCSP = GetRectCenter(gg_rct_KingOfTheHillGMStart)
 function GameLoop_SpawnUnits()
     -- if any mana remains, random groups will be selected.
     for i = 1, #GameLoop_SelectorUnits do
@@ -102,12 +101,11 @@ function GameLoop_SpawnUnits()
 
         for j = 1, #unitIdList do
             local unitId = unitIdList[j]
-            --local spawnLoc = GameLoop_GetSpawnLocationForUnit(0, unitId)
-            local spawnLoc = LOCSP
-            
+            local spawnLoc = GameLoop_GetSpawnLocationForUnit(0, unitId)
+
             local unit = CreateUnitAtLoc(owner, unitId, spawnLoc, 0)
             GroupAddUnit(udg_GameMasterUnits, unit)
-            --RemoveLocation(spawnLoc)
+            RemoveLocation(spawnLoc)
         end
     end
 
@@ -117,17 +115,14 @@ function GameLoop_SpawnUnits()
             local defaultGroup = GMCurrentPhase.defaultGroups[i]
             for j = 1, #defaultGroup do
                 local defaultTypeGroup = defaultGroup[j]
-                --for k = 1, #defaultTypeGroup do
-                    local unitTypeString = defaultTypeGroup.unitString                    
-                    local unitId = GetUnitTypeFromUnitString(unitTypeString)
-                    for n = 1, defaultTypeGroup.count do
-                        local nextSelectorUnit = GameLoop_GetNextIndexedSelectorUnit()
-                        --local defSpawnLoc = GameLoop_GetSpawnLocationForUnit(0, unitId)
-                        local defSpawnLoc = LOCSP
-                        CreateUnitAtLoc(GetOwningPlayer(nextSelectorUnit), unitId, defSpawnLoc, 0)
-                        --RemoveLocation(defSpawnLoc)
-                    end
-                --end
+                local unitTypeString = defaultTypeGroup.unitString                    
+                local unitId = GetUnitTypeFromUnitString(unitTypeString)
+                for n = 1, defaultTypeGroup.count do
+                    local nextSelectorUnit = GameLoop_GetNextIndexedSelectorUnit()
+                    local defSpawnLoc = GameLoop_GetSpawnLocationForUnit(0, unitId)
+                    CreateUnitAtLoc(GetOwningPlayer(nextSelectorUnit), unitId, defSpawnLoc, 0)
+                    RemoveLocation(defSpawnLoc)
+                end
             end
         end
     end
@@ -292,4 +287,8 @@ function GameLoop_MoveGladiatorUnitsToRest()
     end)
 
     RemoveLocation(point)
+end
+
+function GameLoop_IsUnitDeathRequired(unit)
+    return GetUnitAbilityLevel(unit, FourCC('A00N')) < 1
 end

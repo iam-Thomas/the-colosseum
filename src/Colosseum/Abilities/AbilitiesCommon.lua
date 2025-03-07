@@ -246,15 +246,29 @@ function RemoveManagedBuff(target, abilityId, buffId)
     UnitRemoveBuffBJ(buffId, target)
 end
 
-function ApplyEnsnareByManagedBuffMarker(caster, target, abilityId, ensnareAbilityId, ensnareBuffId)
-    CastDummyAbilityOnTarget(caster, target, ensnareAbilityId, 1, "ensnare", 2.0)
+function ApplyBuffByManagedBuffMarker(caster, target, abilityId, buffingAbilityId, buffId)
+    CastDummyAbilityOnTarget(caster, target, buffingAbilityId, 1, "ensnare", 2.0)
 
     local timer = CreateTimer()
     TimerStart(timer, 0.15, true, function()
         if GetUnitAbilityLevel(target, abilityId) < 1 then
-            UnitRemoveBuffBJ(ensnareBuffId, target)
+            UnitRemoveBuffBJ(buffId, target)
         end
     end)
+end
+
+function ApplyEnsnare(caster, target, duration, effectAttachmentPoint, effect)
+    ApplyManagedBuff_MagicElusive(target, FourCC('A03C'), nil, 5.0)
+    if not UnitHasBuffBJ(target, FourCC('B027')) then
+        ApplyBuffByManagedBuffMarker(caster, target, FourCC('A03C'), FourCC('A00U'), FourCC('B027'))
+        if effect == nil then
+            effect = "Abilities\\Spells\\Orc\\Ensnare\\ensnare_AirTarget.mdl"
+        end
+        if effectAttachmentPoint == nil then
+            effectAttachmentPoint = "chest"
+        end
+        CreateEffectOnUnitByBuff(effectAttachmentPoint, target, effect, FourCC('B027'))
+    end
 end
 
 function FireProjectile_PointToPoint(startPoint, endPoint, model, speed, arcHeight, callback, startingPitch, pitchRotation)

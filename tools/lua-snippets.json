@@ -223,10 +223,10 @@
         "prefix": "ApplyManagedBuff_MagicElusive"
     },
 
-    "ApplyEnsnareByManagedBuffMarker": {
-        "body": "ApplyEnsnareByManagedBuffMarker(${1:caster}, ${2:target}, ${3:abilityId}, ${4:ensnareAbilityId}, ${5:ensnareBuffId})",
-        "description": "ApplyEnsnareByManagedBuffMarker (unit caster, unit target, integer abilityId, integer ensnareAbilityId, integer ensnareBuffId)",
-        "prefix": "ApplyEnsnareByManagedBuffMarker"
+    "ApplyEnsnare": {
+        "body": "ApplyEnsnare(${1:caster}, ${2:target}, ${3:duration})",
+        "description": "ApplyEnsnare (unit caster, unit target, real duration)",
+        "prefix": "ApplyEnsnare"
     },
 
     "FireHomingProjectile_PointToUnit": {
@@ -466,6 +466,11 @@
         "body": "MakeBurnt(${1:unit}, ${2:t})",
         "description": "MakeBurnt (unit unit, real t)",
         "prefix": "MakeBurnt"
+    },
+    "IsUnitResistant": {
+        "body": "IsUnitResistant(${1:unit})",
+        "description": "IsUnitResistant (unit unit)",
+        "prefix": "IsUnitResistant"
     },
     "IsUnitVulnerable": {
         "body": "IsUnitVulnerable(${1:unit})",

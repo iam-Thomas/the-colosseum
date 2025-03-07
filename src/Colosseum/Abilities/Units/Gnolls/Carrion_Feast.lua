@@ -15,14 +15,13 @@ function AbilityTrigger_Carrion_Feast_Actions()
     TimerStart(timer, 4, false, function()
         if (GetUnitTypeId(target) == FourCC(CarrionFleshPileUID)) and (GetUnitCurrentOrder(caster) == String2OrderIdBJ("cripple")) then
             local isGreaterFeast = false
-            if (spellId == FourC(GreatCarrionFeastSID)) then
+            if (spellId == FourCC(GreatCarrionFeastSID)) then
                 isGreaterFeast = true
             end
 
             GnollFeast(caster, 0, isGreaterFeast)
         end
         DestroyTimer(timer)
-
     end) 
 end
 

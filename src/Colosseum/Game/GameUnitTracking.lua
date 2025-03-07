@@ -53,7 +53,7 @@ function GameUnitTracking_HandleUnitDied()
         local hasGameMasterUnitAlive = false
         ForGroup(udg_GameMasterUnits, function()
             local unit = GetEnumUnit()
-            if (IsUnitAliveBJ(unit)) then
+            if (IsUnitAliveBJ(unit)) and GameLoop_IsUnitDeathRequired(unit) then
                 hasGameMasterUnitAlive = true
                 return
             end

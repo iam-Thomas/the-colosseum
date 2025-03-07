@@ -9,28 +9,23 @@ function AbilityTrigger_Meatgrinder_Actions()
     local casterLoc = GetUnitLoc(caster)
     local targetLoc = GetSpellTargetLoc()
     local baseDamage = 150
+    local speed = 500
     local angle = AngleBetweenPoints(casterLoc, targetLoc)
-    local totalDistance = 1400
-    local speed = 700
-    local maxTime = 5
+    local kbMax = 400
+
+    RemoveLocation(casterLoc)
+    RemoveLocation(targetLoc)
+    local unitGroup = CreateGroup()
+
+    local shockwaveEffect = AddSpecialEffectTarget("Abilities\\Spells\\Orc\\Shockwave\\ShockwaveMissile.mdl", caster, "origin")
+    BlzSetSpecialEffectScale(shockwaveEffect, 0.6)
     local tickrate = 0.03
-
     local distance = 0.00
-    local time = 0.00
     local timer = CreateTimer()
+    print("start charge")
     TimerStart(timer, tickrate, true, function()
-        time = time + tickrate
-
         local stopCharge = false
         if not IsUnitAliveBJ(caster) then
-            stopCharge = true
-        end
-
-        if time > maxTime then
-            stopCharge = true
-        end
-
-        if distance > maxDistance then
             stopCharge = true
         end
 
@@ -40,8 +35,7 @@ function AbilityTrigger_Meatgrinder_Actions()
         end
 
         if (stopCharge) then
-            RemoveLocation(casterLoc)
-            RemoveLocation(targetLoc)
+            print("stop charge")
             DestroyGroup(unitGroup)
             DestroyTimer(timer)
             DestroyEffect(shockwaveEffect)
@@ -57,12 +51,12 @@ function AbilityTrigger_Meatgrinder_Actions()
 
         local targets = GetUnitsInRange_EnemyGroundTargetable(caster, newLoc, 130)
         for i = 1, #targets do
-            local unitLoc = GetUnitLoc(targets[i])
+            -- local unitLoc = GetUnitLoc(targets[i])
             if (not IsUnitInGroup(targets[i], unitGroup)) then
-                local remainingDistance = maxDistance - distance
                 GroupAddUnit(unitGroup, targets[i])
                 CauseDefensiveDamage(caster, targets[i], baseDamage)
-                Knockback_Angled(targets[i], angle, remainingDistance + 50)
+                Knockback_Angled(targets[i], angle, math.max(100, kbMax - (distance / 3) + 100))
+                CreateEffectOnUnit("chest", targets[i], "Abilities\\Spells\\Other\\Stampede\\StampedeMissileDeath.mdl", 2.00)
             end
         end
 

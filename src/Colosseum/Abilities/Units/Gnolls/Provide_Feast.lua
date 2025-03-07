@@ -10,5 +10,4 @@ function AbilityTrigger_Provide_Feast_Actions()
     if(UnitIsAGnoll(target)) then
         GnollFeast(target, 15, false)
     end
-
 end

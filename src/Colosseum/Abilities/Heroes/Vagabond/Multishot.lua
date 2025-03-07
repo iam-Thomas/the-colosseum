@@ -43,6 +43,7 @@ function AbilityTrigger_Vagabond_Multishot_GetNMultishotTargets(caster)
     end
 
     local hasMultishotBuff = UnitHasBuffBJ(caster, FourCC('B025'))
+        or UnitHasBuffBJ(caster, FourCC('B026')) -- Target practice integration
     local index = LoadInteger(VagabondMultishotHashtable, id, 1)
     if index == 0 and not hasMultishotBuff then
         SaveInteger(VagabondMultishotHashtable, id, 1, 1)

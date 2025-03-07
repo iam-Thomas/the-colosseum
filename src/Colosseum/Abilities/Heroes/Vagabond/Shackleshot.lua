@@ -5,19 +5,20 @@ end)
 function AbilityTrigger_Vagabond_Shackleshot()
     local caster = GetSpellAbilityUnit()
     local casterLoc = GetUnitLoc(caster)
-    local targetUnit = GetSpellTargetUnit()
+    local target = GetSpellTargetUnit()
+    local targetLoc = GetUnitLoc(target)
 
-    FireHomingProjectile_PointToUnit(casterLoc, targetUnit, "Abilities\\Spells\\Orc\\Ensnare\\EnsnareMissile.mdl", 600, 0.0, function()
-
-        print("projectile hit")
-        ApplyManagedBuff_MagicElusive(target, FourCC('A03C'), nil, 5.0)
-        print("managed buff ability applied")
-        ApplyEnsnareByManagedBuffMarker(caster, target, FourCC('A03C'), FourCC('A00U'), FourCC('B027'))
-        print("ensnare by buff marker ability applied")
-        CreateEffectOnUnitByBuff("chest", unit, "Abilities\\Spells\\Orc\\Ensnare\\ensnare_AirTarget.mdl", FourCC('B027'))
-        print("effect created")
-
-    end)
+    local units = GetUnitsInRange_EnemyTargetable(caster, targetLoc, 350)
+    for i = 1, #units do        
+        FireHomingProjectile_PointToUnit(casterLoc, units[i], "Abilities\\Spells\\Orc\\Ensnare\\EnsnareMissile.mdl", 950, 0.0, function()
+            if IsUnitResistant(unit) then
+                ApplyEnsnare(caster, units[i], 3.0)
+            else
+                ApplyEnsnare(caster, units[i], 9.0)
+            end
+        end)
+    end
 
     RemoveLocation(casterLoc)
+    RemoveLocation(targetLoc)
 end

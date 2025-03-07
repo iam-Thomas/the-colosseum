@@ -1,9 +1,7 @@
 AbilityTrigger_Spikey_Spikes = nil
 
 RegInit(function()
-    print("Spikey Spikes")
     AbilityTrigger_Spikey_Spikes = AddPeriodicPassiveAbility_Interval_CasterHasAbility(FourCC(SpikeySpikesSID), 0.05, AbilityTrigger_Spikey_Spikes_Callback)
-    print("Spikey Spikes registered")
 end)
 
 function AbilityTrigger_Spikey_Spikes_Callback(caster, tick)
