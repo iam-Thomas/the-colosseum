@@ -11,6 +11,7 @@ function AbilityTrigger_Vagabond_TumbleShot()
     local targetPoint = PolarProjectionBJ(casterLoc, distance, angle)
     local speed = 900.00
 
+    MakeElusive(caster, 1.0)
     CauseInvisStun(caster, caster)
     SetUnitAnimationByIndex(caster, 13)
     SetUnitTimeScale(caster, 3.0)

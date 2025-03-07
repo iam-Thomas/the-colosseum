@@ -200,7 +200,7 @@ function ApplyManagedBuff_Predicate(target, abilityId, buffId, duration, effectA
             flush = true
         end
 
-        if not UnitHasBuffBJ(target, buffId) then
+        if buffId ~= nil and not UnitHasBuffBJ(target, buffId) then
             flush = true
         end
 
@@ -214,7 +214,9 @@ function ApplyManagedBuff_Predicate(target, abilityId, buffId, duration, effectA
             --instead just set the time for the buff to 0.00
             SaveReal(ManagedBuffHashtable, id, abilityId, 0.00)
             DestroyTimer(timer)
-            UnitRemoveBuffBJ(buffId, target)
+            if buffId ~= nil then
+                UnitRemoveBuffBJ(buffId, target)
+            end
 
             if sfx ~= nil then
                 local sfxTimer = CreateTimer()
@@ -242,6 +244,17 @@ function RemoveManagedBuff(target, abilityId, buffId)
 
     UnitRemoveAbility(target, abilityId)
     UnitRemoveBuffBJ(buffId, target)
+end
+
+function ApplyEnsnareByManagedBuffMarker(caster, target, abilityId, ensnareAbilityId, ensnareBuffId)
+    CastDummyAbilityOnTarget(caster, target, ensnareAbilityId, 1, "ensnare", 2.0)
+
+    local timer = CreateTimer()
+    TimerStart(timer, 0.15, true, function()
+        if GetUnitAbilityLevel(target, abilityId) < 1 then
+            UnitRemoveBuffBJ(ensnareBuffId, target)
+        end
+    end)
 end
 
 function FireProjectile_PointToPoint(startPoint, endPoint, model, speed, arcHeight, callback, startingPitch, pitchRotation)

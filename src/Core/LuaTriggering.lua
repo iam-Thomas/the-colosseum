@@ -135,8 +135,6 @@ end
 
 function AddPeriodicPassiveAbility_Interval_CasterHasAbility(abilityId, interval, abilityFunction)
     local trg = CreateTrigger()
-    print("reg id:" .. abilityId)
-    print("reg va:" .. interval)
     TriggerAddAction(trg, function()
         local caster = GetEnteringUnit()
         local timer = CreateTimer()
@@ -154,11 +152,8 @@ function AddPeriodicPassiveAbility_Interval_CasterHasAbility(abilityId, interval
             abilityFunction(caster, tick)
         end)
     end)
-    print("action added")
     TriggerAddCondition(trg, Condition(function() return GetUnitAbilityLevel(GetEnteringUnit(), abilityId) > 0 and GetOwningPlayer(GetEnteringUnit()) ~= Player(27) end))
-    print("condition added")
     TriggerRegisterEnterRectSimple(trg, GetWorldBounds())
-    print("trigger registered")
     return trg
 end
 

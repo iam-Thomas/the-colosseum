@@ -73,6 +73,7 @@ function GameLoop_RevokeSelectionsMana()
     end
 end
 
+LOCSP = GetRectCenter(gg_rct_KingOfTheHillGMStart)
 function GameLoop_SpawnUnits()
     -- if any mana remains, random groups will be selected.
     for i = 1, #GameLoop_SelectorUnits do
@@ -101,11 +102,12 @@ function GameLoop_SpawnUnits()
 
         for j = 1, #unitIdList do
             local unitId = unitIdList[j]
-            local spawnLoc = GameLoop_GetSpawnLocationForUnit(0, unitId)
+            --local spawnLoc = GameLoop_GetSpawnLocationForUnit(0, unitId)
+            local spawnLoc = LOCSP
             
             local unit = CreateUnitAtLoc(owner, unitId, spawnLoc, 0)
             GroupAddUnit(udg_GameMasterUnits, unit)
-            RemoveLocation(spawnLoc)
+            --RemoveLocation(spawnLoc)
         end
     end
 
@@ -120,9 +122,10 @@ function GameLoop_SpawnUnits()
                     local unitId = GetUnitTypeFromUnitString(unitTypeString)
                     for n = 1, defaultTypeGroup.count do
                         local nextSelectorUnit = GameLoop_GetNextIndexedSelectorUnit()
-                        local defSpawnLoc = GameLoop_GetSpawnLocationForUnit(0, unitId)
+                        --local defSpawnLoc = GameLoop_GetSpawnLocationForUnit(0, unitId)
+                        local defSpawnLoc = LOCSP
                         CreateUnitAtLoc(GetOwningPlayer(nextSelectorUnit), unitId, defSpawnLoc, 0)
-                        RemoveLocation(defSpawnLoc)
+                        --RemoveLocation(defSpawnLoc)
                     end
                 --end
             end
@@ -144,17 +147,15 @@ function GameLoop_GetSpawnLocationForUnit(groupIndex, unitId)
 
     local spawnLoc = nil
     if spawnChar == "0" then
-        spawnLoc = GetRectCenter(gg_rct_KingOfTheHillGMStart)
-    elseif spawnChar == "0" then
+        return GetRectCenter(gg_rct_KingOfTheHillGMStart)
+    elseif spawnChar == "1" then
         spawnLoc = GetRandomLocInRect(gg_rct_KingOfTheHillCenterRegion)
         local tempLoc = GetUnitValidLoc(spawnLoc)
         RemoveLocation(spawnLoc)
-        spawnLoc = tempLoc
+        return tempLoc
     else
-        spawnLoc = GetRectCenter(gg_rct_KingOfTheHillGMStart)
+        return GetRectCenter(gg_rct_KingOfTheHillGMStart)
     end
-
-    return spawnLoc
 end
 
 function GameLoop_MoveGladiatorUnitsToArena()

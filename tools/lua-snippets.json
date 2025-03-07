@@ -223,6 +223,17 @@
         "prefix": "ApplyManagedBuff_MagicElusive"
     },
 
+    "ApplyEnsnareByManagedBuffMarker": {
+        "body": "ApplyEnsnareByManagedBuffMarker(${1:caster}, ${2:target}, ${3:abilityId}, ${4:ensnareAbilityId}, ${5:ensnareBuffId})",
+        "description": "ApplyEnsnareByManagedBuffMarker (unit caster, unit target, integer abilityId, integer ensnareAbilityId, integer ensnareBuffId)",
+        "prefix": "ApplyEnsnareByManagedBuffMarker"
+    },
+
+    "FireHomingProjectile_PointToUnit": {
+        "body": "FireHomingProjectile_PointToUnit(${1:startPoint}, ${2:targetUnit}, ${3:model}, ${4:speed}, ${5:arcHeight}, function()\n\t${6:-- callback}\nend)",
+        "description": "FireHomingProjectile_PointToUnit (location startPoint, unit targetUnit, string model, real speed, real arcHeight, function callback)",
+        "prefix": "FireHomingProjectile_PointToUnit"
+    }, 
     "FireProjectile_PointHeightToPoint": {
         "body": "FireProjectile_PointHeightToPoint(${1:startPoint}, ${2:startHeight}, ${3:endPoint}, ${4:model}, ${5:speed}, ${6:arcHeight}, function()\n\t${7:-- code}\nend, ${8:startingPitch}, ${6:pitchRotation})",
         "description": "FireProjectile_PointHeightToPoint (location startpoint, float startHeight, location endPoint, string model, float speed, float arcHeight, function callback, float startingPitch (optional), float pitchRotation (optional))",

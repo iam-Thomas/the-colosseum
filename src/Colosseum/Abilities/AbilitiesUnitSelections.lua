@@ -240,7 +240,6 @@ function GetClosestUnitInTableFromPoint(table, point)
     local closestUnit = nil
     local closestDistance = 999999.00
     for i = 1, #table do
-        print("checking unit: " .. GetUnitName(table[i]))
         local u = table[i]
         local unitLoc = GetUnitLoc(u)
         local distance = DistanceBetweenPoints(point, unitLoc)
@@ -257,7 +256,6 @@ function GetClosestUnitInTableFromPoint_NotInGroup(table, point, group)
     local closestUnit = nil
     local closestDistance = 999999.00
     for i = 1, #table do
-        print("checking unit: " .. GetUnitName(table[i]))
         local u = table[i]
         if (not IsUnitInGroup(u, group)) then
             local unitLoc = GetUnitLoc(u)
