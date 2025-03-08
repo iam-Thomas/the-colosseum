@@ -20,7 +20,6 @@ function AbilityTrigger_Lich_FateOfTheLiving_Actions()
         local damage = math.min(percentDamage, damageMax)
 
         CauseMagicDamage(caster, target, damage)
-        AbilityFunction_Undead_InfestTarget(caster, target, 5.0)
         CreateEffectAtPoint(point, "Abilities\\Spells\\Undead\\DeathCoil\\DeathCoilSpecialArt.mdl", 2.0)
         RemoveLocation(point)
 

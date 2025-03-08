@@ -5,7 +5,7 @@ end)
 function AbilityTrigger_Warden_FanOfKnives()
     local caster = GetSpellAbilityUnit()
     local casterLoc = GetUnitLoc(caster)
-    local abilityLevel = GetUnitAbilityLevel(caster, FourCC('A0A5'))
+    local abilityLevel = GetUnitAbilityLevel(caster, FourCC('A0A6'))
     
     local attackDamage = GetHeroDamageTotal(caster)
     local abilityDamage = 30.00 + (10.00 * abilityLevel)
