@@ -15,7 +15,7 @@ function AbilityTrigger_Graveyard_RaiseGhouls_Actions()
         local x = GetLocationX(summonPoint)
         local y = GetLocationY(summonPoint)
         local unit = CreateUnit(owner, FourCC('u004'), x, y, 0)
-        UnitApplyTimedLife(unit, 0, 15.00)
+        UnitApplyTimedLife(unit, 0, 9.00)
         CreateEffectAtPoint(summonPoint, "Abilities\\Spells\\Undead\\RaiseSkeletonWarrior\\RaiseSkeleton.mdl", 2.00)
         RemoveLocation(summonPoint)
     end

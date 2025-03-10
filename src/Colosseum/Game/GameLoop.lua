@@ -21,8 +21,8 @@ GameLoop_SelectorUnits = {}
 GameLoop_SelectorUnits_CurrentIndex = 0
 GameLoop_HeroSelectorUnits = {}
 
-GameLoop_Gladiators_GoldOnGreed = 200
-GameLoop_Gladiators_GoldOnNeed = 100
+GameLoop_Gladiators_GoldOnGreed = 250
+GameLoop_Gladiators_GoldOnNeed = 125
 --GameLoop_Gladiators_GoldLossOnDeath = 200
 GameLoop_GladiatorsGreedyness = {}
 

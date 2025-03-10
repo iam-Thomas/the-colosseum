@@ -228,6 +228,11 @@
         "description": "ApplyEnsnare (unit caster, unit target, real duration)",
         "prefix": "ApplyEnsnare"
     },
+    "ApplySilence": {
+        "body": "ApplySilence(${1:caster}, ${2:target}, ${3:duration})",
+        "description": "ApplySilence (unit caster, unit target, real duration)",
+        "prefix": "ApplySilence"
+    },
 
     "FireHomingProjectile_PointToUnit": {
         "body": "FireHomingProjectile_PointToUnit(${1:startPoint}, ${2:targetUnit}, ${3:model}, ${4:speed}, ${5:arcHeight}, function()\n\t${6:-- callback}\nend)",

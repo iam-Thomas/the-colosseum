@@ -3,6 +3,9 @@ RegInit(function()
 end)
 
 function Knockback_Angled(target, angle, force, collisionCallback)
+    if ItemFunction_MedallionOfTenacity_Function(target, target) then
+        return
+    end
     OrderStop(target)
     Knockback_AngledNoInterrupt(target, angle, force, collisionCallback)
 end
@@ -147,25 +150,25 @@ function IsLocationEmpty(loc, area)
 end
 
 ManagedBuffHashtable = InitHashtable()
-function ApplyManagedBuff(target, abilityId, buffId, duration, effectAttachmentPoint, effect)
+function ApplyManagedBuff(target, abilityId, buffId, duration, effectAttachmentPoint, effect, periodicCallback, expireCallback)
     ApplyManagedBuff_Predicate(target, abilityId, buffId, duration, effectAttachmentPoint, effect, function(target)
         return false
-    end)
+    end, periodicCallback, expireCallback)
 end
 
-function ApplyManagedBuff_Magic(target, abilityId, buffId, duration, effectAttachmentPoint, effect)
+function ApplyManagedBuff_Magic(target, abilityId, buffId, duration, effectAttachmentPoint, effect, periodicCallback, expireCallback)
     ApplyManagedBuff_Predicate(target, abilityId, buffId, duration, effectAttachmentPoint, effect, function(target)
         return not IsUnit_Targetable(target)
-    end)
+    end, periodicCallback, expireCallback)
 end
 
-function ApplyManagedBuff_MagicElusive(target, abilityId, buffId, duration, effectAttachmentPoint, effect)
+function ApplyManagedBuff_MagicElusive(target, abilityId, buffId, duration, effectAttachmentPoint, effect, periodicCallback, expireCallback)
     ApplyManagedBuff_Predicate(target, abilityId, buffId, duration, effectAttachmentPoint, effect, function(target)
         return not IsUnit_ProjectileTargetable(target)
-    end)
+    end, periodicCallback, expireCallback)
 end
 
-function ApplyManagedBuff_Predicate(target, abilityId, buffId, duration, effectAttachmentPoint, effect, evadePredicate)
+function ApplyManagedBuff_Predicate(target, abilityId, buffId, duration, effectAttachmentPoint, effect, evadePredicate, periodicCallback, expireCallback)
     local id = GetHandleId(target)
 
     if evadePredicate(target) then
@@ -187,6 +190,7 @@ function ApplyManagedBuff_Predicate(target, abilityId, buffId, duration, effectA
         sfx = GetLastCreatedEffectBJ()
     end
 
+    local tick = 0
     local timer = CreateTimer()
     TimerStart(timer, 0.20, true, function()
         local flush = false
@@ -228,7 +232,19 @@ function ApplyManagedBuff_Predicate(target, abilityId, buffId, duration, effectA
                     DestroyEffect(sfx)
                 end)
             end
+
+            if expireCallback ~= nil then
+                expireCallback(target)
+            end
             return
+        end
+
+        tick = tick + 1
+        if tick >= 5 then
+            tick = 0
+            if periodicCallback ~= nil then
+                periodicCallback(target)
+            end
         end
     end)
 end
@@ -246,8 +262,8 @@ function RemoveManagedBuff(target, abilityId, buffId)
     UnitRemoveBuffBJ(buffId, target)
 end
 
-function ApplyBuffByManagedBuffMarker(caster, target, abilityId, buffingAbilityId, buffId)
-    CastDummyAbilityOnTarget(caster, target, buffingAbilityId, 1, "ensnare", 2.0)
+function ApplyBuffByManagedBuffMarker(caster, target, abilityId, buffingAbilityId, buffId, orderString)
+    CastDummyAbilityOnTarget(caster, target, buffingAbilityId, 1, orderString, 2.0)
 
     local timer = CreateTimer()
     TimerStart(timer, 0.15, true, function()
@@ -257,10 +273,15 @@ function ApplyBuffByManagedBuffMarker(caster, target, abilityId, buffingAbilityI
     end)
 end
 
-function ApplyEnsnare(caster, target, duration, effectAttachmentPoint, effect)
-    ApplyManagedBuff_MagicElusive(target, FourCC('A03C'), nil, 5.0)
+function ApplyEnsnare(caster, target, duration, resistantDuration, periodicCallback, expireCallback, effectAttachmentPoint, effect)
+    local durationFinal = duration
+    if IsUnitResistant(target) then
+        durationFinal = resistantDuration
+    end
+
+    ApplyManagedBuff_MagicElusive(target, FourCC('A03C'), nil, durationFinal)
     if not UnitHasBuffBJ(target, FourCC('B027')) then
-        ApplyBuffByManagedBuffMarker(caster, target, FourCC('A03C'), FourCC('A00U'), FourCC('B027'))
+        ApplyBuffByManagedBuffMarker(caster, target, FourCC('A03C'), FourCC('A00U'), FourCC('B027'), "ensnare")
         if effect == nil then
             effect = "Abilities\\Spells\\Orc\\Ensnare\\ensnare_AirTarget.mdl"
         end
@@ -268,6 +289,18 @@ function ApplyEnsnare(caster, target, duration, effectAttachmentPoint, effect)
             effectAttachmentPoint = "chest"
         end
         CreateEffectOnUnitByBuff(effectAttachmentPoint, target, effect, FourCC('B027'))
+    end
+end
+
+function ApplySilence(caster, target, duration, resistantDuration, periodicCallback, expireCallback)
+    local durationFinal = duration
+    if IsUnitResistant(target) then
+        durationFinal = resistantDuration
+    end
+
+    ApplyManagedBuff_MagicElusive(target, FourCC('A0AC'), nil, durationFinal, nil, nil, periodicCallback, expireCallback)
+    if not UnitHasBuffBJ(target, FourCC('B029')) then
+        ApplyBuffByManagedBuffMarker(caster, target, FourCC('A0AC'), FourCC('A0AB'), FourCC('B029'), "soulburn")
     end
 end
 

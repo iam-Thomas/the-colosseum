@@ -11,7 +11,7 @@ function ItemTrigger_DemonicBook_Actions()
     local summonLoc = GetUnitValidLoc(targetLoc)
     
     local unit = CreateUnitAtLoc(GetOwningPlayer(caster), FourCC('n00V'), summonLoc, bj_UNIT_FACING)
-    ApplySummonPowerMultipliers(caster, unit)
+    --ApplySummonPowerMultipliers(caster, unit)
     local unitLoc = GetUnitLoc(unit)
     CreateEffectAtPoint(unitLoc, "Abilities\\Spells\\Other\\Doom\\DoomDeath.mdl", 2.00)
 

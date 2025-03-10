@@ -19,6 +19,6 @@ function ItemTrigger_MagmaBlade_Actions()
     local hasBuff = UnitHasBuffBJ(target, FourCC('B018'))
     ApplyManagedBuff(target, FourCC('A086'), FourCC('B018'), 5.0, nil, nil)
     if not hasBuff then
-        GrantTempArmorByBuff(target, -8, FourCC('B018'))
+        GrantTempArmorByBuff(target, -5, FourCC('B018'))
     end
 end

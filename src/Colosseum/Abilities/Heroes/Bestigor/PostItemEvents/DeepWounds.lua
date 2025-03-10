@@ -18,7 +18,7 @@ function AbilityTrigger_BEST_Deep_Wounds_Actions()
     local caster = GetEventDamageSource()
     local target = BlzGetEventDamageTarget()
     local id = GetHandleId(target)
-    local ticksDefault = 4
+    local ticksDefault = 7
     if UnitHasBuffBJ(target, FourCC('B014')) then
         ticksDefault = 10
     end

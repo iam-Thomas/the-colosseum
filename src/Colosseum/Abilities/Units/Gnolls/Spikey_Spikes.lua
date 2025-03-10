@@ -12,10 +12,10 @@ function AbilityTrigger_Spikey_Spikes_Callback(caster, tick)
         local unit = units[i]
         if Knockback_Stop(unit) then
             if IsPillarBossRound then
-                CauseNormalDamage(caster, unit, 300)
+                CauseNormalDamage(caster, unit, 120)
                 CauseStun3s(caster, unit)
             else
-                CauseNormalDamage(caster, unit, 200)
+                CauseNormalDamage(caster, unit, 80)
                 CauseStun2s(caster, unit)
             end
         end

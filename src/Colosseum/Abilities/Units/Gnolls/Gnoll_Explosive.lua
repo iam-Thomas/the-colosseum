@@ -9,7 +9,7 @@ function AbilityTrigger_Gnoll_Explosive_Actions()
     local castPoint = GetSpellTargetLoc()
     local timerInterval = 0.05
     local blowUpTime = 6
-    local explosionDamage = 200
+    local explosionDamage = 180
 
     local scaling = 2.00
     local targetScaling = 3.00

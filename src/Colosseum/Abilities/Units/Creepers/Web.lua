@@ -9,7 +9,7 @@ function Webber_Web()
 
     FireHomingProjectile_PointToUnit(startLoc, target, "Abilities\\Spells\\Orc\\Ensnare\\EnsnareMissile.mdl", 750, 0.0, function()
         local duration = 9.0
-        if IsUnitResistant(storedTarget) then
+        if IsUnitResistant(target) then
             duration = 3.5
         end
         ApplyEnsnare(caster, target, duration)

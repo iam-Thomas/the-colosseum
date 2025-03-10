@@ -148,6 +148,8 @@ function GameLoop_GetSpawnLocationForUnit(groupIndex, unitId)
         local tempLoc = GetUnitValidLoc(spawnLoc)
         RemoveLocation(spawnLoc)
         return tempLoc
+    elseif spawnChar == "2" then
+        return GetRectCenter(gg_rct_KingOfTheHillGladiatorDefendPoint)
     else
         return GetRectCenter(gg_rct_KingOfTheHillGMStart)
     end

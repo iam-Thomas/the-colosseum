@@ -10,7 +10,7 @@ function AbilityTrigger_Chainwind_Actions()
     local timerInterval = 0.5
     local duration = 5.00
     local aoe = 225
-    local damage = 100
+    local damage = 40
 
     StartChainwindEffect(caster)
 

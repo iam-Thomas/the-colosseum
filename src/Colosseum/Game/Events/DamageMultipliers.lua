@@ -63,9 +63,10 @@ function GetFactorForDamageType(damageType, source, target)
     else
         factor = GetUnitIntMultiplier(source)
 
+        -- make in act as magic resistance
         if IsUnitType(target, UNIT_TYPE_HERO) then
             local int = GetHeroInt(target, true)
-            local intFactor = 100.00 / (100.00 + (int * 1.2))
+            local intFactor = 100.00 / (100.00 + (int * 1.0))
             factor = factor * intFactor
         end
     end

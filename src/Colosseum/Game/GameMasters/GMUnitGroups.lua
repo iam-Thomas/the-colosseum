@@ -233,6 +233,10 @@ function DefUnitGroups()
     udg_UnitTypesArray[udg_UnitTypesN ] = FourCC('n012')
     udg_UnitLabelsArray[udg_UnitTypesN ] = "gnoll_trapper"
     
+    udg_UnitTypesN = udg_UnitTypesN + 1
+    udg_UnitTypesArray[udg_UnitTypesN ] = FourCC('h018')
+    udg_UnitLabelsArray[udg_UnitTypesN ] = "gnoll_fleshpile"
+    
     -- udg_UnitTypesN = udg_UnitTypesN + 1
     -- udg_UnitTypesArray[udg_UnitTypesN ] = FourCC('u00B')
     -- udg_UnitLabelsArray[udg_UnitTypesN ] = "pirateb2"

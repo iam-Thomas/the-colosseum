@@ -8,13 +8,17 @@ function AbilityTrigger_Vagabond_Shackleshot()
     local target = GetSpellTargetUnit()
     local targetLoc = GetUnitLoc(target)
 
-    local units = GetUnitsInRange_EnemyTargetable(caster, targetLoc, 350)
+    local abilityLevel = GetUnitAbilityLevel(caster, 'A03F')
+    local duration = 2.00 + (1.00 * abilityLevel)
+
+    local units = GetUnitsInRange_EnemyTargetable(caster, targetLoc, 350)    
+
     for i = 1, #units do        
         FireHomingProjectile_PointToUnit(casterLoc, units[i], "Abilities\\Spells\\Orc\\Ensnare\\EnsnareMissile.mdl", 950, 0.0, function()
             if IsUnitResistant(unit) then
-                ApplyEnsnare(caster, units[i], 3.0)
+                ApplyEnsnare(caster, units[i], duration * 0.5)
             else
-                ApplyEnsnare(caster, units[i], 9.0)
+                ApplyEnsnare(caster, units[i], duration)
             end
         end)
     end

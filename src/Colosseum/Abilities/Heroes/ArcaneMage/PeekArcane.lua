@@ -74,6 +74,5 @@ function AbilityTrigger_Mage_PeekArcane_Damaging_Resolve(caster)
     local peekFactor = (0.05 * n)
     local intPlusPeekFactor = intMutliplier + peekFactor
     local factor = (intPlusPeekFactor / intMutliplier)
-    print(factor)
     BlzSetEventDamage(GetEventDamage() * factor)
 end

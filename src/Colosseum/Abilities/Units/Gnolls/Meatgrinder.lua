@@ -22,7 +22,6 @@ function AbilityTrigger_Meatgrinder_Actions()
     local tickrate = 0.03
     local distance = 0.00
     local timer = CreateTimer()
-    print("start charge")
     TimerStart(timer, tickrate, true, function()
         local stopCharge = false
         if not IsUnitAliveBJ(caster) then
@@ -35,7 +34,6 @@ function AbilityTrigger_Meatgrinder_Actions()
         end
 
         if (stopCharge) then
-            print("stop charge")
             DestroyGroup(unitGroup)
             DestroyTimer(timer)
             DestroyEffect(shockwaveEffect)

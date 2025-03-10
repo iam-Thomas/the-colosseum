@@ -55,16 +55,6 @@ function AbilityTrigger_OrcWarlock_InfuseFel_Actions()
             -- Set the new scale for the unit
             SetUnitScale(target, newScaleX, newScaleY, newScaleZ)
             SetUnitVertexColor(target, 100, 255, 100, 255)
-            -- local unitId = GetUnitTypeId(target)
-            -- if unitId == FourCC('o006') then
-            --     print("try change model")
-            --     local us = BlzGetUnitSkin(target)
-            --     print("skin gotten")
-            --     print(us)
-            --     BlzSetUnitSkin(target, 1865429046)
-            -- elseif unitId == FourCC('o007') then
-            --     BlzSetUnitSkin(target, "OrcWarlockFelSkin")
-            -- end
         end
 
         RemoveLocation(targetLoc)

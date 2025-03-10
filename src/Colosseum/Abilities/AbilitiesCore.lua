@@ -214,7 +214,11 @@ function GetUnitAgiMultiplier(caster)
 end
 
 function GetUnitIntMultiplier(caster)
-    local val = GetHeroInt(caster, true)
+
+    local total = GetHeroInt(caster, true)
+    local base = GetHeroInt(caster, false)
+    local bonus = total - base
+    local val = base + (bonus * 2.0)
     local sum = 100.00 + (val * 1.00)
     local multiplier = sum / 100
     return multiplier
