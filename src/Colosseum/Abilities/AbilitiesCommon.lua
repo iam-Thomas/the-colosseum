@@ -495,7 +495,7 @@ function FireHomingProjectile_PointToUnit_TimeLimit(startPoint, targetUnit, mode
     return data
 end
 
-function FireShockwaveProjectile(caster, startPoint, endPoint, model, speed, unitHitRange, unitCallback, periodicCallback)
+function FireShockwaveProjectile(caster, startPoint, endPoint, model, speed, unitHitRange, unitCallback, periodicCallback, expireCallback)
     local startX = GetLocationX(startPoint)
     local startY = GetLocationY(startPoint)
     local startZ = GetLocationZ(startPoint) + 50.00
@@ -510,6 +510,7 @@ function FireShockwaveProjectile(caster, startPoint, endPoint, model, speed, uni
     local totalTicks = duration / tickRate
 
     local projectile = AddSpecialEffect(model, startX, startY)
+    local data = { projectileEffect = projectile }
     BlzSetSpecialEffectYaw(projectile, angle)
 
     local hitGroup = CreateGroup()
@@ -525,11 +526,12 @@ function FireShockwaveProjectile(caster, startPoint, endPoint, model, speed, uni
         BlzSetSpecialEffectPosition(projectile, currentX, currentY, currentZ)
 
         if ticks >= totalTicks then
+            if expireCallback ~= nil then
+                expireCallback()
+            end
             DestroyTimer(timer)
             DestroyGroup(hitGroup)
             DestroyEffect(projectile)
-            RemoveLocation(startPoint)
-            RemoveLocation(endPoint)
             unitCallback = nil
         end
 
@@ -550,9 +552,11 @@ function FireShockwaveProjectile(caster, startPoint, endPoint, model, speed, uni
 
         RemoveLocation(pnt)
     end)
+
+    return data
 end
 
-function FireShockwaveProjectile_SingleHit(caster, startPoint, endPoint, model, speed, unitHitRange, unitCallback)
+function FireShockwaveProjectile_SingleHit(caster, startPoint, endPoint, model, speed, unitHitRange, unitCallback, expireCallback)
     local startX = GetLocationX(startPoint)
     local startY = GetLocationY(startPoint)
     local startZ = GetLocationZ(startPoint) + 50.00
@@ -567,6 +571,7 @@ function FireShockwaveProjectile_SingleHit(caster, startPoint, endPoint, model, 
     local totalTicks = duration / tickRate
 
     local projectile = AddSpecialEffect(model, startX, startY)
+    local data = { projectileEffect = projectile }
     BlzSetSpecialEffectYaw(projectile, angle)
 
     local hitGroup = CreateGroup()
@@ -582,6 +587,9 @@ function FireShockwaveProjectile_SingleHit(caster, startPoint, endPoint, model, 
         BlzSetSpecialEffectPosition(projectile, currentX, currentY, currentZ)
 
         if ticks >= totalTicks then
+            if expireCallback ~= nil then
+                expireCallback()
+            end
             DestroyTimer(timer)
             DestroyGroup(hitGroup)
             DestroyEffect(projectile)
@@ -605,4 +613,6 @@ function FireShockwaveProjectile_SingleHit(caster, startPoint, endPoint, model, 
 
         RemoveLocation(pnt)
     end)
+
+    return data
 end

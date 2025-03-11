@@ -181,12 +181,20 @@ function GameLoop_EndRound()
 
     GameLoop_SetGladiatorsStateToRest()
     DelayedCallback(2.0, GameLoop_MoveGladiatorUnitsToRest)
+    DelayedCallback(2.0, function()
+        ForGroup(udg_GameMasterUnits, function()
+            local unit = GetEnumUnit()
+            if IsUnitAliveBJ(unit) then
+                KillUnit(unit)
+            end
+        end)
+        GroupClear(udg_GameMasterUnits)
+    end)
    
     ForGroup(udg_GameMasterUnits, function()
         local unit = GetEnumUnit()
-        RemoveUnit(unit)
+        KillUnit(unit)
     end)
-    GroupClear(udg_GameMasterUnits)
 
     GameLoop_BeginRoundCountdown()
     

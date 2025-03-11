@@ -17,13 +17,13 @@ function ItemTrigger_OrbOfLightning_Actions()
         return
     end
 
-    if math.random() < 0.85 then
+    if math.random() < 0.80 then
         return
     end
     
     BlzStartUnitAbilityCooldown(caster, FourCC('A0A9'), 1.00)
 
-    local damage = 40.00
+    local damage = 70.00
     local target = BlzGetEventDamageTarget()
     local sourceUnit = caster
     local targetsGroup = CreateGroup()
@@ -33,10 +33,11 @@ function ItemTrigger_OrbOfLightning_Actions()
     damage = damage * 0.85
     sourceUnit = target
 
-    local nTargets = 3
+    local nTargets = 2
     local timer = CreateTimer()
     TimerStart(timer, 0.12, true, function()
         if nTargets <= 0 then
+            DestroyGroup(targetsGroup)
             DestroyTimer(timer)
         end
         nTargets = nTargets - 1
@@ -54,11 +55,7 @@ function ItemTrigger_OrbOfLightning_Actions()
         ItemTrigger_OrbOfLightning_LightningBolt(caster, sourceUnit, target, damage)
         damage = damage * 0.85
         sourceUnit = target
-    end)
-
-    local targetLoc = GetUnitLoc(target)
-    
-    GetUnitsInRange_EnemyTargetable(caster, targetLoc, range)
+    end)  
 end
 
 function ItemTrigger_OrbOfLightning_LightningBolt(caster, sourceUnit, target, damage)

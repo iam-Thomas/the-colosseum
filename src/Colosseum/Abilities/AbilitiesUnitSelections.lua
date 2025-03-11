@@ -236,6 +236,28 @@ function GetUnitsInRange_FriendlyGroundTargetable(caster, point, range)
     return result
 end
 
+function FilterUnits_Predicate(table, predicate)
+    local result = {}
+    for i = 1, #table do
+        local unit = table[i]
+        if (predicate(unit)) then
+            result[#result + 1] = unit
+        end
+    end
+    return result
+end
+
+function FilterUnits_NotElusive(table)
+    local result = {}
+    for i = 1, #table do
+        local unit = table[i]
+        if (not IsUnitElusive(unit)) then
+            result[#result + 1] = unit
+        end
+    end
+    return result
+end
+
 function GetClosestUnitInTableFromPoint(table, point)
     local closestUnit = nil
     local closestDistance = 999999.00

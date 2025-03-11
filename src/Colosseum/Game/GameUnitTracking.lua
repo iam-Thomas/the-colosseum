@@ -49,6 +49,10 @@ function GameUnitTracking_HandleUnitDied()
         GroupRemoveUnit(udg_GladiatorUnits, dyingUnit)
     end
 
+    if not glIsInFight then
+        return
+    end
+
     if IsUnitInGroup(dyingUnit, udg_GameMasterUnits) and glIsInFight then
         local hasGameMasterUnitAlive = false
         ForGroup(udg_GameMasterUnits, function()

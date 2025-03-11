@@ -356,6 +356,11 @@
         "description": "GetUnitsInRange_FriendlyGroundTargetable (caster, point, range)",
         "prefix": "GetUnitsInRange_FriendlyGroundTargetable"
     },
+    "FilterUnits_NotElusive": {
+        "body": "FilterUnits_NotElusive(${1:table})",
+        "description": "FilterUnits_NotElusive (table)",
+        "prefix": "FilterUnits_NotElusive"
+    },
 
     "GetClosestUnitInTableFromPoint_NotInGroup": {
         "body": "GetClosestUnitInTableFromPoint_NotInGroup(${1:table}, ${2:point}, ${3:group})",
