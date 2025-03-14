@@ -103,6 +103,25 @@ function IsUnit_FriendlyGroundTargetable(caster, target)
     return true
 end
 
+function GetUnitsInRange_Predicate(caster, point, range, predicate)
+    local result = {}
+    local group = GetUnitsInRangeOfLocAll(range, point)
+    local nextUnit = FirstOfGroup(group)
+    while (not (nextUnit == nil)) do
+        if (predicate(caster, nextUnit)) then
+            result[#result + 1] = nextUnit
+        end
+        GroupRemoveUnit(group, nextUnit)
+        nextUnit = FirstOfGroup(group)
+    end
+
+    DestroyGroup(group)
+    group = nil
+    nextUnit = nil
+
+    return result
+end
+
 function GetUnitsInRange_Targetable(caster, point, range)
     local result = {}
     local group = GetUnitsInRangeOfLocAll(range, point)

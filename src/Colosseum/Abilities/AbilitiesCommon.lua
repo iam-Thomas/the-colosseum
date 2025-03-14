@@ -304,6 +304,18 @@ function ApplySilence(caster, target, duration, resistantDuration, periodicCallb
     end
 end
 
+function ApplyFrozen(caster, target, duration, resistantDuration, periodicCallback, expireCallback)
+    local durationFinal = duration
+    if IsUnitResistant(target) then
+        durationFinal = resistantDuration
+    end
+
+    ApplyManagedBuff_Magic(target, FourCC('A0AN'), nil, durationFinal, nil, nil, periodicCallback, expireCallback)
+    if not UnitHasBuffBJ(target, FourCC('Bfro')) then
+        ApplyBuffByManagedBuffMarker(caster, target, FourCC('A0AN'), FourCC('A06R'), FourCC('Bfro'), "frostnova")
+    end
+end
+
 function FireProjectile_PointToPoint(startPoint, endPoint, model, speed, arcHeight, callback, startingPitch, pitchRotation)
     return FireProjectile_PointHeightToPoint(startPoint, 50.00, endPoint, model, speed, arcHeight, callback, startingPitch, pitchRotation)
 end
@@ -602,7 +614,9 @@ function FireShockwaveProjectile_SingleHit(caster, startPoint, endPoint, model, 
             for i = 1, #units do
                 if not IsUnitInGroup(units[i], hitGroup) then
                     GroupAddUnit(hitGroup, units[i])
-                    local isHit = unitCallback(units[i], projectile)
+                    local locArg = Location(currentX, currentY)
+                    local isHit = unitCallback(units[i], projectile, locArg)
+                    RemoveLocation(locArg)
                     if (isHit) then
                         ticks = 9999999
                         i = 9999999

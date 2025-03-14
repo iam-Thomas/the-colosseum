@@ -68,7 +68,7 @@ function AbilityTrigger_BEST_BloodFunnel_Damaged_Actions()
     local targetLoc = GetUnitLoc(target)
     local damage = GetEventDamage()
 
-    local projectile = FireHomingProjectile_PointToUnit(targetLoc, caster, "war3mapImported\\Windwalk Blood.mdl", 300.00, 0.11, function()
+    local projectile = FireHomingProjectile_PointToUnit(targetLoc, caster, "war3mapImported\\Windwalk Blood.mdl", 450.00, 0.11, function()
         RemoveLocation(targetLoc)
         local healFactor = 1.0
         if UnitHasBuffBJ(caster, FourCC('B01A')) then

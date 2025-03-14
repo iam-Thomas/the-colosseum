@@ -6,5 +6,5 @@ end)
 
 function ItemTrigger_KelensDagger_Actions()
     local caster = GetManipulatingUnit()
-    MakeElusive(caster, 10.00)
+    MakeElusive(caster, 3.00)
 end

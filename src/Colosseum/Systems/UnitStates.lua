@@ -67,7 +67,6 @@ function MakeReckless(unit, t)
     end
 
     ApplyManagedBuff(unit, FourCC('S00C'), FourCC('B021'), t, nil, nil)
-    CreateEffectOnUnit("origin", unit, "Abilities\\Spells\\Items\\AIda\\AIdaCaster.mdl", 3.0)
 
     if not hasBuff then
         CreateEffectOnUnitByBuff("origin", unit, "war3mapImported\\Windwalk Fire.mdl", FourCC('B021'))

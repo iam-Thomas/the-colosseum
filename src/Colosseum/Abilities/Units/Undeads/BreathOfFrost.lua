@@ -22,7 +22,7 @@ function AbilityTrigger_Undead_BreathOfFrost_Functions()
             local units = GetUnitsInRange_EnemyTargetable(caster, projectileTargetLoc, 140)
             CreateEffectAtPoint(projectileTargetLoc, "Abilities\\Spells\\Undead\\FrostNova\\FrostNovaTarget.mdl", 3.0)
             for i = 1, #units do
-                CastDummyAbilityOnTarget(caster, units[i], FourCC('A06R'), 1, "frostnova")
+                ApplyFrozen(caster, units[i], 5.0)
                 CauseMagicDamage(caster, units[i], 125)
             end
             RemoveLocation(projectileTargetLoc)

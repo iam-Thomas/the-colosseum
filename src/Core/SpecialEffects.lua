@@ -41,12 +41,22 @@ function CreateEffectOnUnitByBuff(attachPointName, unit, effect, buffcode)
 end
 
 function DangerAreaAt(point, time, radius)
-    local scaleFactor = math.max(0.10, radius / 98.00)
-    local effect = AddSpecialEffectLoc("buildings\\other\\CircleOfPower\\CircleOfPower", point)
-    BlzSetSpecialEffectColor(effect, 255, 0, 0)
-    BlzSetSpecialEffectAlpha(effect, 70)
-    BlzSetSpecialEffectScale(effect, scaleFactor)
-    BlzSetSpecialEffectZ(effect, GetLocationZ(point) + 10.00)
+    local effect = GenericMarkAreaAt(point, time, radius, 255, 0, 0, 70)
+    return effect
+end
+
+function DangerAreaAtUntimed(point, radius)
+    local effect = GenericMarkAreaAtUntimed(point, radius, 255, 0, 0, 70)
+    return effect
+end
+
+function SoakAreaAtUntimed(point, radius)
+    local effect = GenericMarkAreaAtUntimed(point, radius, 0, 120, 255, 70)
+    return effect
+end
+
+function GenericMarkAreaAt(point, time, radius, r, g, b, a)
+    local effect = GenericMarkAreaAtUntimed(point, radius, r, g, b, a)
     local timer = CreateTimer()
     TimerStart(timer, time, false, function()
         DestroyTimer(timer)
@@ -55,11 +65,11 @@ function DangerAreaAt(point, time, radius)
     return effect
 end
 
-function DangerAreaAtUntimed(point, radius)
-    local scaleFactor = math.max(1.00, radius / 98.00)
+function GenericMarkAreaAtUntimed(point, radius, r, g, b, a)
+    local scaleFactor = math.max(1.00, radius / 91.00)
     local effect = AddSpecialEffectLoc("buildings\\other\\CircleOfPower\\CircleOfPower", point)
-    BlzSetSpecialEffectColor(effect, 255, 0, 0)
-    BlzSetSpecialEffectAlpha(effect, 70)
+    BlzSetSpecialEffectColor(effect, r, g, b)
+    BlzSetSpecialEffectAlpha(effect, a)
     BlzSetSpecialEffectScale(effect, scaleFactor)
     BlzSetSpecialEffectZ(effect, GetLocationZ(point) + 10.00)
     return effect

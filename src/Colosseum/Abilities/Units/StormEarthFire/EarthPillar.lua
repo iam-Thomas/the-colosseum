@@ -7,7 +7,6 @@ function AbilityTrigger_Sef_EarthPillar()
     local targetLoc = GetSpellTargetLoc()
 
     local damage = 80
-
     
     DangerAreaAt(targetLoc, 2.0, 180)
 
