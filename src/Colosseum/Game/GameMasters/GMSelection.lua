@@ -43,7 +43,7 @@ function GMSelections_CreateTransitionUnits()
     local tindex = math.min(glPhaseIndex, #GMPhases)
 
     local factions = GMPhases[tindex]
-    local indeces = GMSelections_GetSelectRandomBossIndexArray(#factions, 2) -- 2 options only i think
+    local indeces = SelectRandomIndeces(#factions, 2) -- 2 options only i think
 
     for i = 1, #indeces do
         local point = GetRectCenter(glBossSelectionZones[i])
@@ -69,7 +69,7 @@ function GMSelections_PickRandomTransitionUnit()
         end
     end
 
-    local selectedIndeces = GMSelections_GetSelectRandomBossIndexArray(#selectTable, 1)
+    local selectedIndeces = SelectRandomIndeces(#selectTable, 1)
     local selectedIndex = selectedIndeces[1]
     local unit = selectTable[selectedIndex]
     local unitId = GetUnitTypeId(unit)
@@ -141,7 +141,7 @@ function GMSelections_CreateUnits()
 end
 
 function GMSelections_CreateBosses()
-    local indeces = GMSelections_GetSelectRandomBossIndexArray(#GMCurrentPhase.bosses, #glBossSelectionZones)
+    local indeces = SelectRandomIndeces(#GMCurrentPhase.bosses, #glBossSelectionZones)
 
     for i = 1, #indeces do
         local point = GetRectCenter(glBossSelectionZones[i])
@@ -195,6 +195,7 @@ function GMSelections_ClearBosses()
     end
 end
 
+-- TODO: replace with "SelectRandomIndeces" throughout the codebase
 function GMSelections_GetSelectRandomBossIndexArray(max, n)
     local values = {}
     for i = 1, max do
@@ -285,7 +286,6 @@ function GMSelections_SelectPhase(unitId)
         end
     end
 
-    GameLoop_GrantSelectionsMana()
     GameLoop_BeginRoundCountdown()
 end
 

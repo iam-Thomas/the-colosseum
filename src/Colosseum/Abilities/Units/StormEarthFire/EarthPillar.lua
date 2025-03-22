@@ -7,7 +7,24 @@ function AbilityTrigger_Sef_EarthPillar()
     local targetLoc = GetSpellTargetLoc()
 
     local damage = 80
+
+    local nAoE = 0
+    if IsUnitEmpowered(caster) then
+        nAoE = nAoE + 3
+    end
     
+    AbilityTrigger_Sef_EarthPillar_Start(caster, targetLoc)
+    for i = 1, nAoE do
+        local loc = PolarProjectionBJ(targetLoc, math.random(140, 500), math.random(0, 360))
+        AbilityTrigger_Sef_EarthPillar_Start(caster, loc)
+        RemoveLocation(loc)
+    end
+
+    RemoveLocation(targetLoc)
+end
+
+function AbilityTrigger_Sef_EarthPillar_Start(caster, location)
+    local targetLoc = Location(GetLocationX(location), GetLocationY(location))
     DangerAreaAt(targetLoc, 2.0, 180)
 
     DelayedCallback(2.0, function()

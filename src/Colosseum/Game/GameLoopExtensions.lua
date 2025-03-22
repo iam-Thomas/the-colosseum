@@ -43,7 +43,8 @@ function GameLoop_GrantSelectionsMana()
     -- First, set the mana of all units to 0
     for i = 1, #GameLoop_SelectorUnits do
         local unit = GameLoop_SelectorUnits[i]
-        SetUnitState(unit, UNIT_STATE_MANA, 0)
+        -- SetUnitState(unit, UNIT_STATE_MANA, 0)
+        SetUnitManaBJ(unit, 0)
     end
 
     -- Then, grant mana to all units
@@ -52,7 +53,8 @@ function GameLoop_GrantSelectionsMana()
 
         local mana = GetUnitState(unit, UNIT_STATE_MANA)
         local targetMana = mana + 1
-        SetUnitState(unit, UNIT_STATE_MANA, targetMana)
+        --SetUnitState(unit, UNIT_STATE_MANA, targetMana)
+        SetUnitManaBJ(unit, targetMana)
 
         nManaLeftToGrant = nManaLeftToGrant - 1
     end

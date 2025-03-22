@@ -21,7 +21,7 @@ function AbilityTrigger_Sef_BallLightning()
             CauseMagicDamage(caster, unit, damage)
             local damageEffect = AddSpecialEffectTarget("Abilities\\Weapons\\FarseerMissile\\FarseerMissile.mdl", unit, "chest")
             DestroyEffect(damageEffect)
-        elseif GetUnitTypeId(unit) == FourCC('n015') then
+        elseif IsUnitAlly(unit, GetOwningPlayer(caster)) then
             MakeEmpowered(unit, 10.0)
         end
     end, function()

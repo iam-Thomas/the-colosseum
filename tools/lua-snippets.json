@@ -13,6 +13,12 @@
 	// 	"description": "Log output to console"
 	// }
 
+    "SelectRandomIndeces": {
+        "body": "SelectRandomIndeces(${1:max}, ${2:n})",
+        "description": "SelectRandomIndeces (integer max, integer n)",
+        "prefix": "SelectRandomIndeces"
+    },
+
     "RegInit": {
         "body": "RegInit(function()\n\t${1:-- on map initialization code}\nend)",
         "description": "RegInit (code function)",

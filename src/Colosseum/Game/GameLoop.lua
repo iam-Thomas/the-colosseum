@@ -108,8 +108,9 @@ function GameLoop_BeginRoundCountdown()
         GameLoop_GrantSelectionsMana()
 
         GameLoop_BeginIntermissionTimer("Next phase: ", glPhaseStartDelayDuration, function()
-            local evalState = GMCurrentPhase.evaluateState(glRoundIndex, glPhaseRoundIndex)
-            return not evalState.IsTransitionFight
+            -- local evalState = GMCurrentPhase.evaluateState(glRoundIndex, glPhaseRoundIndex)
+            -- return not evalState.IsTransitionFight
+            return false
         end, function()
             local evalState = GMCurrentPhase.evaluateState(glRoundIndex, glPhaseRoundIndex)
             if evalState.IsTransitionFight then
@@ -124,6 +125,7 @@ function GameLoop_BeginRoundCountdown()
     GMSelections_ResetForFight()
 
     -- Grant mana to select units
+    -- TODO: This call does not grant mana to the players after the 'selections phase' ?!?!?
     GameLoop_GrantSelectionsMana()    
 
     if eval.IsBossFight then
@@ -173,7 +175,7 @@ function GameLoop_EndRound()
     ForForce(udg_GameMasterPlayers, function()
         local player = GetEnumPlayer()
         if state.IsTransitionFight then
-            GameBalanceTrigger_AddScaling(player, 0.70, 0.5, 0.5)
+            GameBalanceTrigger_AddScaling(player, 1.10, 0.5, 0.5)
         else
             GameBalanceTrigger_AddScaling(player, 0.10, 0.05, 0.05)
         end
