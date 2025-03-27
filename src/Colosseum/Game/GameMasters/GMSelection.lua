@@ -18,10 +18,11 @@ RegInit(function()
     GMSelections_Trigger_PickUnit = AddAbilityCastTrigger('A02G', GMSelections_SelectGroup)
     
     GMPhases = {
-        { GetPhaseBandits(), GetPhaseMurlocs() },
+        { GetPhaseStormEarthFire(), GetPhaseBandits(), },--GetPhaseMurlocs() },
         { GetPhaseGnolls(), GetPhaseCreepers() },
         { GetPhaseHorde(), GetPhaseUndeads() },
         { GetPhasePirates() },
+        { GetPhaseStormEarthFire() },
     }    
 end)
 
@@ -29,7 +30,7 @@ function GMSelections_PhaseChange(phase)
     GMCurrentPhase = phase
     glPhaseRoundIndex = 1
 
-    GMSelections_Create()
+    --GMSelections_Create()
 end
 
 function GMSelections_Create()
@@ -87,8 +88,18 @@ function GMSelections_ResetForFight()
         glPlayerSelections[i] = {}
     end
 
-    GMSelections_ClearUnits()
-    GMSelections_CreateUnits()
+    local doDefaultDraft = true
+    if GMCurrentPhase.draftIntercept ~= nil then
+        if GMCurrentPhase.draftIntercept(glRoundIndex, glPhaseRoundIndex) then
+            print("Draft Intercepted")
+            doDefaultDraft = false
+        end
+    end
+
+    if doDefaultDraft then
+        GMSelections_ClearUnits()
+        GMSelections_CreateUnits()
+    end
 end
 
 function GMSelections_CreateUnits()
@@ -282,6 +293,8 @@ function GMSelections_SelectPhase(unitId)
         for j = 1, #(GMPhases[i]) do
             if GMPhases[i][j].signatureUnitId == unitId then
                 GMSelections_PhaseChange(GMPhases[i][j])
+                i = 99999
+                j = 99999
             end
         end
     end
