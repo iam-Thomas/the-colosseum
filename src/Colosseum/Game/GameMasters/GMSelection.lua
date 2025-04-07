@@ -89,12 +89,12 @@ function GMSelections_ResetForFight()
     end
 
     local doDefaultDraft = true
-    if GMCurrentPhase.draftIntercept ~= nil then
-        if GMCurrentPhase.draftIntercept(glRoundIndex, glPhaseRoundIndex) then
-            print("Draft Intercepted")
-            doDefaultDraft = false
-        end
-    end
+    -- if GMCurrentPhase.draftIntercept ~= nil then
+    --     if GMCurrentPhase.draftIntercept(glRoundIndex, glPhaseRoundIndex) then
+    --         print("Draft Intercepted")
+    --         doDefaultDraft = false
+    --     end
+    -- end
 
     if doDefaultDraft then
         GMSelections_ClearUnits()
@@ -153,6 +153,8 @@ end
 
 function GMSelections_CreateBosses()
     local indeces = SelectRandomIndeces(#GMCurrentPhase.bosses, #glBossSelectionZones)
+
+    print(indeces)
 
     for i = 1, #indeces do
         local point = GetRectCenter(glBossSelectionZones[i])
@@ -295,10 +297,13 @@ function GMSelections_SelectPhase(unitId)
                 GMSelections_PhaseChange(GMPhases[i][j])
                 i = 99999
                 j = 99999
+                print(i)
+                print(j)
             end
         end
     end
 
+    print("call begin round")
     GameLoop_BeginRoundCountdown()
 end
 

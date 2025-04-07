@@ -24,9 +24,6 @@ function AbilityTrigger_Knight_WrathOfSargeras_Actions()
     local currentChannelTime = 0.00
     local maxChannelTime = 7.00
 
-    ApplyManagedBuff(caster, FourCC('S008'), FourCC('B01P'), duration, nil, nil)
-    GrantTempDamageByBuff(caster, bonusDamagePerTick, FourCC('B01P'))
-
     local timer = CreateTimer()
     TimerStart(timer, 0.5, true, function()
         if GetUnitCurrentOrder(caster) == String2OrderIdBJ("divineshield") then

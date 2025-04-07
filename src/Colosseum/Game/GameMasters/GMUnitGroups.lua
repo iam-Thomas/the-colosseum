@@ -240,6 +240,19 @@ function DefUnitGroups()
     -- udg_UnitTypesN = udg_UnitTypesN + 1
     -- udg_UnitTypesArray[udg_UnitTypesN ] = FourCC('u00B')
     -- udg_UnitLabelsArray[udg_UnitTypesN ] = "pirateb2"
+    
+    -- storm, earth and fire
+    udg_UnitTypesN = udg_UnitTypesN + 1
+    udg_UnitTypesArray[udg_UnitTypesN ] = FourCC('n014')
+    udg_UnitLabelsArray[udg_UnitTypesN ] = "sef0"
+
+    udg_UnitTypesN = udg_UnitTypesN + 1
+    udg_UnitTypesArray[udg_UnitTypesN ] = FourCC('n015')
+    udg_UnitLabelsArray[udg_UnitTypesN ] = "sef1"
+
+    udg_UnitTypesN = udg_UnitTypesN + 1
+    udg_UnitTypesArray[udg_UnitTypesN ] = FourCC('n016')
+    udg_UnitLabelsArray[udg_UnitTypesN ] = "sef2"
 end
 
 function GetUnitTypeFromUnitString(unitString)

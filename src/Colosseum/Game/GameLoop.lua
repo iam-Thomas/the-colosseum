@@ -100,7 +100,10 @@ function GameLoop_InitialCountDownEnd()
 end
 
 function GameLoop_BeginRoundCountdown()
+    print("begin round")
+
     local eval = GMCurrentPhase.evaluateState(glRoundIndex, glPhaseRoundIndex)
+    print(tostring(eval))
     if eval.IsTransitionFight then
         glIsInPhaseTransition = true
         -- Clear everything, create transition adds
