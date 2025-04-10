@@ -18,11 +18,11 @@ RegInit(function()
     GMSelections_Trigger_PickUnit = AddAbilityCastTrigger('A02G', GMSelections_SelectGroup)
     
     GMPhases = {
-        { GetPhaseStormEarthFire(), GetPhaseBandits(), },--GetPhaseMurlocs() },
+        { GetPhaseStormEarthFire(), GetPhaseBandits() },--GetPhaseMurlocs() },
         { GetPhaseGnolls(), GetPhaseCreepers() },
         { GetPhaseHorde(), GetPhaseUndeads() },
         { GetPhasePirates() },
-        { GetPhaseStormEarthFire() },
+        --{ GetPhaseStormEarthFire() },
     }    
 end)
 
@@ -297,13 +297,13 @@ function GMSelections_SelectPhase(unitId)
                 GMSelections_PhaseChange(GMPhases[i][j])
                 i = 99999
                 j = 99999
-                print(i)
-                print(j)
+                -- print(i)
+                -- print(j)
             end
         end
     end
 
-    print("call begin round")
+    -- print("call begin round")
     GameLoop_BeginRoundCountdown()
 end
 
