@@ -27,8 +27,8 @@ function GetPhaseStormEarthFire()
             local isBossRound = phaseRoundIndex > 2
         
             return {
-                IsTransitionFight = phaseRoundIndex > 1,
-                IsBossFight = true,
+                IsTransitionFight = phaseRoundIndex > 5,
+                IsBossFight = phaseRoundIndex > 2,
             }
         end
     }

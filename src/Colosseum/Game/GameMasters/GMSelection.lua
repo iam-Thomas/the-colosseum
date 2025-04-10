@@ -18,11 +18,11 @@ RegInit(function()
     GMSelections_Trigger_PickUnit = AddAbilityCastTrigger('A02G', GMSelections_SelectGroup)
     
     GMPhases = {
-        { GetPhaseStormEarthFire(), GetPhaseBandits() },--GetPhaseMurlocs() },
+        { GetPhaseMurlocs(), GetPhaseBandits() },
         { GetPhaseGnolls(), GetPhaseCreepers() },
         { GetPhaseHorde(), GetPhaseUndeads() },
         { GetPhasePirates() },
-        --{ GetPhaseStormEarthFire() },
+        { GetPhaseStormEarthFire() }
     }    
 end)
 
@@ -30,7 +30,7 @@ function GMSelections_PhaseChange(phase)
     GMCurrentPhase = phase
     glPhaseRoundIndex = 1
 
-    --GMSelections_Create()
+    GMSelections_Create()
 end
 
 function GMSelections_Create()
@@ -153,8 +153,6 @@ end
 
 function GMSelections_CreateBosses()
     local indeces = SelectRandomIndeces(#GMCurrentPhase.bosses, #glBossSelectionZones)
-
-    print(indeces)
 
     for i = 1, #indeces do
         local point = GetRectCenter(glBossSelectionZones[i])
@@ -291,19 +289,20 @@ function GMSelections_SelectPhase(unitId)
     glIsInPhaseTransition = false
 
     GMSelections_ClearAll()
+    local found = false
     for i = 1, #GMPhases do
         for j = 1, #(GMPhases[i]) do
             if GMPhases[i][j].signatureUnitId == unitId then
                 GMSelections_PhaseChange(GMPhases[i][j])
-                i = 99999
-                j = 99999
-                -- print(i)
-                -- print(j)
+                found = true
+                break
             end
+        end
+        if found then
+            break -- Break the outer loop if the flag is set
         end
     end
 
-    -- print("call begin round")
     GameLoop_BeginRoundCountdown()
 end
 
