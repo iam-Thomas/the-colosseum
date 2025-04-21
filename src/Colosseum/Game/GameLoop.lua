@@ -83,6 +83,9 @@ RegInit(function()
         CreateGroup(), CreateGroup(), CreateGroup(),
         CreateGroup(), CreateGroup(),
     }
+
+    udg_GladiatorLives = 2
+    GameLoop_GrantLifeToGladiator()
 end)
 
 function GameLoop_InitialCountDownEnd()
@@ -100,10 +103,8 @@ function GameLoop_InitialCountDownEnd()
 end
 
 function GameLoop_BeginRoundCountdown()
-    print("begin round")
-
     local eval = GMCurrentPhase.evaluateState(glRoundIndex, glPhaseRoundIndex)
-    print(tostring(eval))
+
     if eval.IsTransitionFight then
         glIsInPhaseTransition = true
         -- Clear everything, create transition adds
@@ -120,6 +121,8 @@ function GameLoop_BeginRoundCountdown()
                 GMSelections_PickRandomTransitionUnit()
             end
         end)
+
+        GameLoop_GrantLifeToGladiator()
 
         return
     end
@@ -159,7 +162,12 @@ function GameLoop_BeginRound()
 end
 
 function GameLoop_GameMastersVictory()
-    GameLoop_EndRound()
+    GameLoop_TakeGladiatorLife()
+    if GameLoop_GladiatorsLivesLeft() <= 0 then
+        GameLoop_GameMastersWinGame()
+    else
+        GameLoop_EndRound()
+    end    
 end
 
 function GameLoop_GladiatorsVictory()
@@ -171,6 +179,12 @@ function GameLoop_EndRound()
     glRoundIndex = glRoundIndex + 1
     glPhaseRoundIndex = glPhaseRoundIndex + 1
     local state = GMCurrentPhase.evaluateState(glRoundIndex, glPhaseRoundIndex)
+
+    if state.IsFinal then
+        GameLoop_GladiatorsWinGame()        
+        return
+    end
+
     if state.IsTransitionFight then
         glPhaseIndex = glPhaseIndex + 1
     end
