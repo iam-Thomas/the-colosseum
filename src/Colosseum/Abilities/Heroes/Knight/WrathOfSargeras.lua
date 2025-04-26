@@ -11,27 +11,26 @@ function AbilityTrigger_Knight_WrathOfSargeras_Actions()
     local targetLoc = GetSpellTargetLoc()
 
     local abilityLevel = GetUnitAbilityLevel(caster, FourCC('A08K'))
-    local bonusDamagePerTick = 4
+    -- local bonusDamagePerTick = 4
     local castBaseDamage = 100.00 + (50.00 * abilityLevel)
     local baseAttackDamageFactor = 1.5
     local minDamageFactor = 1.0
     local maxDamageFactor = 2.0
-    local duration = 20.00 + (5.00 * abilityLevel)
 
-    local maxAoE = 600.0
-    local minAoE = 130.0
+    local maxAoE = 420.0
+    local minAoE = 180.0
 
     local currentChannelTime = 0.00
     local maxChannelTime = 7.00
 
-    local timer = CreateTimer()
-    TimerStart(timer, 0.5, true, function()
-        if GetUnitCurrentOrder(caster) == String2OrderIdBJ("divineshield") then
-            GrantTempDamageByBuff(caster, bonusDamagePerTick, FourCC('B01P'))
-            return
-        end
-        DestroyTimer(timer)
-    end)
+    -- local timer = CreateTimer()
+    -- TimerStart(timer, 0.5, true, function()
+    --     if GetUnitCurrentOrder(caster) == String2OrderIdBJ("divineshield") then
+    --         GrantTempDamageByBuff(caster, bonusDamagePerTick, FourCC('B01P'))
+    --         return
+    --     end
+    --     DestroyTimer(timer)
+    -- end)
 
     local minWarnEffectScale = minAoE / 45
     local maxWarEffectScale = maxAoE / 45
@@ -73,7 +72,7 @@ function AbilityTrigger_Knight_WrathOfSargeras_Actions()
 
             local targets = GetUnitsInRange_EnemyTargetablePhysical(caster, targetLoc, AbilityTrigger_Knight_WrathOfSargeras_Lerp(minAoE, maxAoE, progress))
             for i = 1, #targets do
-                MakeBurnt(targets[i], 9.0)
+                MakeBurnt(targets[i], 20.0)
                 CausePhysicalDamage_Hero(caster, targets[i], damage * damageProgress)
                 CauseStun3s(caster, targets[i])
             end

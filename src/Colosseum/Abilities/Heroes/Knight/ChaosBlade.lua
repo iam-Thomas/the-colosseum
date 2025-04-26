@@ -13,24 +13,19 @@ function AbilityTrigger_Knight_ChaosBlade_Damaging_Actions()
     local caster = GetEventDamageSource()
     local target = BlzGetEventDamageTarget()
 
-    if not IsUnitBurnt(target) and not UnitHasBuffBJ(caster, FourCC('B020')) then
+    if (not IsUnitBurnt(caster)) and (not UnitHasBuffBJ(caster, FourCC('B020'))) then
         return
     end
 
-    local damage = GetHeroDamageTotal(caster) * 0.18
-    damage = damage * GetFactorToExcludeMultiplierFactor(DAMAGE_TYPE_FIRE, caster, target)
+    local unitLevel = GetHeroLevel(caster)
+    local damage = GetHeroDamageTotal(caster) * 0.50
+    damage = damage * GetFactorToExcludeMultiplierFactor(DAMAGE_TYPE_FIRE, caster, target) -- this part is offset by the intelligence factor, as if it was a normal damage type
+    damage = damage + 20.00 -- this 20.00 is increased by intelligence
 
-    local targetLoc = GetUnitLoc(target)
-    local affectedUnits = GetUnitsInRange_EnemyTargetable(caster, targetLoc, 140)
-    for i = 1, #affectedUnits do
-        local unit = affectedUnits[i]
-        CauseMagicDamage_Fire(caster, unit, damage)    
-    end
     
-    local effect = AddSpecialEffectLoc("Abilities\\Weapons\\RedDragonBreath\\RedDragonMissile.mdl", targetLoc)
+    CauseMagicDamage_Fire(caster, target, damage)
+    
+    local effect = AddSpecialEffectTarget("Abilities\\Weapons\\RedDragonBreath\\RedDragonMissile.mdl", target, "chest")
     BlzSetSpecialEffectScale(effect, 1.2)
-    BlzSetSpecialEffectZ(effect, GetLocationZ(targetLoc) + 40)
     DestroyEffect(effect)
-
-    RemoveLocation(targetLoc)
 end
