@@ -178,7 +178,8 @@ function ApplyManagedBuff_Predicate(target, abilityId, buffId, duration, effectA
     local abilityLevelAtStart = GetUnitAbilityLevel(target, abilityId)
     UnitAddAbility(target, abilityId)
     local currentTargetTime = LoadReal(ManagedBuffHashtable, id, abilityId)
-    SaveReal(ManagedBuffHashtable, id, abilityId, math.max(udg_ElapsedTime + duration, currentTargetTime))
+    local tTime = math.max(udg_ElapsedTime + duration, currentTargetTime)
+    SaveReal(ManagedBuffHashtable, id, abilityId, tTime)
 
     if abilityLevelAtStart > 0 then
         return
@@ -306,7 +307,8 @@ end
 
 function ApplyFrozen(caster, target, duration, resistantDuration, periodicCallback, expireCallback)
     local durationFinal = duration
-    if IsUnitResistant(target) then
+    print(durationFinal)
+    if IsUnitResistant(target) and resistantDuration ~= nil then
         durationFinal = resistantDuration
     end
 
