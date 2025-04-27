@@ -2,6 +2,8 @@ AbilityTrigger_VP_ScorchedEarth = nil
 
 RegInit(function()
     AbilityTrigger_VP_ScorchedEarth = AddAbilityCastTrigger('A05W', AbilityTrigger_VP_ScorchedEarth_Actions)
+    
+    RegisterTriggerEnableById(AbilityTrigger_VP_ScorchedEarth, FourCC('H00S'))
 end)
 
 function AbilityTrigger_VP_ScorchedEarth_Actions()

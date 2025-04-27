@@ -6,6 +6,9 @@ RegInit(function()
     AbilityTrigger_Mage_PeekArcane_Hashtable = InitHashtable()
     AbilityTrigger_Mage_PeekArcane = AddAbilityCastTrigger_CasterHasAbility(FourCC('A084'), AbilityTrigger_Mage_PeekArcane_Function)
     AbilityTrigger_Mage_PeekArcane_Damaging = AddDamagingEventTrigger_CasterHasAbility(FourCC('A084'), AbilityTrigger_Mage_PeekArcane_Damaging_Resolve)
+
+    RegisterTriggerEnableById(AbilityTrigger_Mage_PeekArcane, FourCC('H010'))
+    RegisterTriggerEnableById(AbilityTrigger_Mage_PeekArcane_Damaging, FourCC('H010'))
 end)
 
 function AbilityTrigger_Mage_PeekArcane_Function()

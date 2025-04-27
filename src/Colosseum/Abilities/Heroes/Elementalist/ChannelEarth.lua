@@ -8,6 +8,10 @@ RegInit(function()
     AbilityTrigger_BS_ChannelEarth = AddAbilityCastTrigger('A062', AbilityTrigger_BS_ChannelEarth_Actions)
     AbilityTrigger_BS_ChannelEarth_Damaging_Caster = AddDamagingEventTrigger_CasterHasAbility(FourCC('A062'), AbilityTrigger_BS_ChannelEarth_Damaging_HandleAttacking)
     AbilityTrigger_BS_ChannelEarth_Damaging_Target = AddDamagingEventTrigger_TargetHasAbility(FourCC('A062'), AbilityTrigger_BS_ChannelEarth_Damaging_HandleAttacked)
+    
+    RegisterTriggerEnableById(AbilityTrigger_BS_ChannelEarth, FourCC('O002'))
+    RegisterTriggerEnableById(AbilityTrigger_BS_ChannelEarth_Damaging_Caster, FourCC('O002'))
+    RegisterTriggerEnableById(AbilityTrigger_BS_ChannelEarth_Damaging_Target, FourCC('O002'))
 end)
 
 function AbilityTrigger_BS_ChannelEarth_Actions()

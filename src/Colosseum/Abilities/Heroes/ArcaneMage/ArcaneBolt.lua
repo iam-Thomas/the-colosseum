@@ -2,6 +2,8 @@ AbilityTrigger_Mage_ArcaneBolt = nil
 
 RegInit(function()
     AbilityTrigger_Mage_ArcaneBolt = AddAbilityCastTrigger('A07K', AbilityTrigger_Mage_ArcaneBolt_Actions)
+    
+    RegisterTriggerEnableById(AbilityTrigger_Mage_ArcaneBolt, FourCC('H010'))
 end)
 
 function AbilityTrigger_Mage_ArcaneBolt_Actions()

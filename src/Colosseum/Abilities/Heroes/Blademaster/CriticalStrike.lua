@@ -2,6 +2,8 @@ AbilityTrigger_BM_CriticalStrike_Damaging = nil
 
 RegInit(function()
     AbilityTrigger_BM_CriticalStrike_Damaging = AddDamagingEventTrigger_CasterHasAbility(FourCC('A001'), AbilityTrigger_BM_CriticalStrike_Damaging_Actions)
+
+    RegisterTriggerEnableById(AbilityTrigger_BM_CriticalStrike_Damaging, FourCC('O000'))
 end)
 
 function AbilityTrigger_BM_CriticalStrike_Damaging_Actions()

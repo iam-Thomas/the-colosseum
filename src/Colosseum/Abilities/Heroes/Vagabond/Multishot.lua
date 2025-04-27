@@ -10,6 +10,9 @@ RegInit(function()
     end))
     TriggerRegisterAnyUnitEventBJ(VagabondMultishotTrigger, EVENT_PLAYER_UNIT_ATTACKED)
     local castTrigger = AddAbilityCastTrigger('A03E', AbilityTrigger_Vagabond_Multishot)
+
+    RegisterTriggerEnableById(VagabondMultishotTrigger, FourCC('H00U'))
+    RegisterTriggerEnableById(castTrigger, FourCC('H00U'))
 end)
 
 function AbilityTrigger_Vagabond_Multishot()

@@ -16,6 +16,10 @@ RegInit(function()
     TriggerRegisterAnyUnitEventBJ(AbilityTrigger_BS_RainDance_Damaged, EVENT_PLAYER_UNIT_DAMAGED)
     
     AbilityTrigger_BS_RainDance_HailStorm = AddAbilityCastTrigger('A02D', AbilityTrigger_BS_RainDance_HailStorm)
+
+    RegisterTriggerEnableById(AbilityTrigger_BS_RainDance_Summon, FourCC('O002'))
+    RegisterTriggerEnableById(AbilityTrigger_BS_RainDance_Damaged, FourCC('O002'))
+    RegisterTriggerEnableById(AbilityTrigger_BS_RainDance_HailStorm, FourCC('O002'))
 end)
 
 function AbilityTrigger_BS_RainDance_Summon_Actions()

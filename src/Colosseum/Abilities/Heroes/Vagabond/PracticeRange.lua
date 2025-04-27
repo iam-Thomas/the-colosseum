@@ -1,5 +1,7 @@
 RegInit(function()
-    AddAbilityCastTrigger('A00O', AbilityTrigger_Vagabond_PracticeRange)
+    local trigger = AddAbilityCastTrigger('A00O', AbilityTrigger_Vagabond_PracticeRange)
+    
+    RegisterTriggerEnableById(trigger, FourCC('H00U'))
 end)
 
 function AbilityTrigger_Vagabond_PracticeRange()

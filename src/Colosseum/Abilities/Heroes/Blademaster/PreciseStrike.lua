@@ -2,6 +2,8 @@ AbilityTrigger_BM_PreciseStrike_Damaging = nil
 
 RegInit(function()
     AbilityTrigger_BM_PreciseStrike_Damaging = AddDamagingEventTrigger_CasterHasBuff(FourCC('B000'), AbilityTrigger_BM_PreciseStrike_Actions)
+    
+    RegisterTriggerEnableById(AbilityTrigger_BM_PreciseStrike_Damaging, FourCC('O000'))
 end)
 
 function AbilityTrigger_BM_PreciseStrike_Actions()

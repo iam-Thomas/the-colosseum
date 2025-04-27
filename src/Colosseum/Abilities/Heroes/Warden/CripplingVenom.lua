@@ -2,6 +2,10 @@ RegInit(function()
     local trigger = AddDamagingEventTrigger_CasterHasAbility(FourCC('A01D'), AbilityTrigger_Warden_CripplingVenom)
     local damagingTrigger = AddDamagingEventTrigger_CasterHasAbility(FourCC('A06T'), AbilityTrigger_Warden_ShadowStrike)
     local castTrigger = AddAbilityCastTrigger('A01D', AbilityTrigger_Warden_CripplingVenomCast)
+    
+    RegisterTriggerEnableById(trigger, FourCC('E002'))
+    RegisterTriggerEnableById(damagingTrigger, FourCC('E002'))
+    RegisterTriggerEnableById(castTrigger, FourCC('E002'))
 end)
 
 function AbilityTrigger_Warden_CripplingVenom()

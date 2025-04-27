@@ -1,5 +1,7 @@
 RegInit(function()
     local trig = AddAbilityCastTrigger('A0A6', AbilityTrigger_Warden_FanOfKnives)
+    
+    RegisterTriggerEnableById(trig, FourCC('E002'))
 end)
 
 function AbilityTrigger_Warden_FanOfKnives()

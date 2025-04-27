@@ -5,6 +5,8 @@ RegInit(function()
     TriggerAddCondition(AbilityTrigger_VP_VengefulStrike, Condition(function() return GetUnitAbilityLevel(GetEventDamageSource(), FourCC('A034')) > 0 end))
     TriggerAddAction(AbilityTrigger_VP_VengefulStrike, AbilityTrigger_VP_VengefulStrike_Actions)
     TriggerRegisterAnyUnitEventBJ(AbilityTrigger_VP_VengefulStrike, EVENT_PLAYER_UNIT_DAMAGING)
+    
+    RegisterTriggerEnableById(AbilityTrigger_VP_VengefulStrike, FourCC('H00S'))
 end)
 
 function AbilityTrigger_VP_VengefulStrike_Actions()

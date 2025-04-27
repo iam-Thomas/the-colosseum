@@ -9,6 +9,8 @@ RegInit(function()
         return GetUnitTypeId(GetDyingUnit()) == FourCC('e003')
     end))
     TriggerRegisterAnyUnitEventBJ(shadowDieTrigger, EVENT_PLAYER_UNIT_DEATH)
+    
+    RegisterTriggerEnableById(shadowDieTrigger, FourCC('E002'))
 end)
 
 function Warden_AnimatedShadow_Die()

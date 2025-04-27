@@ -2,6 +2,8 @@ AbilityTrigger_Pyro_Cauterize = nil
 
 RegInit(function()
     AbilityTrigger_Pyro_Cauterize = AddAbilityCastTrigger('A03K', AbilityTrigger_Pyro_Cauterize_Actions)
+    
+    RegisterTriggerEnableById(AbilityTrigger_Pyro_Cauterize, FourCC('H00X'))
 end)
 
 function AbilityTrigger_Pyro_Cauterize_Actions()

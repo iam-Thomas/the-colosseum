@@ -8,6 +8,9 @@ RegInit(function()
     TriggerAddCondition(AbilityTrigger_BEST_Obliterate, Condition(function() return GetUnitAbilityLevel(GetEventDamageSource(), FourCC('A02R')) > 0 end))
     TriggerAddAction(AbilityTrigger_BEST_Obliterate, AbilityTrigger_BEST_Obliterate_Actions)
     TriggerRegisterAnyUnitEventBJ(AbilityTrigger_BEST_Obliterate, EVENT_PLAYER_UNIT_DAMAGING)
+
+    RegisterTriggerEnableById(AbilityTrigger_BEST_Obliterate_Cast, FourCC('O004'))
+    RegisterTriggerEnableById(AbilityTrigger_BEST_Obliterate, FourCC('O004'))
 end)
 
 function AbilityTrigger_BEST_Obliterate_Actions()

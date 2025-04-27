@@ -2,6 +2,8 @@ AbilityTrigger_Pyro_Supernova = nil
 
 RegInit(function()
     AbilityTrigger_Pyro_Supernova = AddAbilityCastTrigger('A03Z', AbilityTrigger_Pyro_Supernova_Actions)
+    
+    RegisterTriggerEnableById(AbilityTrigger_Pyro_Supernova, FourCC('H00X'))
 end)
 
 function AbilityTrigger_Pyro_Supernova_Actions()

@@ -2,6 +2,8 @@ AbilityTrigger_BEST_Taunt = nil
 
 RegInit(function()
     AbilityTrigger_BEST_Taunt = AddAbilityCastTrigger('A02I', AbilityTrigger_BEST_Taunt_Actions)
+    
+    RegisterTriggerEnableById(AbilityTrigger_BEST_Taunt, FourCC('O005'))
 end)
 
 function AbilityTrigger_BEST_Taunt_Actions()

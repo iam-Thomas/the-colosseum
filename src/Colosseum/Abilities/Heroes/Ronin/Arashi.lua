@@ -2,6 +2,8 @@ AbilityTrigger_Arashi = nil
 
 RegInit(function()
     AbilityTrigger_Arashi = AddAbilityCastTrigger(ArashiSID, AbilityTrigger_Arashi_Actions)
+    
+    RegisterTriggerEnableById(AbilityTrigger_Arashi, FourCC('O00I'))
 end)
 
 function AbilityTrigger_Arashi_Actions()

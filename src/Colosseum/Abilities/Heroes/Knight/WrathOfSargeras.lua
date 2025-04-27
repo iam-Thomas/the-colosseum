@@ -2,6 +2,8 @@ AbilityTrigger_Knight_WrathOfSargeras = nil
 
 RegInit(function()
     AbilityTrigger_Knight_WrathOfSargeras = AddAbilityCastTrigger('A08K', AbilityTrigger_Knight_WrathOfSargeras_Actions)
+    
+    RegisterTriggerEnableById(AbilityTrigger_Knight_WrathOfSargeras, FourCC('H012'))
 end)
 
 function AbilityTrigger_Knight_WrathOfSargeras_Actions()

@@ -2,6 +2,8 @@ AbilityTrigger_Pyro_Heartfire_Two = nil
 
 RegInit(function()
     AbilityTrigger_Pyro_Heartfire_Two = AddAbilityCastTrigger('A03P', AbilityTrigger_Pyro_Heartfire_Two_Actions)
+    
+    RegisterTriggerEnableById(AbilityTrigger_Pyro_Heartfire_Two, FourCC('H00X'))
 end)
 
 function AbilityTrigger_Pyro_Heartfire_Two_Actions()

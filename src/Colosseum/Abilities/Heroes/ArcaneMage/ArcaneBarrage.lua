@@ -5,6 +5,8 @@ RegInit(function()
     TriggerAddAction(AbilityTrigger_Mage_ArcaneBarrage, AbilityTrigger_Mage_ArcaneBarrage_Function)
     TriggerAddCondition(AbilityTrigger_Mage_ArcaneBarrage, Condition(function() return GetUnitTypeId(GetSummonedUnit()) == FourCC('h011') end))
     TriggerRegisterAnyUnitEventBJ(AbilityTrigger_Mage_ArcaneBarrage, EVENT_PLAYER_UNIT_SUMMON)
+
+    RegisterTriggerEnableById(AbilityTrigger_Mage_ArcaneBarrage, FourCC('H010'))
 end)
 
 function AbilityTrigger_Mage_ArcaneBarrage_Function()

@@ -2,6 +2,8 @@ AbilityTrigger_Lich_FateOfTheLiving = nil
 
 RegInit(function()
     AbilityTrigger_Lich_FateOfTheLiving = AddAbilityCastTrigger('A0A0', AbilityTrigger_Lich_FateOfTheLiving_Actions)
+    
+    RegisterTriggerEnableById(AbilityTrigger_Lich_FateOfTheLiving, FourCC('U000'))
 end)
 
 function AbilityTrigger_Lich_FateOfTheLiving_Actions()

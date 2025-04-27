@@ -2,6 +2,8 @@ AbilityTrigger_Lich_DeathTouch_Damaging = nil
 
 RegInit(function()
     AbilityTrigger_Lich_DeathTouch_Damaging = AddDamagingEventTrigger_CasterHasAbility(FourCC('A05B'), AbilityTrigger_Lich_DeathTouch_Damaging_Actions)
+    
+    RegisterTriggerEnableById(AbilityTrigger_Lich_DeathTouch_Damaging, FourCC('U000'))
 end)
 
 function AbilityTrigger_Lich_DeathTouch_Damaging_Actions()

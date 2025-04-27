@@ -23,6 +23,8 @@ function GameUnitTracking_HeroSelection_Select()
         return
     end
 
+    EnableTriggerById(GetUnitTypeId(target))
+
     local unitType = GetUnitTypeId(target)
     local owner = GetOwningPlayer(caster)
     local playerId = GetPlayerId(owner)

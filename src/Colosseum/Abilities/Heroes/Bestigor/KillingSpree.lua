@@ -4,6 +4,9 @@ AbilityTrigger_BEST_KillingSpree_Kill = nil
 RegInit(function()
     AbilityTrigger_BEST_KillingSpree = AddAbilityCastTrigger('A08A', AbilityTrigger_BEST_KillingSpree_Actions)
     AbilityTrigger_BEST_KillingSpree_Kill = AddKillEventTrigger_KillerHasAbility(FourCC('A08A'), AbilityTrigger_BEST_KillingSpree_Kill_Actions)
+    
+    RegisterTriggerEnableById(AbilityTrigger_BEST_KillingSpree, FourCC('O004'))
+    RegisterTriggerEnableById(AbilityTrigger_BEST_KillingSpree_Kill, FourCC('O004'))
 end)
 
 function AbilityTrigger_BEST_KillingSpree_Kill_Actions()

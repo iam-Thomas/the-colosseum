@@ -6,6 +6,10 @@ RegInit(function()
     AbilityTrigger_BEST_BloodFunnel = AddAbilityCastTrigger('A07N', AbilityTrigger_BEST_BloodFunnel_Actions)
     AbilityTrigger_BEST_BloodFunnel_Damaging = AddDamagingEventTrigger_CasterHasAbility(FourCC('A07N'), AbilityTrigger_BEST_BloodFunnel_Damaging_Actions)
     AbilityTrigger_BEST_BloodFunnel_Damaged = AddDamagedEventTrigger_CasterHasAbility(FourCC('A07N'), AbilityTrigger_BEST_BloodFunnel_Damaged_Actions)
+
+    RegisterTriggerEnableById(AbilityTrigger_BEST_BloodFunnel, FourCC('O004'))
+    RegisterTriggerEnableById(AbilityTrigger_BEST_BloodFunnel_Damaging, FourCC('O004'))
+    RegisterTriggerEnableById(AbilityTrigger_BEST_BloodFunnel_Damaged, FourCC('O004'))
 end)
 
 function AbilityTrigger_BEST_BloodFunnel_Actions()

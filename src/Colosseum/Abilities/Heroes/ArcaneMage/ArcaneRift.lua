@@ -13,6 +13,10 @@ RegInit(function()
     end))
     TriggerRegisterAnyUnitEventBJ(AbilityTrigger_Mage_ArcaneRift_Attacking, EVENT_PLAYER_UNIT_ATTACKED)
     AbilityTrigger_Mage_ArcaneRift_CastAny = AddAbilityCastTrigger_CasterHasAbility(FourCC('A07M'), AbilityTrigger_Mage_ArcaneRift_CastAny_Actions)
+
+    RegisterTriggerEnableById(AbilityTrigger_Mage_ArcaneRift, FourCC('H010'))
+    RegisterTriggerEnableById(AbilityTrigger_Mage_ArcaneRift_Attacking, FourCC('H010'))
+    RegisterTriggerEnableById(AbilityTrigger_Mage_ArcaneRift_CastAny, FourCC('H010'))
 end)
 
 function AbilityTrigger_Mage_ArcaneRift_Actions()

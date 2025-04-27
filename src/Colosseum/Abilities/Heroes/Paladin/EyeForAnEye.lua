@@ -5,6 +5,8 @@ RegInit(function()
     TriggerAddAction(AbilityTrigger_VP_EyeForAnEye_Damaged, AbilityTrigger_VP_EyeForAnEye_Damaged_Actions)
     TriggerAddCondition(AbilityTrigger_VP_EyeForAnEye_Damaged, Condition(function() return GetUnitAbilityLevel(GetEventDamageSource(), FourCC('A031')) end))
     TriggerRegisterAnyUnitEventBJ(AbilityTrigger_VP_EyeForAnEye_Damaged, EVENT_PLAYER_UNIT_DAMAGED)
+    
+    RegisterTriggerEnableById(AbilityTrigger_VP_EyeForAnEye_Damaged, FourCC('H00S'))
 end)
 
 function AbilityTrigger_VP_EyeForAnEye_Damaged_Actions()

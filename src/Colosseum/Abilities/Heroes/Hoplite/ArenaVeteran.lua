@@ -2,6 +2,8 @@ AbilityTrigger_Hoplite_ArenaVeteran_Damaging = nil
 
 RegInit(function()
     AbilityTrigger_Hoplite_ArenaVeteran_Damaging = AddDamagingEventTrigger_CasterHasAbility(FourCC('A0A4'), AbilityTrigger_Hoplite_ArenaVeteran_Damaging_Actions)
+    
+    RegisterTriggerEnableById(AbilityTrigger_Hoplite_ArenaVeteran_Damaging, FourCC('O005'))
 end)
 
 function AbilityTrigger_Hoplite_ArenaVeteran_Damaging_Actions()

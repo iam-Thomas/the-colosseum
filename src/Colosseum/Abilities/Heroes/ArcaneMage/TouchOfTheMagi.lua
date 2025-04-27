@@ -6,6 +6,9 @@ RegInit(function()
     AbilityTrigger_Mage_TouchOfTheMagi_Hashtable = InitHashtable()
     AbilityTrigger_Mage_TouchOfTheMagi = AddAbilityCastTrigger('A07L', AbilityTrigger_Mage_TouchOfTheMagi_Actions)
     AbilityTrigger_Mage_TouchOfTheMagi_Damaged = AddDamagedEventTrigger_CasterHasAbility(FourCC('A07L'), AbilityTrigger_Mage_TouchOfTheMagi_Damaged_Actions)
+
+    RegisterTriggerEnableById(AbilityTrigger_Mage_TouchOfTheMagi, FourCC('H010'))
+    RegisterTriggerEnableById(AbilityTrigger_Mage_TouchOfTheMagi_Damaged, FourCC('H010'))
 end)
 
 function AbilityTrigger_Mage_TouchOfTheMagi_Actions()

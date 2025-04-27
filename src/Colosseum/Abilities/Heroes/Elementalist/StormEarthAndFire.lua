@@ -4,6 +4,8 @@ AbilityTrigger_BS_StormEarthFire_Hashtable = nil
 RegInit(function()
     AbilityTrigger_BS_StormEarthFire_Hashtable = InitHashtable()
     AbilityTrigger_BS_StormEarthFire = AddAbilityCastTrigger('A063', AbilityTrigger_BS_StormEarthFire_Actions)
+    
+    RegisterTriggerEnableById(AbilityTrigger_BS_StormEarthFire, FourCC('O002'))
 end)
 
 function AbilityTrigger_BS_StormEarthFire_Actions()

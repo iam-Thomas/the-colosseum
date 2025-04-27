@@ -1,5 +1,7 @@
 RegInit(function()
     local trigger = AddDamagingEventTrigger_CasterHasAbility(FourCC('A01D'), AbilityTrigger_Warden_Backstab)
+    
+    RegisterTriggerEnableById(trigger, FourCC('E002'))
 end)
 
 function AbilityTrigger_Warden_Backstab()

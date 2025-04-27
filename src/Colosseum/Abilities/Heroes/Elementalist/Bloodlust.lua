@@ -6,6 +6,9 @@ RegInit(function()
     AbilityTrigger_BS_Bloodlust_Hashtable = InitHashtable()
     AbilityTrigger_BS_Bloodlust = AddAbilityCastTrigger('A024', AbilityTrigger_BS_Bloodlust_Actions)
     AbilityTrigger_BS_Bloodlust_Damaged = AddDamagingEventTrigger_TargetHasBuff(FourCC('B00P'), AbilityTrigger_BS_Bloodlust_Damaged_Actions)
+    
+    RegisterTriggerEnableById(AbilityTrigger_BS_Bloodlust, FourCC('O002'))
+    RegisterTriggerEnableById(AbilityTrigger_BS_Bloodlust_Damaged, FourCC('O002'))
 end)
 
 function AbilityTrigger_BS_Bloodlust_Actions()

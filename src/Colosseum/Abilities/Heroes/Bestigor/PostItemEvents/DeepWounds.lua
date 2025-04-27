@@ -7,6 +7,8 @@ RegInit(function()
     TriggerAddCondition(AbilityTrigger_BEST_Deep_Wounds, Condition(function() return GetUnitAbilityLevel(GetEventDamageSource(), FourCC('A02S')) > 0 end))
     TriggerAddAction(AbilityTrigger_BEST_Deep_Wounds, AbilityTrigger_BEST_Deep_Wounds_Actions)
     TriggerRegisterAnyUnitEventBJ(AbilityTrigger_BEST_Deep_Wounds, EVENT_PLAYER_UNIT_DAMAGED)
+
+    RegisterTriggerEnableById(AbilityTrigger_BEST_Deep_Wounds, FourCC('O004'))
 end)
 
 function AbilityTrigger_BEST_Deep_Wounds_Actions()

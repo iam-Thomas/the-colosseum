@@ -2,6 +2,8 @@ AbilityTrigger_VP_ResurgingLight = nil
 
 RegInit(function()
     AbilityTrigger_VP_ResurgingLight = AddAbilityCastTrigger('A030', AbilityTrigger_VP_ResurgingLight_Actions)
+    
+    RegisterTriggerEnableById(AbilityTrigger_VP_ResurgingLight, FourCC('H00S'))
 end)
 
 function AbilityTrigger_VP_ResurgingLight_Actions()

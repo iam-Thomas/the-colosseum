@@ -4,6 +4,8 @@ RegInit(function()
     AbilityTrigger_Pyro_Phoenix_Summoning = CreateTrigger()
     TriggerAddAction(AbilityTrigger_Pyro_Phoenix_Summoning, AbilityTrigger_Pyro_Heartfire_Actions)
     TriggerRegisterAnyUnitEventBJ(AbilityTrigger_Pyro_Phoenix_Summoning, EVENT_PLAYER_UNIT_SUMMON)
+    
+    RegisterTriggerEnableById(AbilityTrigger_Pyro_Phoenix_Summoning, FourCC('H00X'))
 end)
 
 function AbilityTrigger_Pyro_Heartfire_Actions()

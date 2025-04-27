@@ -1,5 +1,7 @@
 RegInit(function()
-    AddAbilityCastTrigger('A03D', AbilityTrigger_Vagabond_Bushwalk)
+    local trg = AddAbilityCastTrigger('A03D', AbilityTrigger_Vagabond_Bushwalk)
+    
+    RegisterTriggerEnableById(trg, FourCC('H00U'))
 end)
 
 function AbilityTrigger_Vagabond_Bushwalk()

@@ -2,6 +2,8 @@ AbilityTrigger_Bushido = nil
 
 RegInit(function()
     AbilityTrigger_Bushido = AddAbilityCastTrigger(BushidoSID, AbilityTrigger_Bushido_Actions)
+    
+    RegisterTriggerEnableById(AbilityTrigger_Bushido, FourCC('O00I'))
 end)
 
 function AbilityTrigger_Bushido_Actions()

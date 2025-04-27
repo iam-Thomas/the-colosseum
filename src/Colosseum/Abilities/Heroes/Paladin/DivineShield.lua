@@ -2,6 +2,8 @@ AbilityTrigger_VP_DivineShield = nil
 
 RegInit(function()
     AbilityTrigger_VP_DivineShield = AddAbilityCastTrigger('A033', AbilityTrigger_VP_DivineShield_Actions)
+    
+    RegisterTriggerEnableById(AbilityTrigger_VP_DivineShield, FourCC('H00S'))
 end)
 
 function AbilityTrigger_VP_DivineShield_Actions()

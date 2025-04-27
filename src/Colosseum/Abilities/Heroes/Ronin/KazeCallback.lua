@@ -3,6 +3,8 @@ AbilityTrigger_Kaze_Callback = nil
 RegInit(function()
     AbilityTrigger_Kaze_Callback = CreateTrigger()
     TriggerAddAction( AbilityTrigger_Kaze_Callback, AbilityTrigger_Kaze_Callback_Actions )
+    
+    RegisterTriggerEnableById(AbilityTrigger_Kaze_Callback, FourCC('O00I'))
 end)
 
 function AbilityTrigger_Kaze_Callback_Actions()

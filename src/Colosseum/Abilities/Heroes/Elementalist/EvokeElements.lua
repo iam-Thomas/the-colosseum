@@ -2,6 +2,8 @@ AbilityTrigger_BS_EvokeElements = nil
 
 RegInit(function()
     AbilityTrigger_BS_EvokeElements = AddAbilityCastTrigger('A064', AbilityTrigger_BS_EvokeElements_Actions)
+    
+    RegisterTriggerEnableById(AbilityTrigger_BS_EvokeElements, FourCC('O002'))
 end)
 
 function AbilityTrigger_BS_EvokeElements_Actions()

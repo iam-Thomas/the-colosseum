@@ -4,6 +4,9 @@ abilityTrigger_D_MountainPassage = nil
 RegInit(function()
     abilityTrigger_D_MountainShard = AddAbilityCastTrigger('A01V', Ability_D_MountainShard)
     abilityTrigger_D_MountainPassage = AddAbilityCastTrigger('A025', Ability_D_MountainPassage)
+    
+    RegisterTriggerEnableById(abilityTrigger_D_MountainShard, FourCC('H005'))
+    RegisterTriggerEnableById(abilityTrigger_D_MountainPassage, FourCC('H005'))
 end)
 
 function Ability_D_MountainShard()

@@ -6,6 +6,9 @@ RegInit(function()
     AbilityTrigger_BS_ChannelStorm_Hashtable = InitHashtable()
     AbilityTrigger_BS_ChannelStorm = AddAbilityCastTrigger('A05Y', AbilityTrigger_BS_ChannelStorm_Actions)
     AbilityTrigger_BS_ChannelStorm_Damaging = AddDamagingEventTrigger_CasterHasAbility(FourCC('A05Y'), AbilityTrigger_BS_ChannelStorm_Damaging_Actions)
+    
+    RegisterTriggerEnableById(AbilityTrigger_BS_ChannelStorm, FourCC('O002'))
+    RegisterTriggerEnableById(AbilityTrigger_BS_ChannelStorm_Damaging, FourCC('O002'))
 end)
 
 function AbilityTrigger_BS_ChannelStorm_Actions()

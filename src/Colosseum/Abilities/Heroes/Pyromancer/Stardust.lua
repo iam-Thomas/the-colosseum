@@ -2,6 +2,8 @@ AbilityTrigger_Pyro_Stardust = nil
 
 RegInit(function()
     AbilityTrigger_Pyro_Stardust = AddAbilityCastTrigger('A03L', AbilityTrigger_Pyro_Stardust_Actions)
+    
+    RegisterTriggerEnableById(AbilityTrigger_Pyro_Stardust, FourCC('H00X'))
 end)
 
 function AbilityTrigger_Pyro_Stardust_Actions()

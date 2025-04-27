@@ -2,6 +2,8 @@
 
 RegInit(function()
     local trg = AddAbilityCastTrigger('A09X', AbilityTrigger_Knight_FieryVeil_Actions)
+    
+    RegisterTriggerEnableById(trg, FourCC('H012'))
 end)
 
 function AbilityTrigger_Knight_FieryVeil_Actions()

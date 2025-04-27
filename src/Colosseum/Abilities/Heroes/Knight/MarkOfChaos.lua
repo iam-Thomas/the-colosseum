@@ -1,5 +1,7 @@
 RegInit(function()
     local trg = AddAbilityCastTrigger('A09Z', AbilityTrigger_Knight_MarkOfChaos_Actions)
+    
+    RegisterTriggerEnableById(trg, FourCC('H012'))
 end)
 
 function AbilityTrigger_Knight_MarkOfChaos_Actions()

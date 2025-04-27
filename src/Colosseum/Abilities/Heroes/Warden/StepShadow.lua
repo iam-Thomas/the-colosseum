@@ -1,5 +1,7 @@
 RegInit(function()
     local trigger = AddAbilityCastTrigger('A0AS', AbilityTrigger_Warden_StepShadow)
+    
+    RegisterTriggerEnableById(trigger, FourCC('E002'))
 end)
 
 function AbilityTrigger_Warden_StepShadow()

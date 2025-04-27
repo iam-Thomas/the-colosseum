@@ -10,6 +10,9 @@ RegInit(function()
         return GetUnitAbilityLevel(GetAttacker(), FourCC('A0A8')) > 0
     end))
     TriggerRegisterAnyUnitEventBJ(attackTrigger, EVENT_PLAYER_UNIT_ATTACKED)
+    
+    RegisterTriggerEnableById(trigger, FourCC('H00U'))
+    RegisterTriggerEnableById(attackTrigger, FourCC('H00U'))
 end)
 
 function AbilityTrigger_Vaga_Footwork_Periodic(caster, tick)

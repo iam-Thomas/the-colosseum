@@ -6,6 +6,9 @@ RegInit(function()
     AbilityTrigger_Pyro_Incinerate_Hashtable = InitHashtable()
     AbilityTrigger_Pyro_Incinerate_Damaging = AddDamagingEventTrigger_CasterHasAbility(FourCC('A03O'), AbilityTrigger_Pyro_Incinerate_Damaging_Actions)
     AbilityTrigger_Pyro_Incinerate_Damaged = AddDamagedEventTrigger_TargetHasBuff(FourCC('B00Q'), AbilityTrigger_Pyro_Incinerate_Damaged_Actions)
+    
+    RegisterTriggerEnableById(AbilityTrigger_Pyro_Incinerate_Damaging, FourCC('H00X'))
+    RegisterTriggerEnableById(AbilityTrigger_Pyro_Incinerate_Damaged, FourCC('H00X'))
 end)
 
 function AbilityTrigger_Pyro_Incinerate_Damaging_Actions()

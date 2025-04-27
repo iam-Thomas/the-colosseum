@@ -2,6 +2,8 @@ AbilityTrigger_Knight_Pandemonium = nil
 
 RegInit(function()
     local trg = AddAbilityCastTrigger('A096', AbilityTrigger_Knight_Pandemonium_Actions)
+    
+    RegisterTriggerEnableById(trg, FourCC('H012'))
 end)
 
 function AbilityTrigger_Knight_Pandemonium_Actions()

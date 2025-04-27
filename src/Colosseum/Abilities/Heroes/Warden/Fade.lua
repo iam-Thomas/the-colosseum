@@ -1,5 +1,7 @@
 RegInit(function()
     local trig = AddAbilityCastTrigger('A002', AbilityTrigger_Warden_Fade)
+    
+    RegisterTriggerEnableById(trig, FourCC('E002'))
 end)
 
 function AbilityTrigger_Warden_Fade()

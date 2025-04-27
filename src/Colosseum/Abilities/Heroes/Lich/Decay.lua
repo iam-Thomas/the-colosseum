@@ -2,6 +2,8 @@ AbilityTrigger_Lich_Decay = nil
 
 RegInit(function()
     AbilityTrigger_Lich_Decay = AddAbilityCastTrigger('A05E', AbilityTrigger_Lich_Decay_Actions)
+    
+    RegisterTriggerEnableById(AbilityTrigger_Lich_Decay, FourCC('U000'))
 end)
 
 function AbilityTrigger_Lich_Decay_Actions()

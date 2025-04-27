@@ -2,6 +2,8 @@ AbilityTrigger_Miraju = nil
 
 RegInit(function()
     AbilityTrigger_Miraju = AddAbilityCastTrigger(MirajuSID, AbilityTrigger_Miraju_Actions)
+    
+    RegisterTriggerEnableById(AbilityTrigger_Miraju, FourCC('O00I'))
 end)
 
 function AbilityTrigger_Miraju_Actions()

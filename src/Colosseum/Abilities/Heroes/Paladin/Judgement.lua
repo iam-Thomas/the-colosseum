@@ -2,6 +2,8 @@ AbilityTrigger_VP_Judgement = nil
 
 RegInit(function()
     AbilityTrigger_VP_Judgement = AddAbilityCastTrigger('A032', AbilityTrigger_VP_Judgement_Actions)
+    
+    RegisterTriggerEnableById(AbilityTrigger_VP_Judgement, FourCC('H00S'))
 end)
 
 function AbilityTrigger_VP_Judgement_Actions()

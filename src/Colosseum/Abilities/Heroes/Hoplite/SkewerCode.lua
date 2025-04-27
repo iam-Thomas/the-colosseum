@@ -1,5 +1,7 @@
 RegInit(function()
     local trig = AddAbilityCastTrigger('A02X', AbilityTrigger_Hoplite_Skewer_Actions)
+    
+    RegisterTriggerEnableById(trig, FourCC('O005'))
 end)
 
 function AbilityTrigger_Hoplite_Skewer_Actions()

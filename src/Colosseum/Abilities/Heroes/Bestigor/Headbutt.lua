@@ -2,6 +2,8 @@ AbilityTrigger_BEST_Headbutt = nil
 
 RegInit(function()
     AbilityTrigger_BEST_Headbutt = AddAbilityCastTrigger('A02J', AbilityTrigger_BEST_Headbutt_Actions)
+
+    RegisterTriggerEnableById(AbilityTrigger_BEST_Headbutt, FourCC('O004'))
 end)
 
 function AbilityTrigger_BEST_Headbutt_Actions()

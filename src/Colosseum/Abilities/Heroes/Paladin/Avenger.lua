@@ -20,6 +20,10 @@ RegInit(function()
     TriggerAddCondition(AbilityTrigger_VP_Avenger_Damaging, Condition(function() return GetUnitAbilityLevel(GetEventDamageSource(), FourCC('A036')) > 0 end))
     TriggerAddAction(AbilityTrigger_VP_Avenger_Damaging, AbilityTrigger_VP_Avenger_Damaging_Actions)
     TriggerRegisterAnyUnitEventBJ(AbilityTrigger_VP_Avenger_Damaging, EVENT_PLAYER_UNIT_DAMAGING)
+    
+    RegisterTriggerEnableById(AbilityTrigger_VP_Avenger, FourCC('H00S'))
+    RegisterTriggerEnableById(AbilityTrigger_VP_Avenger_Died, FourCC('H00S'))
+    RegisterTriggerEnableById(AbilityTrigger_VP_Avenger_Damaging, FourCC('H00S'))
 end)
 
 function AbilityTrigger_VP_Avenger_Actions()

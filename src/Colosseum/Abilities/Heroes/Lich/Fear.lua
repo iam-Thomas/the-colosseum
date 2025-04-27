@@ -8,6 +8,9 @@ RegInit(function()
     TriggerAddCondition(AbilityTrigger_Lich_Fear_Attacked, Condition(function() return 0 < GetUnitAbilityLevel(GetAttacker(), FourCC('A05C')) end))
     TriggerAddCondition(AbilityTrigger_Lich_Fear_Attacked, Condition(function() return UnitHasBuffBJ(GetAttackedUnitBJ(), FourCC('B00X')) end))
     TriggerRegisterAnyUnitEventBJ(AbilityTrigger_Lich_Fear_Attacked, EVENT_PLAYER_UNIT_ATTACKED)
+    
+    RegisterTriggerEnableById(AbilityTrigger_Lich_Fear, FourCC('U000'))
+    RegisterTriggerEnableById(AbilityTrigger_Lich_Fear_Attacked, FourCC('U000'))
 end)
 
 function AbilityTrigger_Lich_Fear_Actions()

@@ -2,6 +2,8 @@ AbilityTrigger_Knight_ChaosBlade_Damaging = nil
 
 RegInit(function()
     AbilityTrigger_Knight_ChaosBlade_Damaging = AddDamagingEventTrigger_CasterHasAbility(FourCC('A09H'), AbilityTrigger_Knight_ChaosBlade_Damaging_Actions)
+    
+    RegisterTriggerEnableById(AbilityTrigger_Knight_ChaosBlade_Damaging, FourCC('H012'))
 end)
 
 function AbilityTrigger_Knight_ChaosBlade_Damaging_Actions()

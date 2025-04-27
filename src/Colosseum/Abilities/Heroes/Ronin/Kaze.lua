@@ -2,6 +2,8 @@ AbilityTrigger_Kaze = nil
 
 RegInit(function()
     AbilityTrigger_Kaze = AddAbilityCastTrigger(KazeSID, AbilityTrigger_Kaze_Actions)
+    
+    RegisterTriggerEnableById(AbilityTrigger_Kaze, FourCC('O00I'))
 end)
 
 function AbilityTrigger_Kaze_Actions()

@@ -2,6 +2,8 @@ AbilityTrigger_Knight_Sweep = nil
 
 RegInit(function()
     AbilityTrigger_Knight_Sweep = AddAbilityCastTrigger('A08J', AbilityTrigger_Knight_Sweep_Actions)
+    
+    RegisterTriggerEnableById(AbilityTrigger_Knight_Sweep, FourCC('H012'))
 end)
 
 function AbilityTrigger_Knight_Sweep_Actions()

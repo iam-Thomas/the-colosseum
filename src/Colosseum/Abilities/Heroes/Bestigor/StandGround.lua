@@ -2,6 +2,8 @@ AbilityTrigger_BEST_StandGround = nil
 
 RegInit(function()
     AbilityTrigger_BEST_StandGround = AddAbilityCastTrigger('A09F', AbilityTrigger_BEST_StandGround_Actions)
+    
+    RegisterTriggerEnableById(AbilityTrigger_BEST_StandGround, FourCC('O004'))
 end)
 
 function AbilityTrigger_BEST_StandGround_Actions()

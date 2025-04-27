@@ -2,6 +2,8 @@ AbilityTrigger_D_ThunderClap = nil
 
 RegInit(function()
     AbilityTrigger_D_ThunderClap = AddAbilityCastTrigger('A027', AbilityTrigger_D_ThunderClap_Actions)
+
+    RegisterTriggerEnableById(AbilityTrigger_D_ThunderClap, FourCC('H005'))
 end)
 
 function AbilityTrigger_D_ThunderClap_Actions()

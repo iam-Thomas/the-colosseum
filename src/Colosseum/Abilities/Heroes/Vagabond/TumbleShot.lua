@@ -1,5 +1,7 @@
 RegInit(function()
-    AddAbilityCastTrigger('A03G', AbilityTrigger_Vagabond_TumbleShot)
+    local trigger = AddAbilityCastTrigger('A03G', AbilityTrigger_Vagabond_TumbleShot)
+    
+    RegisterTriggerEnableById(trigger, FourCC('H00U'))
 end)
 
 function AbilityTrigger_Vagabond_TumbleShot()

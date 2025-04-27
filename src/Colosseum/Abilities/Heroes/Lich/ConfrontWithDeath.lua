@@ -4,6 +4,8 @@ AbilityTrigger_Lich_ConfrontWithDeath_Kill = nil
 RegInit(function()
     AbilityTrigger_Lich_ConfrontWithDeath_Hashtable = InitHashtable()
     AbilityTrigger_Lich_ConfrontWithDeath_Kill = AddKillEventTrigger_KillerHasAbility(FourCC('A06P'), AbilityTrigger_Lich_ConfrontWithDeath_Kill_Actions)
+    
+    RegisterTriggerEnableById(AbilityTrigger_Lich_ConfrontWithDeath_Kill, FourCC('U000'))
 end)
 
 function AbilityTrigger_Lich_ConfrontWithDeath_Kill_Actions()

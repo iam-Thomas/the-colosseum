@@ -2,6 +2,8 @@ AbilityTrigger_Jinada = nil
 
 RegInit(function()
     AbilityTrigger_Jinada = AddAbilityCastTrigger(JinadaSID, AbilityTrigger_Jinada_Actions)
+    
+    RegisterTriggerEnableById(AbilityTrigger_Jinada, FourCC('O00I'))
 end)
 
 

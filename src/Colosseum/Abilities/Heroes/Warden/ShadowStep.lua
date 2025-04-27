@@ -1,5 +1,7 @@
 RegInit(function()
     local trig = AddAbilityCastTrigger('A0A5', AbilityTrigger_Warden_Shadowstep)
+    
+    RegisterTriggerEnableById(trig, FourCC('E002'))
 end)
 
 function AbilityTrigger_Warden_Shadowstep()

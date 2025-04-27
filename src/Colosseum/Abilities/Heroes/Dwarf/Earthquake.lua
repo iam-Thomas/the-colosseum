@@ -4,6 +4,8 @@ abilityHashTable_D_Earthquake = nil
 RegInit(function()
     abilityHashTable_D_Earthquake = InitHashtable()
     abilityTrigger_D_Earthquake = AddAbilityCastTrigger('A026', Ability_D_Earthquake)
+    
+    RegisterTriggerEnableById(abilityTrigger_D_Earthquake, FourCC('H005'))
 end)
 
 function Ability_D_Earthquake()
