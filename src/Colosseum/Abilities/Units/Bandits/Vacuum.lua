@@ -2,6 +2,8 @@ AbilityTrigger_Bandit_Vacuum = nil
 
 RegInit(function()
     AbilityTrigger_Bandit_Vacuum = AddAbilityCastTrigger('A03Y', AbilityTrigger_Bandit_Vacuum_Actions)
+    
+    RegisterTriggerEnableById(AbilityTrigger_Bandit_Vacuum, FourCC('h00E'))
 end)
 
 function AbilityTrigger_Bandit_Vacuum_Actions()

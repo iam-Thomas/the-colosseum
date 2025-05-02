@@ -2,6 +2,8 @@ AbilityTrigger_Bandit_Dirty_Nade = nil
 
 RegInit(function()
     AbilityTrigger_Bandit_Dirty_Nade = AddAbilityCastTrigger('A03X', AbilityTrigger_Bandit_Dirty_Nade_Actions)
+    
+    RegisterTriggerEnableById(AbilityTrigger_Bandit_Dirty_Nade, FourCC('h00E'))
 end)
 
 function AbilityTrigger_Bandit_Dirty_Nade_Actions()

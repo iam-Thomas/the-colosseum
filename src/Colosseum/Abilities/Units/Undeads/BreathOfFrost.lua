@@ -22,11 +22,8 @@ function AbilityTrigger_Undead_BreathOfFrost_Functions()
             local units = GetUnitsInRange_EnemyTargetable(caster, projectileTargetLoc, 140)
             CreateEffectAtPoint(projectileTargetLoc, "Abilities\\Spells\\Undead\\FrostNova\\FrostNovaTarget.mdl", 3.0)
             for i = 1, #units do
-                print("bof hit")
                 ApplyFrozen(caster, units[i], 5.0)
-                print("bof applied frozen")
                 CauseMagicDamage(caster, units[i], 125)
-                print("bof applied")
             end
             RemoveLocation(projectileTargetLoc)
             DestroyEffect(dangerEffect)

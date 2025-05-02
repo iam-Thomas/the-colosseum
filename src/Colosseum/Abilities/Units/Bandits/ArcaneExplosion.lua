@@ -2,6 +2,8 @@ AbilityTrigger_Bandit_ArcaneExplosion = nil
 
 RegInit(function()
     AbilityTrigger_Bandit_ArcaneExplosion = AddAbilityCastTrigger('A011', AbilityTrigger_Bandit_ArcaneExplosion_Actions)
+    
+    RegisterTriggerEnableById(AbilityTrigger_Bandit_ArcaneExplosion, FourCC('h00E'))
 end)
 
 function AbilityTrigger_Bandit_ArcaneExplosion_Actions()

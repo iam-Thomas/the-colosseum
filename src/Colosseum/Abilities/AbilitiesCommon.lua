@@ -307,7 +307,6 @@ end
 
 function ApplyFrozen(caster, target, duration, resistantDuration, periodicCallback, expireCallback)
     local durationFinal = duration
-    print(durationFinal)
     if IsUnitResistant(target) and resistantDuration ~= nil then
         durationFinal = resistantDuration
     end

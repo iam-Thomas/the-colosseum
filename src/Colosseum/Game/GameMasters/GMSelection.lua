@@ -233,6 +233,9 @@ function GMSelections_SelectGroup()
     local target = GetSpellTargetUnit()
 
     if glIsInPhaseTransition then
+        local unitTypeId = GetUnitTypeId(target)
+        EnableTriggerById(unitTypeId)        
+        -- todo: should also disable current phase triggers
         GMSelections_SelectPhase(GetUnitTypeId(target))
         return
     end
