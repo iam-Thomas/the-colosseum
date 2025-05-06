@@ -26,7 +26,11 @@ GameLoop_Gladiators_GoldOnNeed = 125
 --GameLoop_Gladiators_GoldLossOnDeath = 200
 GameLoop_GladiatorsGreedyness = {}
 
-RegInit(function()
+GAME_MODE_SURVIVAL = 0
+GAME_MODE_SHUFFLE = 1
+GameLoop_SelectedGameMode = GAME_MODE_SURVIVAL
+
+function BeginGame()
     GameLoop_SelectorUnit_Hashtable = InitHashtable()
 
     -- Create selection units
@@ -86,7 +90,7 @@ RegInit(function()
 
     udg_GladiatorLives = 2
     GameLoop_GrantLifeToGladiator()
-end)
+end
 
 function GameLoop_InitialCountDownEnd()
     --Create a dummy phase to signal that the game masters have to select a phase
@@ -150,7 +154,7 @@ end
 function GameLoop_BeginRound()
     glIsInFight = true
     
-    GameLoop_SetGladiatorUnitsToFight()
+    GameLoop_SetGladiatorUnitsToFight(false)
     GameLoop_MoveGladiatorUnitsToArena()
     GameLoop_SpawnUnits()
     -- revoke mana after units spawned. Unit spawn function checks for remaining mana

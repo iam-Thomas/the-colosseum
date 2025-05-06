@@ -46,6 +46,14 @@ function GameUnitTracking_HeroSelection_Select()
 end
 
 function GameUnitTracking_HandleUnitDied()
+    if GameLoop_SelectedGameMode == GAME_MODE_SURVIVAL then
+        GameUnitTracking_HandleDied_Survival()
+    else
+        GameUnitTracking_HandleDied_Shuffle()
+    end
+end
+
+function GameUnitTracking_HandleDied_Survival()
     local dyingUnit = GetDyingUnit()
     if (IsUnitInGroup(dyingUnit, udg_GladiatorUnits)) then
         GroupRemoveUnit(udg_GladiatorUnits, dyingUnit)
@@ -85,7 +93,44 @@ function GameUnitTracking_HandleUnitDied()
             GameLoop_GameMastersVictory()
             return
         end
-    end    
+    end
+end
+
+function GameUnitTracking_HandleDied_Shuffle()
+    local dyingUnit = GetDyingUnit()
+    if (IsUnitInGroup(dyingUnit, udg_GladiatorUnits)) then
+        GroupRemoveUnit(udg_GladiatorUnits, dyingUnit)
+    end
+
+    if not glIsInFight then
+        return
+    end
+
+    local teamAIsAlive = false
+    for i = 1, #sa_TeamA do
+        if IsUnitAliveBJ(sa_TeamA[i]) then
+            teamAIsAlive = true
+            break
+        end
+    end
+
+    if not teamAIsAlive then
+        ShuffleArena_TeamBVictory()
+        return
+    end
+
+    local teamBIsAlive = false
+    for i = 1, #sa_TeamB do
+        if IsUnitAliveBJ(sa_TeamB[i]) then
+            teamBIsAlive = true
+            break
+        end
+    end
+
+    if not teamBIsAlive then
+        ShuffleArena_TeamAVictory()
+        return
+    end
 end
 
 function GameUnitTracking_HandleUnitSpawned()

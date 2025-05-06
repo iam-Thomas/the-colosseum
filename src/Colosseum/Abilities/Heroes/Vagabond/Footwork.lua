@@ -73,7 +73,7 @@ function AbilityTrigger_Vaga_Footwork_FindTarget(caster, range)
         local targetPoint = GetUnitLoc(target)
         local distance = DistanceBetweenPoints(casterPoint, targetPoint)
         RemoveLocation(targetPoint)
-        if distance < range then            
+        if distance < range and IsUnit_EnemyTargetablePhysical(caster, target) then            
             RemoveLocation(casterPoint)
             return target
         end
