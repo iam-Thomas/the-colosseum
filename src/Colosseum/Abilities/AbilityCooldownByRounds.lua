@@ -7,6 +7,11 @@ RegInit(function()
             SetPlayerTechResearched(player, FourCC('R009'), CDUpgradesMaxLevel)
             SetPlayerTechResearched(player, FourCC('R008'), CDUpgradesMaxLevel)
         end)
+        ForForce(udg_GameMasterPlayers, function()
+            local player = GetEnumPlayer()
+            SetPlayerTechResearched(player, FourCC('R009'), CDUpgradesMaxLevel)
+            SetPlayerTechResearched(player, FourCC('R008'), CDUpgradesMaxLevel)
+        end)
     end)
 end)
 
@@ -21,9 +26,7 @@ end
 
 function SetRoundCooldown_R(caster, rounds)
     local owner = GetOwningPlayer(caster)
-    SetPlayerTechResearched(owner, FourCC('R009'), CDUpgradesMaxLevel - (rounds + 1))
-
-    
+    SetPlayerTechResearched(owner, FourCC('R009'), CDUpgradesMaxLevel - (rounds + 1))    
 end
 
 function SetRoundCooldown_E(caster, rounds)
