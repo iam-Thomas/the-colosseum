@@ -1,6 +1,10 @@
 sa_TeamA = {}
 sa_TeamB = {}
-sa_Score = {}
+sa_Score = {
+    0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0
+}
 
 function ShuffleArena_ShuffleTeams()
     sa_TeamA = {}

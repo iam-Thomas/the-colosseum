@@ -1,3 +1,5 @@
+sa_scoreLimit = 15
+
 function BeginShuffleArenaGame()
     GameLoop_SelectedGameMode = GAME_MODE_SHUFFLE
 
@@ -68,7 +70,8 @@ function ShuffleArena_TeamAVictory()
         local hero = sa_TeamA[i]
         local player = GetOwningPlayer(hero)
         GameLoop_AddGoldToPlayer(player, GameLoop_Gladiators_GoldOnGreed)
-        sa_Score[GetPlayerId(player) + 1] = sa_Score[GetPlayerId(player) + 1] + 1
+        local targetScore = sa_Score[GetPlayerId(player) + 1] + 1
+        sa_Score[GetPlayerId(player) + 1] = targetScore
     end
     for i = 1, #sa_TeamB do
         local hero = sa_TeamB[i]
@@ -88,7 +91,8 @@ function ShuffleArena_TeamBVictory()
         local hero = sa_TeamB[i]
         local player = GetOwningPlayer(hero)
         GameLoop_AddGoldToPlayer(player, GameLoop_Gladiators_GoldOnGreed)
-        sa_Score[GetPlayerId(player) + 1] = sa_Score[GetPlayerId(player) + 1] + 1
+        local targetScore = sa_Score[GetPlayerId(player) + 1] + 1
+        sa_Score[GetPlayerId(player) + 1] = targetScore
     end
     ShuffleArena_EndRound()
 end
@@ -106,8 +110,37 @@ function ShuffleArena_EndRound()
     ShuffleArena_SetGladiatorsStateToRest()
     DelayedCallback(2.0, ShuffleArena_MoveGladiatorUnitsToRest)
 
-    ShuffleArena_BeginRoundCountdown()
-    
-    BattleRoyale_End()
     ResolveRoundCooldown()
+    BattleRoyale_End()
+
+    local hasWinner = false
+    for i = 1, 24 do
+        local score = sa_Score[i]
+        if score >= sa_scoreLimit then
+            hasWinner = true
+            break
+        end
+    end
+    if hasWinner then
+        ShuffleArena_EndGame()
+        return
+    end
+
+    ShuffleArena_BeginRoundCountdown()    
+end
+
+function ShuffleArena_EndGame()
+    DelayedCallback(3.5, function()
+        for i = 1, 24 do
+            local playerId = i - 1
+            local player = Player(playerId)
+            local score = sa_Score[i]
+    
+            if score > sa_scoreLimit then
+                CustomVictoryDialogBJ(player)
+            else
+                CustomDefeatDialogBJ(player, "noob")
+            end
+        end
+    end)    
 end
