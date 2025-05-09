@@ -185,6 +185,10 @@ function GameLoop_MoveGladiatorUnitsToArena()
 
     ForGroup(udg_GladiatorUnits, function()
         local unit = GetEnumUnit()
+        local unitType = GetUnitTypeId(unit)
+        if (unitType == FourCC('e000')) then
+            return
+        end
         if (not IsUnitAliveBJ(unit)) then
             return
         end
@@ -265,6 +269,10 @@ function GameLoop_MoveGladiatorUnitsToRest()
 
     ForGroup(udg_GladiatorUnits, function()
         local unit = GetEnumUnit()
+        local unitType = GetUnitTypeId(unit)
+        if (unitType == FourCC('e000')) then
+            return
+        end
         if (not IsUnitAliveBJ(unit)) then
             return
         end

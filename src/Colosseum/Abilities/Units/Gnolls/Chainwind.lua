@@ -70,10 +70,12 @@ function DealChainwindDamage(caster, aoe, damage)
     local targets = GetUnitsInRange_EnemyGroundTargetable(caster, casterpoint, aoe)
     
     for i = 1, #targets do
-        local targetpoint = GetUnitLoc(targets[i])
-        CauseNormalDamage(caster, targets[i], damage)
-        Knockback_Angled(targets[i], AngleBetweenPoints(casterpoint, targetpoint), 300, nil)
-        RemoveLocation(targetpoint)
+        if not UnitHasBuffBJ(targets[i], FourCC('BSTN')) then
+            local targetpoint = GetUnitLoc(targets[i])
+            CauseNormalDamage(caster, targets[i], damage)
+            Knockback_Angled(targets[i], AngleBetweenPoints(casterpoint, targetpoint), 300, nil)
+            RemoveLocation(targetpoint)
+        end
     end
 
     RemoveLocation(casterpoint)

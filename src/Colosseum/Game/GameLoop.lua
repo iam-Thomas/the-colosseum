@@ -1,6 +1,6 @@
 glGameStartDelayDuration = 15.00
 glPhaseStartDelayDuration = 30.00
-glIntermissionDuration = 15.00
+glIntermissionDuration = 22.00
 
 glStarted = false
 glIsInFight = false

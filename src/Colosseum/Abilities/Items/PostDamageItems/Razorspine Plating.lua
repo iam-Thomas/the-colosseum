@@ -11,6 +11,7 @@ function ItemTrigger_Razorspine_Plating_Actions()
     --A05N
     --B00Y
     ApplyManagedBuff(caster, FourCC('A05N'), FourCC('B00Y'), 7.00, "overhead", "Abilities\\Spells\\Undead\\ThornyShield\\ThornyShieldTargetChestLeft.mdl")
+    --CreateEffectOnUnitByBuff("origin", caster, "Abilities\\Spells\\Undead\\ThornyShield\\ThornyShieldTargetChestLeft.mdl", FourCC('B00Y'))
 end
 
 function ItemTrigger_Razorspine_Plating_Damaged_Actions()

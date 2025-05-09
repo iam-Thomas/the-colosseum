@@ -10,4 +10,6 @@ function AbilityTrigger_Vagabond_PracticeRange()
     BlzStartUnitAbilityCooldown(caster, FourCC('A03D'), 0.1)
 
     ApplyManagedBuff(caster, FourCC('S00E'), FourCC('B026'), 20.00, nil, nil)
+
+    SetRoundCooldown_R(caster, 1)
 end

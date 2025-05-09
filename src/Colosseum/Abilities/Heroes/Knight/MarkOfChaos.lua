@@ -11,21 +11,21 @@ function AbilityTrigger_Knight_MarkOfChaos_Actions()
     local abilityLevel = GetUnitAbilityLevel(caster, FourCC('A09Z'))
 
     local initialDamage = 25.00 + (25.00 * abilityLevel)
-    local dotDps = 4.00 + (4.00 * abilityLevel)
-    local dotDpsSelf = dotDps * 0.2
+    local dotDps = 7.00 + (7.00 * abilityLevel)
+    local dotDpsSelf = dotDps * 0.3
     local interval = 1.00    
 
     local data = FireHomingProjectile_PointToUnit(startPoint, target, "Abilities\\Weapons\\RedDragonBreath\\RedDragonMissile.mdl", 700, 0.26, function()
         local areaLoc = GetUnitLoc(target)
         local targets = GetUnitsInRange_Targetable(caster, areaLoc, 190)
 
-        CauseMagicDamage_Fire(caster, damageTarget, initialDamage)
+        --CauseMagicDamage_Fire(caster, damageTarget, initialDamage)
 
         for i = 1, #targets do
             local damageTarget = targets[i]
 
             local hasBuff = IsUnitBurnt(damageTarget)
-            MakeBurnt(damageTarget, 10.10)
+            MakeBurnt(damageTarget, 16.10)
             
             if not hasBuff then
                 local timer = CreateTimer()
@@ -42,7 +42,7 @@ function AbilityTrigger_Knight_MarkOfChaos_Actions()
                     
                 end)
             else
-                CauseMagicDamage_Fire(caster, damageTarget, initialDamage)
+                --CauseMagicDamage_Fire(caster, damageTarget, initialDamage)
             end
     
             RemoveLocation(areaLoc)

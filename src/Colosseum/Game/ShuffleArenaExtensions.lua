@@ -252,7 +252,11 @@ function ShuffleArena_MoveGladiatorUnitsToArena()
 
     ForGroup(udg_GladiatorUnits, function()
         local unit = GetEnumUnit()
+        local unitType = GetUnitTypeId(unit)
         local owner = GetOwningPlayer(unit)
+        if (unitType == FourCC('e000')) then
+            return
+        end
         if (not IsUnitAliveBJ(unit)) then
             return
         end
@@ -284,6 +288,7 @@ function ShuffleArena_SetGladiatorUnitsToFight()
     ForGroup(udg_GladiatorHeroes, function()
         local unit = GetEnumUnit()
         SetUnitInvulnerable(unit, false)
+        UnitAddAbility(unit, abilityId)
         UnitResetCooldown(unit)
         SetUnitManaPercentBJ(unit, 100)
         SetUnitLifePercentBJ(unit, 100)
@@ -324,6 +329,10 @@ function ShuffleArena_MoveGladiatorUnitsToRest()
 
     ForGroup(udg_GladiatorUnits, function()
         local unit = GetEnumUnit()
+        local unitType = GetUnitTypeId(unit)
+        if (unitType == FourCC('e000')) then
+            return
+        end
         if (not IsUnitAliveBJ(unit)) then
             return
         end
