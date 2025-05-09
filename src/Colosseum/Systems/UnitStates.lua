@@ -20,6 +20,20 @@ function MakeEmpowered(unit, t)
     ApplyManagedBuff(unit, FourCC('S003'), FourCC('B01E'), t, nil, nil)
 
     if not hasBuff then
+        local manaTimer = CreateTimer()
+        TimerStart(manaTimer, 1.0, true, function()
+            if not IsUnitAliveBJ(unit) then
+                DestroyTimer(manaTimer)
+                return
+            end
+            if not UnitHasBuffBJ(unit, FourCC('B01E')) then
+                DestroyTimer(manaTimer)
+                return
+            end
+            local mana = GetUnitState(unit, UNIT_STATE_MANA)
+            SetUnitState(unit, UNIT_STATE_MANA, mana + 1.0)
+        end)
+
         CreateEffectOnUnitByBuff("hand left", unit, "Abilities\\Weapons\\FarseerMissile\\FarseerMissile.mdl", FourCC('B01E'))
         CreateEffectOnUnitByBuff("hand right", unit, "Abilities\\Weapons\\FarseerMissile\\FarseerMissile.mdl", FourCC('B01E'))
     end

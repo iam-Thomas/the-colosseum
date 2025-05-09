@@ -130,6 +130,11 @@ function BattleRoyale_DamageUnit(unit)
         return
     end
 
+    local unitType = GetUnitTypeId(unit)
+    if (unitType == FourCC('e000')) then
+        return
+    end
+
     local maxLife = GetUnitState(unit, UNIT_STATE_MAX_LIFE)
     local life = GetUnitState(unit, UNIT_STATE_LIFE)
     local trueDamage = maxLife * 0.10

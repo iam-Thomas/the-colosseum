@@ -50,14 +50,18 @@ function CauseHealUnscaled(caster, target, amount)
     if UnitHasBuffBJ(target, FourCC('Bfro')) then
         healAmount = healAmount * 0.67
     end
+    
+    -- Burnt units receive 33% less healing
+    if UnitHasBuffBJ(target, FourCC('B00Q')) then
+        healAmount = healAmount * 0.50
+    end
 
     local lifeCurrent = GetUnitStateSwap(UNIT_STATE_LIFE, target)
     SetUnitLifeBJ( target, ( lifeCurrent + (healAmount) ) )
 
     if (healAmount < 1.00) then
         return
-    end
-    
+    end    
 
     local text = "+" .. math.floor(amount)
     local point = GetUnitLoc(target)
