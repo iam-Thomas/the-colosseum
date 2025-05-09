@@ -1,6 +1,6 @@
-glGameStartDelayDuration = 15.00
-glPhaseStartDelayDuration = 30.00
-glIntermissionDuration = 22.00
+glGameStartDelayDuration = 45.00
+glPhaseStartDelayDuration = 45.00
+glIntermissionDuration = 45.00
 
 glStarted = false
 glIsInFight = false
@@ -196,7 +196,7 @@ function GameLoop_EndRound()
     ForForce(udg_GameMasterPlayers, function()
         local player = GetEnumPlayer()
         if state.IsTransitionFight then
-            GameBalanceTrigger_AddScaling(player, 1.10, 0.5, 0.5)
+            GameBalanceTrigger_AddScaling(player, 1.30, 0.5, 0.5)
         else
             GameBalanceTrigger_AddScaling(player, 0.10, 0.05, 0.05)
         end

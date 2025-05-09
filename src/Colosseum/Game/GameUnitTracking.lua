@@ -37,7 +37,7 @@ function GameUnitTracking_HeroSelection_Select()
     --local unit = CreateUnitAtLoc(owner, unitType, loc, 0.00)
     local unit = CreateUnit(owner, unitType, GetLocationX(loc), GetLocationY(loc), 0.00)
     GroupAddUnit(udg_GladiatorHeroes, unit)
-    PanCameraToTimedLocForPlayer(owner, loc, 0.0)
+    --PanCameraToTimedLocForPlayer(owner, loc, 0.0)
     
     KillUnit(caster)
     RemoveUnit(target)
