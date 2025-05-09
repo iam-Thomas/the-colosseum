@@ -129,7 +129,7 @@ function AbilityTrigger_BS_RainDance_HailStorm()
         end
 
         local effectT = 0
-        local effectLoc = PolarProjectionBJ(targetPoint, 420 * math.random(), 360 * math.random())
+        local effectLoc = PolarProjectionBJ(targetPoint, 420 * GetRandomReal(0.00, 1.00), 360 * GetRandomReal(0.00, 1.00))
         local effect = AddSpecialEffectLoc("Abilities\\Spells\\Human\\Blizzard\\BlizzardTarget.mdl", effectLoc)
         TriggerExecute(gg_trg_SFX_Cleanup)
         local arr = { effectT, effectLoc, effect, true }

@@ -80,7 +80,7 @@ function AbilityTrigger_BS_ChannelStorm_StartUnrestricted(caster, time)
         local units = GetUnitsInRange_EnemyTargetable(caster, casterLoc, 450.00)
         local targetIndeces = AbilityTrigger_BS_ChannelStorm_RandomIndeces(#units, 2)
         for i = 1, #targetIndeces do
-            local rand = math.random()
+            local rand = GetRandomReal(0.00, 1.00)
             if rand < chance then
                 CauseMagicDamage(caster, units[targetIndeces[i]], monsoonDamage)
                 CreateEffectOnUnit("origin", units[targetIndeces[i]], "Abilities\\Spells\\Other\\Monsoon\\MonsoonBoltTarget.mdl", 2.00)

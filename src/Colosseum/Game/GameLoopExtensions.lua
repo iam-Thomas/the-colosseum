@@ -180,7 +180,7 @@ function GameLoop_MoveGladiatorUnitsToArena()
         end
 
         SetUnitPositionLoc(unit, point)
-        PanCameraToTimedLocForPlayer(owner, point, 0.0)
+        --PanCameraToTimedLocForPlayer(owner, point, 0.0)
     end)
 
     ForGroup(udg_GladiatorUnits, function()
@@ -294,7 +294,7 @@ function GameLoop_MoveGladiatorUnitsToRest()
 
         local camLoc = GetUnitLoc(unit)
         local owner = GetOwningPlayer(unit)
-        PanCameraToTimedLocForPlayer(owner, camLoc, 0.0)
+        --PanCameraToTimedLocForPlayer(owner, camLoc, 0.0)
         RemoveLocation(camLoc)
     end)
 

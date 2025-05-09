@@ -243,10 +243,10 @@ function ShuffleArena_MoveGladiatorUnitsToArena()
 
         if isTeamA then
             SetUnitPositionLoc(unit, pointTeamA)
-            PanCameraToTimedLocForPlayer(owner, point, 0.0)
+            --PanCameraToTimedLocForPlayer(owner, point, 0.0)
         else
             SetUnitPositionLoc(unit, pointTeamB)
-            PanCameraToTimedLocForPlayer(owner, point, 0.0)
+            --PanCameraToTimedLocForPlayer(owner, point, 0.0)
         end
     end)
 
@@ -271,10 +271,10 @@ function ShuffleArena_MoveGladiatorUnitsToArena()
 
         if isTeamA then
             SetUnitPositionLoc(unit, pointTeamA)
-            PanCameraToTimedLocForPlayer(owner, point, 0.0)
+            --PanCameraToTimedLocForPlayer(owner, point, 0.0)
         else
             SetUnitPositionLoc(unit, pointTeamB)
-            PanCameraToTimedLocForPlayer(owner, point, 0.0)
+            --PanCameraToTimedLocForPlayer(owner, point, 0.0)
         end
 
         SetUnitPositionLoc(unit, point)

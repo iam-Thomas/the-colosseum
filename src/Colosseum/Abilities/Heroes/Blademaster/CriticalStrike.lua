@@ -10,7 +10,7 @@ function AbilityTrigger_BM_CriticalStrike_Damaging_Actions()
     local caster = GetEventDamageSource()
     local target = BlzGetEventDamageTarget()
 
-    local random = math.random()
+    local random = GetRandomReal(0.00, 1.00)
     local chance = 0.20
     local isvul = IsUnitVulnerable(target)
 

@@ -30,7 +30,7 @@ function AbilityTrigger_Mage_ArcaneBarrage_Function()
             return
         end
 
-        boltTime = 0.20 + (math.random() * 0.23)
+        boltTime = 0.20 + (GetRandomReal(0.00, 1.00) * 0.23)
 
         local casterLoc = GetUnitLoc(caster)
         local markerLoc = GetUnitLoc(markerUnit)

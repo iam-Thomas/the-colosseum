@@ -129,7 +129,7 @@ function GetUnitLonelyLoc(targetLoc, area)
         if IsLocationEmpty(loc, area) then
             return loc
         end
-        local angle = math.random() * 2 * math.pi
+        local angle = GetRandomReal(0.00, 1.00) * 2 * math.pi
         local newX = GetLocationX(loc) + area * math.cos(angle)
         local newY = GetLocationY(loc) + area * math.sin(angle)
         RemoveLocation(loc)

@@ -14,7 +14,7 @@ function AbilityTrigger_Ball_and_Chain_Actions()
     local target = BlzGetEventDamageTarget()
     local targetPoint = GetUnitLoc(target)
 
-    local random = math.random()
+    local random = GetRandomReal(0.00, 1.00)
     local chance = 0.20
 
     local damage = GetEventDamage()

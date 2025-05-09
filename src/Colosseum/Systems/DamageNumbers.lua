@@ -19,8 +19,8 @@ function CombatEventTrigger_DamageNumbers_Actions()
 
     local text = math.floor(damage)
     local point = GetUnitLoc(target)
-    local x = GetLocationX(point) + (math.random() * 2 - 1) * 15
-    local y = GetLocationY(point) + (math.random() * 2 - 1) * 15
+    local x = GetLocationX(point) + (GetRandomReal(0.00, 1.00) * 2 - 1) * 15
+    local y = GetLocationY(point) + (GetRandomReal(0.00, 1.00) * 2 - 1) * 15
     local z = GetLocationZ(point)
 
     local floatingText = CreateTextTag()

@@ -46,7 +46,7 @@ function AbilityTrigger_Sef_Pyroblast_BeginErupt(earthPillarUnit)
             return
         end
 
-        if math.random() > 0.95 then
+        if GetRandomReal(0.00, 1.00) > 0.95 then
             -- Abilities\Weapons\LavaSpawnMissile\LavaSpawnMissile.mdl
             local sourceLoc = GetUnitLoc(earthPillarUnit)
             local targetLoc = PolarProjectionBJ(sourceLoc, 10 + math.random(0, 170), math.random(0, 360))

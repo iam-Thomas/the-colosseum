@@ -1,6 +1,6 @@
 
 function GMSelections_PickRandomGroup(groups, callback)
-    local rand = math.random()
+    local rand = GetRandomReal(0.00, 1.00)
 
     local subgroup = nil
     local rarity = 1
@@ -31,7 +31,7 @@ function GMSelections_PickRandomGroup(groups, callback)
 end
 
 function GMSelections_PickRandomGroup_CommonRare(groups, callback)
-    local rand = math.random()
+    local rand = GetRandomReal(0.00, 1.00)
 
     local subgroup = nil
     local rarity = 1

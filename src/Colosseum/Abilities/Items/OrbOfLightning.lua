@@ -17,7 +17,7 @@ function ItemTrigger_OrbOfLightning_Actions()
         return
     end
 
-    if math.random() < 0.80 then
+    if GetRandomReal(0.00, 1.00) < 0.80 then
         return
     end
     

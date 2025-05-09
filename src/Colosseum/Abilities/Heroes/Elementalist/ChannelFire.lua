@@ -94,7 +94,7 @@ function AbilityTrigger_BS_ChannelFire_Damaging_Actions()
         chance = 0.60
     end
 
-    if (math.random() > chance) then
+    if (GetRandomReal(0.00, 1.00) > chance) then
         return
     end
 

@@ -14,7 +14,7 @@ function AbilityTrigger_Hoplite_ArenaVeteran_Damaging_Actions()
 
     local target = BlzGetEventDamageTarget()
 
-    if math.random() > 0.85 then
+    if GetRandomReal(0.00, 1.00) > 0.85 then
         MakeVulnerable(target, 5.0)
     end
 

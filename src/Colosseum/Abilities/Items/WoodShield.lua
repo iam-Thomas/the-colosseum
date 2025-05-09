@@ -10,7 +10,7 @@ function ItemTrigger_WoodShield_Damaging_Actions()
         return
     end
 
-    if math.random() < 0.40 then
+    if GetRandomReal(0.00, 1.00) < 0.40 then
         local caster = BlzGetEventDamageTarget()
         local damage = GetEventDamage()
         local newDamage = math.max(0.00, damage - 25)
